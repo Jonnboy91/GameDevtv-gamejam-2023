@@ -12,11 +12,6 @@ public class UIManager : MonoBehaviour
     {
         get
         {
-            if (_instance == null)
-            {
-                Debug.Log("UIManager is NULL");
-            }
-
             return _instance;
         }
     }
