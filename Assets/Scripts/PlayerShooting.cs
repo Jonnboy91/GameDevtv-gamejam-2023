@@ -10,10 +10,11 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] float bulletSpeed;
-    [SerializeField] float fireRate = 0.2f;
-
+    [SerializeField] float fireRate = 0.3f;
+    [SerializeField] float bulletLifespan = 2f;
 
     private bool fireContinuously = false;
+    Coroutine firingCoroutine;
 
      private void OnEnable()
     {
@@ -35,9 +36,11 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        if (fireContinuously)
-        {
-            StartCoroutine(ShootWithDelay());
+        if(fireContinuously && firingCoroutine == null){
+            firingCoroutine = StartCoroutine(ShootWithDelay());
+        } else if(!fireContinuously && firingCoroutine != null){
+            StopCoroutine(firingCoroutine);
+            firingCoroutine = null;
         }
     }
 
@@ -60,7 +63,7 @@ public class PlayerShooting : MonoBehaviour
 
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().velocity = fireDirection * bulletSpeed;
-        
+        Destroy(bullet, bulletLifespan);
     }
 
     IEnumerator ShootWithDelay()
