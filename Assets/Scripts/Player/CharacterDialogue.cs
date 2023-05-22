@@ -1,17 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterDialogue : MonoBehaviour
 {
-    private int _currentStringIndex = 0;
-    private int _currentCutsceneIndex = 0;
-
+    private string[] _dialogueOne = new string[1];
+    private string[] _dialogueTwo = new string[1];
+    private string[] _dialogueThree = new string[1];
     private char _blankSpace = ' ';
 
-    private List<string> _dialogueOne = new List<string>();
-    private List<string> _dialogueTwo = new List<string>();
-    private List<string> _dialogueThree = new List<string>();
+    private int _currentStringIndex = 0;
+    private int _currentCutsceneIndex = 0;
 
     private WaitForSeconds _blankFinalTime = new WaitForSeconds(2.5f);
     private WaitForSeconds _textIntroRemoveDelay = new WaitForSeconds(1.25f);
@@ -36,7 +34,7 @@ public class CharacterDialogue : MonoBehaviour
     // 
     void PlayCutsceneRoutine()
     {
-        if (_cutsceneRoutine == null)       // Make sure only 1 can be played at a time
+        if (_cutsceneRoutine == null)       // Make sure only 1 can be played at a time.
         {
             switch (_currentCutsceneIndex)
             {
@@ -57,9 +55,9 @@ public class CharacterDialogue : MonoBehaviour
     }
 
     // Cutscene Dialogue Routine
-    IEnumerator CutsceneRoutine(List<string> dialogue)
+    IEnumerator CutsceneRoutine(string[] dialogue)
     {
-        while (_currentStringIndex < dialogue.Count)
+        while (_currentStringIndex < dialogue.Length)
         {
             foreach (char letter in dialogue[_currentStringIndex].ToCharArray())
             {
