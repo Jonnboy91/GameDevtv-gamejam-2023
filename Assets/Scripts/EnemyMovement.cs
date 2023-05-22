@@ -16,8 +16,10 @@ public class EnemyMovement : MonoBehaviour
     }
 
     void Update() {
-        SetAgentPosition();
-        RotateEnemyTowardsPlayer();
+        if(player != null){
+            SetAgentPosition();
+            RotateEnemyTowardsPlayer();
+        }
     }
 
     void SetAgentPosition()
