@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Cinemachine;
 
 public class Health : MonoBehaviour
 {
@@ -13,26 +13,18 @@ public class Health : MonoBehaviour
 
     [SerializeField] ParticleSystem dieEffect;
 
-    private EnemySpawner spawner;
+    EnemySpawner spawner;
+    private CinemachineImpulseSource impulseSource;
 
-    public void Initialize(EnemySpawner enemySpawner)
-    {
-        if(!isPlayer){
-            spawner = enemySpawner;
-        }
-    }
-
-
-    private void Start()
-    {
-        if(!isPlayer){
-            spawner = FindObjectOfType<EnemySpawner>();
-        }
+    public void Start(){
+        spawner = FindObjectOfType<EnemySpawner>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     public void TakeDamage(int damage){
         if(isPlayer){
             healthPoints -= damage;
+            CameraShakeManager.instance.CameraShake(impulseSource);
             if(healthPoints <= 0){
                 healthPoints = 0;
                 Die();
@@ -47,9 +39,7 @@ public class Health : MonoBehaviour
         if(isPlayer){
             SceneManager.LoadScene("Topdown level 1"); // atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
         } else {
-            if (spawner != null){
-                spawner.EnemyDestroyed();
-            }
+            spawner.EnemyDestroyed();
         }
     }
 

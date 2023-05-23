@@ -5,24 +5,17 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] List<GameObject> enemyPrefabs;  
+    [SerializeField] List<GameObject> spawners;
     [SerializeField] float spawnInterval = 2f;  
     [SerializeField] int maxEnemies = 10;
-    [SerializeField] float startDelay = 0f;
-    [SerializeField] int spawnerIndex; 
-    
+    [SerializeField] float startDelay = 0f;    
 
     private int currentEnemies = 0;
 
 
     private void Start()
     {
-        Invoke(nameof(StartSpawning), startDelay);
-    }
-
-
-    private void StartSpawning()
-    {
-        InvokeRepeating(nameof(StartSpawning), 0f, spawnInterval);
+        InvokeRepeating(nameof(SpawnEnemy), startDelay, spawnInterval);
     }
 
     private void SpawnEnemy()
@@ -32,28 +25,20 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        int randomIndex = Random.Range(0, enemyPrefabs.Count);
-        GameObject enemyPrefab = enemyPrefabs[randomIndex];
+        int randomEnemyIndex = Random.Range(0, enemyPrefabs.Count);
+        GameObject enemyPrefab = enemyPrefabs[randomEnemyIndex];
 
-        GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        int randomSpawnerIndex = Random.Range(0, spawners.Count);
+        GameObject spawner = spawners[randomSpawnerIndex];
+
+
+        GameObject enemy = Instantiate(enemyPrefab, spawner.transform.position, Quaternion.identity);
 
         currentEnemies++;
-
-        if (currentEnemies >= maxEnemies)
-        {
-            // Maximum number of enemies reached, stop spawning
-            CancelInvoke("SpawnEnemy");
-        }
     }
 
     public void EnemyDestroyed()
     {
         currentEnemies--;
-
-        if (currentEnemies < maxEnemies)
-        {
-            // Resume spawning if there is room for more enemies
-            Invoke("SpawnEnemy", spawnInterval);
-        }
     }
 }
