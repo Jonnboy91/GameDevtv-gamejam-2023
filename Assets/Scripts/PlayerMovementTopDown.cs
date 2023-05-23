@@ -32,7 +32,11 @@ public class PlayerMovementTopDown : MonoBehaviour
     void Move(){
         Vector2 playerVelocity = moveInput * moveSpeed;
         myRigidBody.velocity = playerVelocity;
-        _playerAnimations.ChangeState(playerVelocity);
+        if(playerVelocity.y != 0 && playerVelocity.x != 0){
+            _playerAnimations.ChangeState(new Vector2(0, playerVelocity.y));
+        }   else {
+            _playerAnimations.ChangeState(playerVelocity);
+        }
     }
 
 }
