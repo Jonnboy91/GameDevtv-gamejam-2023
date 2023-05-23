@@ -13,6 +13,23 @@ public class Health : MonoBehaviour
 
     [SerializeField] ParticleSystem dieEffect;
 
+    private EnemySpawner spawner;
+
+    public void Initialize(EnemySpawner enemySpawner)
+    {
+        if(!isPlayer){
+            spawner = enemySpawner;
+        }
+    }
+
+
+    private void Start()
+    {
+        if(!isPlayer){
+            spawner = FindObjectOfType<EnemySpawner>();
+        }
+    }
+
     public void TakeDamage(int damage){
         if(isPlayer){
             healthPoints -= damage;
@@ -29,6 +46,10 @@ public class Health : MonoBehaviour
         PlayHitEffect();
         if(isPlayer){
             SceneManager.LoadScene("Topdown level 1"); // atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
+        } else {
+            if (spawner != null){
+                spawner.EnemyDestroyed();
+            }
         }
     }
 
