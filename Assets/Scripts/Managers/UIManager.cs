@@ -21,8 +21,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _dialogueText;
 
 
-
-
     private void Awake()
     {
         _instance = this;
@@ -38,5 +36,10 @@ public class UIManager : MonoBehaviour
     public void UpdateDialogueTextDisplay(char letter)
     {
         _dialogueText.text += letter;
+    }
+
+    public void ClearTextBox()
+    {
+        _dialogueText.text = string.Empty;
     }
 }
