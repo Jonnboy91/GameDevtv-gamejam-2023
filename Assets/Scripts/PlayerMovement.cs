@@ -13,18 +13,20 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myRigidBody;
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
+    PlayerAnimations _playerAnimations;
 
     float gravityScaleAtStart;
-    // Start is called before the first frame update
+
+
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
+        _playerAnimations = GetComponent<PlayerAnimations>();
         gravityScaleAtStart = myRigidBody.gravityScale;
     }
 
-    // Update is called once per frame
     void FixedUpdate() 
     {
         Move();
@@ -47,7 +49,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Move(){
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, myRigidBody.velocity.y);
+        _playerAnimations.ChangeState(playerVelocity);
         myRigidBody.velocity = playerVelocity;
+        Debug.Log("Test");
     }
 
 }
