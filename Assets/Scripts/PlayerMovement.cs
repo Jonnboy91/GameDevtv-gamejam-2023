@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D myFeetCollider;
     PlayerAnimations _playerAnimations;
 
+
     float gravityScaleAtStart;
 
 
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         myFeetCollider = GetComponent<BoxCollider2D>();
         _playerAnimations = GetComponent<PlayerAnimations>();
         gravityScaleAtStart = myRigidBody.gravityScale;
+
     }
 
     void FixedUpdate() 
@@ -51,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, myRigidBody.velocity.y);
         _playerAnimations.ChangeState(playerVelocity);
         myRigidBody.velocity = playerVelocity;
-        Debug.Log("Test");
     }
 
 }

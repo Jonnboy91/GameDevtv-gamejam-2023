@@ -7,10 +7,11 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     NavMeshAgent agent;
-    [SerializeField] GameObject player;
+    Transform player;
     private SpriteRenderer spriteRenderer;
 
     void Awake() {
+        player = GameObject.FindWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;

@@ -12,7 +12,6 @@ public class PlayerAnimations : MonoBehaviour
 
     public void ChangeState(Vector2 value)
     {
-        Debug.Log(value);
 
         _animator.SetFloat("X Float", value.x);
         _animator.SetFloat("Y Float", value.y);
