@@ -26,7 +26,7 @@ public class CharacterDialogue : MonoBehaviour
     // Method to hold all the dialogue. Make sure to initialise in Start()
     void Dialogue()
     {
-        _dialogueOne[0] = "This is a story about 2 dads on a journey to being the best game developers in the World...";
+        _dialogueOne[0] = "What in the hell is going on with these letters...";
         _dialogueTwo[0] = "Hello...this is a story about...";
         _dialogueThree[0] = "Hello...this is a story about...";
     }
