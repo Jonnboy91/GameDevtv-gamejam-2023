@@ -8,17 +8,19 @@ public class EnemyMovement : MonoBehaviour
 {
     NavMeshAgent agent;
     [SerializeField] GameObject player;
+    private SpriteRenderer spriteRenderer;
 
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    void Update() {
+    void FixedUpdate() {
         if(player != null){
             SetAgentPosition();
-            RotateEnemyTowardsPlayer();
+            FlipEnemy();
         }
     }
 
@@ -27,10 +29,7 @@ public class EnemyMovement : MonoBehaviour
         agent.SetDestination(player.transform.position);
     }
 
-    void RotateEnemyTowardsPlayer(){
-        Vector3 look = transform.InverseTransformPoint(player.transform.position);    
-        float angle = Mathf.Atan2(look.y, look.x) * Mathf.Rad2Deg -90;
-
-        transform.Rotate(0,0, angle);
+    void FlipEnemy(){
+        spriteRenderer.flipX = player.transform.position.x < gameObject.transform.position.x;
     }
 }
