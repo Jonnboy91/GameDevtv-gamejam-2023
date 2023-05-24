@@ -10,15 +10,16 @@ public class PlayerMovementTopDown : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D myRigidBody;
     CapsuleCollider2D myBodyCollider;
+    PlayerAnimations _playerAnimations;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
+        _playerAnimations = GetComponent<PlayerAnimations>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Move();
@@ -31,6 +32,11 @@ public class PlayerMovementTopDown : MonoBehaviour
     void Move(){
         Vector2 playerVelocity = moveInput * moveSpeed;
         myRigidBody.velocity = playerVelocity;
+        if(playerVelocity.y != 0 && playerVelocity.x != 0){
+            _playerAnimations.ChangeState(new Vector2(0, playerVelocity.y));
+        }   else {
+            _playerAnimations.ChangeState(playerVelocity);
+        }
     }
 
 }
