@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("Topdown level 1");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void QuitGame()
