@@ -29,8 +29,6 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _dialogueText = GameObject.Find("Dialogue Text").GetComponent<TextMeshProUGUI>();
-        if (_dialogueText == null)
-            Debug.Log("Couldn't find TEXTMESHPROUGUI component on UIManager");
     }
 
     public void UpdateDialogueTextDisplay(char letter)
