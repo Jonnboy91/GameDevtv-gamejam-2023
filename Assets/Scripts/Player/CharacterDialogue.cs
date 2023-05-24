@@ -29,16 +29,14 @@ public class CharacterDialogue : MonoBehaviour
     // Method to hold all the dialogue. Make sure to initialise in Start()
     void DialogueCutsceneOne()
     {
-        _dialogueOne[0] = $"{name} was a happy boy...";
-        _dialogueOne[1] = "He enjoyed playing in the forest around him, chasing butterflies and frogs until his mother called him in for dinner...";
-        _dialogueOne[2] = "He enjoyed the fresh forest smell oozing from the pine trees and the blossoming flowers when Spring began...";
-        _dialogueOne[3] = "He enjoyed the sounds of the busy bees buzzing around him, and the birds chattering in the trees...";
-        _dialogueOne[4] = "One of his favourite hobbies was jumping in his boat by the lake and waiting patiently until dusk when the fish started nibbling...";
-        _dialogueOne[5] = "But as time went by and he started to grow up, he found himself turning into a stranger...";
-        _dialogueOne[6] = "Always angry, frustrated and at times often sad and lonely.";
-        _dialogueOne[7] = "Overtime this got worse, as the weight of turning into an adult and the responsibilities with it, fell heavily on his shoulders...";
-        _dialogueOne[8] = $"Overwhelmed with emotions, {name} decided to seek help and bring back his fun, happy and energetic self";
-
+        _dialogueOne[0] = $"Everyone thought {name} was a happy man...";
+        _dialogueOne[1] = $"But the reality was that he had struggled for most of his life.";
+        _dialogueOne[2] = $"Childhood issues, relationships, work, depression, anxiety and death were all weighing heavily on his shoulders.";
+        _dialogueOne[3] = $"Everytime he stepped out of his house he put on a brave face, hiding his real feelings in plain sight.";
+        _dialogueOne[4] = $"But, as time went by, he started to experience increased feelings of anger, frustration and sadness.";
+        _dialogueOne[4] = $"He continued to repress and push these feelings down hoping they would eventually stay down and never to reappear.";
+        _dialogueOne[5] = $"Until one day, when it all became too much, and the World as he knew it had lost all it's color...";  
+        _dialogueOne[4] = $"Unable to move and overwhelmed with his emotions, {name} felt his demons come flooding back and he knew it was time to face them head on!";
     }
 
     void DialogueCutsceneTwo()
