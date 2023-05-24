@@ -33,6 +33,6 @@ public class GetOutOfTroublePowerUp : MonoBehaviour
 
     public void ActivatePowerup()
     {
-        player.GetComponent<PlayerMovementTopDown>().updateSpeed();
+        player.GetComponent<PlayerMovement>().updateSpeed();
     }
 }
