@@ -29,6 +29,10 @@ public class PlayerMovementTopDown : MonoBehaviour
         moveInput = value.Get<Vector2>();
     }
 
+    public void updateSpeed() {
+        moveSpeed += 2;
+    }
+
     void Move(){
         Vector2 playerVelocity = moveInput * moveSpeed;
         myRigidBody.velocity = playerVelocity;

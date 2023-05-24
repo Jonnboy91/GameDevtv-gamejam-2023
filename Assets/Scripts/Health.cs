@@ -11,9 +11,12 @@ public class Health : MonoBehaviour
 {
 
     [SerializeField] int healthPoints = 3;
+    [SerializeField] int enemyHealth = 1;
     [SerializeField] bool isPlayer;
 
     [SerializeField] List<Image> hearts;
+    [SerializeField] Image extraHearth;
+    [SerializeField] Image extraHearth2;
 
     [SerializeField] ParticleSystem dieEffect;
 
@@ -22,11 +25,14 @@ public class Health : MonoBehaviour
 
     Experience experience;
 
-    public void Start(){
-            spawner = FindObjectOfType<EnemySpawner>();
-            impulseSource = GetComponent<CinemachineImpulseSource>();
-            experience = FindObjectOfType<Experience>();
-        }
+    private GameObject player;
+
+    private void Awake() {
+        spawner = FindObjectOfType<EnemySpawner>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+        experience = FindObjectOfType<Experience>();
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 
     public void TakeDamage(int damage){
         if(isPlayer){
@@ -38,6 +44,12 @@ public class Health : MonoBehaviour
                 healthPoints = 0;
                 Die();
             }
+        } else{
+            enemyHealth -= damage;
+            if(enemyHealth <= 0){
+                enemyHealth = 0;
+                Die();
+            }
         }
     }
 
@@ -46,6 +58,7 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
         PlayHitEffect();
         if(isPlayer){
+            ImaginaryFriendPowerUp.instance.DestroyScriptInstance();
             SceneManager.LoadScene("Topdown level 1"); // atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
         } else {
             experience.IncreaseExperience(1);
@@ -67,9 +80,22 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void extraLife(){
+        if(healthPoints == 3){
+            healthPoints += 1;
+            hearts.Add(extraHearth);
+            extraHearth.enabled = true;
+        } else {
+            healthPoints += 1;
+            hearts.Add(extraHearth2);
+            extraHearth2.enabled = true;
+        }
+        
+    }
+
     private void OnTriggerEnter2D(Collider2D other) {
         if(gameObject.tag == "Enemy" && other.gameObject.tag == "Bullet"){
-            Die();
+            TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
             // Right now the enemy only has one life, so they die instantly, we could have a separate life for them if we want to (I tested it, but went back to this).
         }
     }
