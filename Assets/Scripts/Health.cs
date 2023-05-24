@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class Health : MonoBehaviour
 {
@@ -11,19 +13,26 @@ public class Health : MonoBehaviour
     [SerializeField] int healthPoints = 3;
     [SerializeField] bool isPlayer;
 
+    [SerializeField] List<Image> hearts;
+
     [SerializeField] ParticleSystem dieEffect;
 
     EnemySpawner spawner;
     private CinemachineImpulseSource impulseSource;
 
+    Experience experience;
+
     public void Start(){
-        spawner = FindObjectOfType<EnemySpawner>();
-        impulseSource = GetComponent<CinemachineImpulseSource>();
-    }
+            spawner = FindObjectOfType<EnemySpawner>();
+            impulseSource = GetComponent<CinemachineImpulseSource>();
+            experience = FindObjectOfType<Experience>();
+        }
 
     public void TakeDamage(int damage){
         if(isPlayer){
             healthPoints -= damage;
+            hearts.Last().enabled = false;
+            hearts.RemoveAt(hearts.Count - 1);
             CameraShakeManager.instance.CameraShake(impulseSource);
             if(healthPoints <= 0){
                 healthPoints = 0;
@@ -39,6 +48,7 @@ public class Health : MonoBehaviour
         if(isPlayer){
             SceneManager.LoadScene("Topdown level 1"); // atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
         } else {
+            experience.IncreaseExperience(1);
             spawner.EnemyDestroyed();
         }
     }
