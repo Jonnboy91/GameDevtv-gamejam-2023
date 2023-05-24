@@ -44,6 +44,7 @@ public class CharacterDialogue : MonoBehaviour
 
     void DialogueCutsceneTwo()
     {
+
         _dialogueTwo[0] = "Hello...this is a story about...";
     }
 

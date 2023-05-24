@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2558065372743428053}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.116052, y: -8.067734, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -98,7 +98,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2558065372743428053}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2
+  m_Radius: 3
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -107,9 +107,9 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 5
-  m_BaseOffset: 6.5
-  m_WalkableMask: 4294967295
+  m_Height: 9
+  m_BaseOffset: 5
+  m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!70 &6005062472292570290
 CapsuleCollider2D:
@@ -124,8 +124,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.028119564, y: -3.7619615}
-  m_Size: {x: 2.4815626, y: 4.733342}
+  m_Offset: {x: -0.028119564, y: -0.2845149}
+  m_Size: {x: 2.4815626, y: 5.072606}
   m_Direction: 0
 --- !u!114 &926504526554731156
 MonoBehaviour:
@@ -154,7 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d460b9f7e4dfbe942bcdabd234367782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!95 &6257787157095520958
 Animator:
   serializedVersion: 5
