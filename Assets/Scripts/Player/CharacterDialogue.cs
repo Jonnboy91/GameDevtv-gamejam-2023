@@ -24,7 +24,6 @@ public class CharacterDialogue : MonoBehaviour
         DialogueCutsceneOne();
         DialogueCutsceneTwo();
         DialogueCutsceneThree();
-        PlayCutsceneRoutine();
     }
 
     // Method to hold all the dialogue. Make sure to initialise in Start()
@@ -44,7 +43,6 @@ public class CharacterDialogue : MonoBehaviour
 
     void DialogueCutsceneTwo()
     {
-
         _dialogueTwo[0] = "Hello...this is a story about...";
     }
 
@@ -54,7 +52,7 @@ public class CharacterDialogue : MonoBehaviour
     }
 
     // 
-    void PlayCutsceneRoutine()
+    public void PlayCutsceneRoutine()
     {
         if (_cutsceneRoutine == null)       // Make sure only 1 can be played at a time.
         {
