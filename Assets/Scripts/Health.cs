@@ -59,7 +59,7 @@ public class Health : MonoBehaviour
         PlayHitEffect();
         if(isPlayer){
             ImaginaryFriendPowerUp.instance.DestroyScriptInstance();
-            SceneManager.LoadScene("Topdown level 1"); // atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
+            SceneManager.LoadScene("Level 1"); // atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
         } else {
             experience.IncreaseExperience(1);
             spawner.EnemyDestroyed();
