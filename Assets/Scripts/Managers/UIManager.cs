@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Playables;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     [SerializeField] private TextMeshProUGUI _dialogueText;
+    [SerializeField] private PlayableDirector _playableDirector;
 
 
     private void Awake()
@@ -26,9 +28,12 @@ public class UIManager : MonoBehaviour
         _instance = this;
     }
 
+
     private void Start()
     {
         _dialogueText = GameObject.Find("Dialogue Text").GetComponent<TextMeshProUGUI>();
+        _playableDirector = GameObject.Find("Timeline Director Manager").GetComponent<PlayableDirector>();
+        StartCoroutine(PlayDirectorRoutine());
     }
 
     public void UpdateDialogueTextDisplay(char letter)
@@ -39,5 +44,13 @@ public class UIManager : MonoBehaviour
     public void ClearTextBox()
     {
         _dialogueText.text = string.Empty;
+    }
+
+    IEnumerator PlayDirectorRoutine()
+    {
+        Debug.Log(Time.time.ToString());
+        yield return new WaitForSeconds(2f);
+        Debug.Log(Time.time.ToString());
+        _playableDirector.Play();
     }
 }
