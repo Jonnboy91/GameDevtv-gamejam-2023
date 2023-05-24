@@ -9,9 +9,10 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] Camera sceneCamera;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform bulletSpawnPoint;
-    [SerializeField] float bulletSpeed;
-    [SerializeField] float fireRate = 0.3f;
+    [SerializeField] float bulletSpeed = 10;
+    [SerializeField] float fireRate = 0.5f;
     [SerializeField] float bulletLifespan = 2f;
+    [SerializeField] int bulletStrength = 1;
 
     private bool fireContinuously = false;
     Coroutine firingCoroutine;
@@ -64,6 +65,19 @@ public class PlayerShooting : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().velocity = fireDirection * bulletSpeed;
         Destroy(bullet, bulletLifespan);
+    }
+
+    public void updateSpeed() {
+        bulletSpeed += 2f;
+        fireRate -= 0.1f;
+    }
+
+    public void updateStrength() {
+        bulletStrength += 1;
+    }
+
+    public int GetBulletStrength(){
+        return bulletStrength;
     }
 
     IEnumerator ShootWithDelay()
