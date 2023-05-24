@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class CutsceneEmojis : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Sprite[] _emojiIcons;
+    private SpriteRenderer _spriteRenderer;
+
+    WaitForSeconds _emojiDelay = new WaitForSeconds(2f);
+    WaitForSeconds _hideEmoji = new WaitForSeconds(2f);
+
+    private int currentSpriteIndex = 0;
+
+
+    private void Start()
     {
-        
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    // Signal call from Playable Director
+    public void PlayEmojis()
     {
-        
+        StartCoroutine(ShowEmojisRoutine());    
+    }
+
+    IEnumerator ShowEmojisRoutine()
+    {
+        while (currentSpriteIndex < _emojiIcons.Length)
+        {
+            yield return _hideEmoji;    // Wait 2 seconds
+            _spriteRenderer.sprite = _emojiIcons[currentSpriteIndex];
+            yield return _emojiDelay;   // Wait 2 seconds
+            _spriteRenderer.sprite = null;
+            currentSpriteIndex++;
+        }
     }
 }

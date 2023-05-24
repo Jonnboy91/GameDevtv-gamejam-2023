@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1135096976}
   - component: {fileID: 1135096977}
+  - component: {fileID: 1135096978}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Emojis Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -812087416, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,9 +82,32 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1135096978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135096975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19e880509f08794087368188c2044ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _emojiIcons:
+  - {fileID: 1498039088, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  - {fileID: -1010301806, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  - {fileID: 1149663787, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  - {fileID: 1776597609, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  - {fileID: 1032224956, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  - {fileID: -1294780171, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  - {fileID: -946394179, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  - {fileID: -1349208608, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  - {fileID: -34962562, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
+  - {fileID: -1685678362, guid: 58f26fd39f5a6dd44b52757d99997f15, type: 3}
 --- !u!1 &4318101289435219782
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +123,6 @@ GameObject:
   - component: {fileID: 4318101289435219800}
   - component: {fileID: 3028989503146643952}
   - component: {fileID: 3028989503146643848}
-  - component: {fileID: 5861889852241971788}
   m_Layer: 0
   m_Name: Player Cutscenes
   m_TagString: Player
@@ -270,17 +293,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac72b52eaf5f2d84987af342f76816c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5861889852241971788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4318101289435219782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b19e880509f08794087368188c2044ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
