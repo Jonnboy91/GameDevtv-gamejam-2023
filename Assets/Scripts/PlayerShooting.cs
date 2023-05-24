@@ -76,6 +76,10 @@ public class PlayerShooting : MonoBehaviour
         bulletStrength += 1;
     }
 
+    public void IncreaseBulletLifeSpan() {
+        bulletLifespan += 1;
+    }
+
     public int GetBulletStrength(){
         return bulletStrength;
     }
