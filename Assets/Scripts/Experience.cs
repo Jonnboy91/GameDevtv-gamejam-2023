@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Experience : MonoBehaviour
 {
-    [SerializeField] int neededExperience = 10;
-    [SerializeField] int maxExperience = 30;
+    [SerializeField] int neededExperience = 1;
+    [SerializeField] int maxExperience = 5;
     [SerializeField] Slider experienceSlider;
     [SerializeField] GameObject panel;
     [SerializeField] GameObject lastPanel;
@@ -18,7 +18,7 @@ public class Experience : MonoBehaviour
     }
 
     private void Update() {
-        if(currentExperience < maxExperience){
+        if(currentExperience == maxExperience){
             PauseGame();
             OpenLastPowerUpUI();
         } else if(currentExperience == neededExperience){
@@ -39,7 +39,7 @@ public class Experience : MonoBehaviour
 
     private void UpdateNeededExperience()
     {
-        neededExperience += 10;
+        neededExperience += 1;
         experienceSlider.maxValue = neededExperience;
     }
 

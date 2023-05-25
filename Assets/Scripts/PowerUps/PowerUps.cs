@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PowerUps : MonoBehaviour
 {
@@ -10,40 +11,104 @@ public class PowerUps : MonoBehaviour
     // ParentsProtectionPowerUp + FirstLovePowerUp, combo needs testing,
     // since IF the extraLife function is called exactly at the same time, not sure if there is a possibility of a bug
 
+    // TODO: Add PlayerPrefs.DeleteAll() to start game button! IMPORTANT!
     private void Start() {
         // These needs to be setup so that it checks if the powerup has been chosen and if so then this can be activated.
-        if(false){ // Childhood 1
+        if(PlayerPrefs.GetInt("Imaginary") == 1){ // Childhood 1
             ImaginaryFriendPowerUp.instance.ActivatePowerup();
         }
-        if(false){ // Childhood 2
+        if(PlayerPrefs.GetInt("Sugar") == 1){ // Childhood 2
             SugarRushPowerUp.instance.ActivatePowerup();
         }
-        if(false){ // Childhood 3
+        if(PlayerPrefs.GetInt("Parents") == 1){ // Childhood 3
             ParentsProtectionPowerUp.instance.ActivatePowerup();
         }
-        if(false){ // Adolescence  1
+        if(PlayerPrefs.GetInt("Trouble") == 1){ // Adolescence  1
             GetOutOfTroublePowerUp.instance.ActivatePowerup();
         }
-        if(false){ // Adolescence  2
+        if(PlayerPrefs.GetInt("Angst") == 1){ // Adolescence  2
             TeenageAngstPowerUp.instance.ActivatePowerup();
         }
-        if(false){ // Adolescence  3
+        if(PlayerPrefs.GetInt("Love") == 1){ // Adolescence  3
             FirstLovePowerUp.instance.ActivatePowerup();
         }
-        if(false){ // Adult 1
+        if(PlayerPrefs.GetInt("Pay") == 1){ // Adult 1
             PayRisePowerUp.instance.ActivatePowerup();
         }
-        if(false){ // Adult 2
+        if(PlayerPrefs.GetInt("Independence") == 1){ // Adult 2
             IndepencePowerUp.instance.ActivatePowerup();
         }
-        if(false){ // Adult 3
+        if(PlayerPrefs.GetInt("Popeye") == 1){ // Adult 3
             PopeyePowerUp.instance.ActivatePowerup();
         }
         
-    }   
+    }
 
-    public void ContinueGame(){
+    public void ChooseImaginaryFriend(){
+        PlayerPrefs.SetInt("Imaginary", 1);
+        ImaginaryFriendPowerUp.instance.ActivatePowerup();
+        ContinueGame();
+    }
+    public void ChooseSugarRushPowerUp(){
+        PlayerPrefs.SetInt("Sugar", 1);
+        SugarRushPowerUp.instance.ActivatePowerup();
+        ContinueGame();
+    }
+    public void ChooseParentsProtectionPowerUp(){
+        PlayerPrefs.SetInt("Parents", 1);
+        ParentsProtectionPowerUp.instance.ActivatePowerup();
+        ContinueGame();
+    }
+    public void ChooseGetOutOfTroublePowerUp(){
+        PlayerPrefs.SetInt("Trouble", 1);
+        GetOutOfTroublePowerUp.instance.ActivatePowerup();
+        ContinueGame();
+    }
+    public void ChooseTeenageAngstPowerUp(){
+        PlayerPrefs.SetInt("Angst", 1);
+        TeenageAngstPowerUp.instance.ActivatePowerup();
+        ContinueGame();
+    }
+    public void ChooseFirstLovePowerUp(){
+        PlayerPrefs.SetInt("Love", 1);
+        FirstLovePowerUp.instance.ActivatePowerup();
+        ContinueGame();
+    }
+    public void ChoosePayRisePowerUp(){
+        PlayerPrefs.SetInt("Pay", 1);
+        PayRisePowerUp.instance.ActivatePowerup();
+        ContinueGame();
+    }
+    public void ChooseIndepencePowerUp(){
+        PlayerPrefs.SetInt("Independence", 1);
+        IndepencePowerUp.instance.ActivatePowerup();
+        ContinueGame();
+    }
+    public void ChoosePopeyePowerUp(){
+        PlayerPrefs.SetInt("Popeye", 1);
+        PopeyePowerUp.instance.ActivatePowerup();
+        ContinueGame();
+    }
+
+    private void ContinueGame(){
         panel.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void LastPayRisePowerUpJumpToCutscene(){
+        PlayerPrefs.SetInt("Pay", 1);
+        PayRisePowerUp.instance.ActivatePowerup();
+        SceneManager.LoadScene("Park");
+    }
+
+    public void LastIndepencePowerUpJumpToCutscene(){
+        PlayerPrefs.SetInt("Independence", 1);
+        IndepencePowerUp.instance.ActivatePowerup();
+        SceneManager.LoadScene("Park");
+    }
+    public void LastPopeyePowerUpJumpToCutscene(){
+        PlayerPrefs.SetInt("Popeye", 1);
+        PopeyePowerUp.instance.ActivatePowerup();
+        SceneManager.LoadScene("Park");
     }
 }
