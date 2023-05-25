@@ -1,13 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CutsceneEmojis : MonoBehaviour
 {
     [SerializeField] private Sprite[] _emojiIcons;
+    [SerializeField] private Sprite[] _emojiIconsSceneTwo;
+    [SerializeField] private Sprite[] _emojiIconsSceneThree;
     private SpriteRenderer _spriteRenderer;
 
-    WaitForSeconds _emojiDelay = new WaitForSeconds(1.4f);
+    WaitForSeconds _emojiDelay = new WaitForSeconds(1.5f);
     WaitForSeconds _hideEmoji = new WaitForSeconds(1.5f);
 
     private int currentSpriteIndex = 0;
