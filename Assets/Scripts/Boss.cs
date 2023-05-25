@@ -7,14 +7,21 @@ using UnityEngine.AI;
 public class Boss : MonoBehaviour
 {
     
-    [SerializeField] int bossHealth = 10;
+    
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject homingBulletPrefab;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] ParticleSystem dieEffect;
-    [SerializeField] float bulletSpeed;
-    [SerializeField] float fireRate;
-    [SerializeField] float bulletLifespan;
-    [SerializeField] int bulletStrength;
+
+    private int bossHealth = 10;
+    private float bulletSpeed;
+    private float fireRate = 2f;
+    private float fireRateHoming = 2f;
+    private float bulletLifespan = 1f;
+    private int bulletStrength;
+
+    private int bulletCount = 8;
+
     private GameObject player;
     private Coroutine bossFiringCoroutine;
 
@@ -32,32 +39,18 @@ public class Boss : MonoBehaviour
     {
         bossHealth += player.GetComponent<Health>().getPlayerHealth();
         bulletSpeed = player.GetComponent<PlayerShooting>().GetBulletSpeed();
-        fireRate = player.GetComponent<PlayerShooting>().GetBulletFireRate();
-        bulletLifespan = player.GetComponent<PlayerShooting>().GetBulletLifeSpan();
+        fireRate -= player.GetComponent<PlayerShooting>().GetBulletFireRate();
+        bulletLifespan += player.GetComponent<PlayerShooting>().GetBulletLifeSpan();
         bulletStrength = player.GetComponent<PlayerShooting>().GetBulletStrength();
         agent.speed = player.GetComponent<PlayerMovement>().GetSpeed() - 5f;
+        InvokeRepeating(nameof(Shoot360), fireRate, fireRate);
+        InvokeRepeating(nameof(HomingBullet), fireRateHoming, fireRateHoming);
     }
 
     void FixedUpdate() {
         if(player != null){
             SetAgentPosition();
-            FlipEnemy();
-        }
-    }
-
-
-    private void LateUpdate() {
-        if(bossFiringCoroutine == null){
-            bossFiringCoroutine = StartCoroutine(ShootWithDelay());
-        }
-    }
-
-    IEnumerator ShootWithDelay()
-    {
-        while (true)
-        {
-            Shoot();
-            yield return new WaitForSeconds(fireRate);
+            FlipEnemy();         
         }
     }
 
@@ -74,15 +67,33 @@ public class Boss : MonoBehaviour
         return bulletStrength;
     }
 
-    void Shoot(){
+    void Shoot360(){
 
-        Vector2 fireDirection = player.transform.position;
-        
-        fireDirection.Normalize();
+        float angleStep = 360f / bulletCount;
+        float currentAngle = 0f;
 
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = fireDirection * bulletSpeed;
-        Destroy(bullet, bulletLifespan);
+        for (int i = 0; i < bulletCount; i++)
+        {
+            // Calculate the direction of the bullet
+            Vector2 direction = Quaternion.Euler(0f, 0f, currentAngle) * Vector2.up;
+
+            // Instantiate bullet prefab and set its position and direction
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+
+            currentAngle += angleStep;
+
+            Destroy(bullet, bulletLifespan);
+        }
+    }
+
+    void HomingBullet(){
+
+        if (player != null)
+        {
+            GameObject bullet = Instantiate(homingBulletPrefab, transform.position, Quaternion.identity);
+            Destroy(bullet, bulletLifespan);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

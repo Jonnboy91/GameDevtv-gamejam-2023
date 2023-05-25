@@ -214,14 +214,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007720214c1fea54b9771c447dd4ec93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossHealth: 10
   bulletPrefab: {fileID: 5373822962961376425, guid: 88a5c0026d4228142a50f2170c8bab77, type: 3}
+  homingBulletPrefab: {fileID: 5373822962961376425, guid: fc7d6090de402a042b93dd48b9e474ee, type: 3}
   bulletSpawnPoint: {fileID: 1289678594974190353}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
-  bulletSpeed: 0
-  fireRate: 0
-  bulletLifespan: 0
-  bulletStrength: 0
 --- !u!1 &1289678594974190352
 GameObject:
   m_ObjectHideFlags: 0
