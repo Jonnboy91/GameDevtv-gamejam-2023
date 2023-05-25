@@ -37,11 +37,13 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        if(fireContinuously && firingCoroutine == null){
-            firingCoroutine = StartCoroutine(ShootWithDelay());
-        } else if(!fireContinuously && firingCoroutine != null){
-            StopCoroutine(firingCoroutine);
-            firingCoroutine = null;
+        if(Time.timeScale != 0){
+            if(fireContinuously && firingCoroutine == null){
+                firingCoroutine = StartCoroutine(ShootWithDelay());
+            } else if(!fireContinuously && firingCoroutine != null){
+                StopCoroutine(firingCoroutine);
+                firingCoroutine = null;
+            }
         }
     }
 
