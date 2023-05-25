@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Playables;
 
@@ -48,9 +46,7 @@ public class UIManager : MonoBehaviour
 
     IEnumerator PlayDirectorRoutine()
     {
-        Debug.Log(Time.time.ToString());
         yield return new WaitForSeconds(2f);
-        Debug.Log(Time.time.ToString());
         _playableDirector.Play();
     }
 }
