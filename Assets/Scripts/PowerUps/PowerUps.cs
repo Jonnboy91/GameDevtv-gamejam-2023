@@ -5,6 +5,8 @@ using UnityEngine;
 public class PowerUps : MonoBehaviour
 {
 
+    [SerializeField] GameObject panel;
+
     // ParentsProtectionPowerUp + FirstLovePowerUp, combo needs testing,
     // since IF the extraLife function is called exactly at the same time, not sure if there is a possibility of a bug
 
@@ -39,4 +41,9 @@ public class PowerUps : MonoBehaviour
         }
         
     }   
+
+    public void ContinueGame(){
+        panel.SetActive(false);
+        Time.timeScale = 1;
+    }
 }

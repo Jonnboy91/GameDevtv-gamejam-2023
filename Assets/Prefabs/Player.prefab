@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: 745240326}
   - component: {fileID: 890480833}
   - component: {fileID: 745240340}
-  - component: {fileID: 745240351}
   - component: {fileID: 890480825}
   - component: {fileID: 1985835157124944172}
   m_Layer: 0
@@ -243,18 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neededExperience: 5
   experienceSlider: {fileID: 0}
---- !u!114 &745240351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1289678593409138191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c7d6772f2adff849bfcdacaf9643782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  currentExperience: 0
 --- !u!95 &890480825
 Animator:
   serializedVersion: 5
