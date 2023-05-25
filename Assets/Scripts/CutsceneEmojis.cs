@@ -7,7 +7,7 @@ public class CutsceneEmojis : MonoBehaviour
     [SerializeField] private Sprite[] _emojiIcons;
     private SpriteRenderer _spriteRenderer;
 
-    WaitForSeconds _emojiDelay = new WaitForSeconds(1.5f);
+    WaitForSeconds _emojiDelay = new WaitForSeconds(1.4f);
     WaitForSeconds _hideEmoji = new WaitForSeconds(1.5f);
 
     private int currentSpriteIndex = 0;
