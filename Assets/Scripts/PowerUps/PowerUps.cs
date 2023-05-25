@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
+
 
 public class PowerUps : MonoBehaviour
 {
 
-    [SerializeField] GameObject panel;
+    [SerializeField] List<GameObject> panels;
 
     // ParentsProtectionPowerUp + FirstLovePowerUp, combo needs testing,
     // since IF the extraLife function is called exactly at the same time, not sure if there is a possibility of a bug
@@ -91,24 +93,31 @@ public class PowerUps : MonoBehaviour
     }
 
     private void ContinueGame(){
-        panel.SetActive(false);
+        panels.First().SetActive(false);
+        panels.RemoveAt(0);
         Time.timeScale = 1;
     }
 
     public void LastPayRisePowerUpJumpToCutscene(){
+        Time.timeScale = 1;
         PlayerPrefs.SetInt("Pay", 1);
         PayRisePowerUp.instance.ActivatePowerup();
-        SceneManager.LoadScene("Park");
+        SceneManager.LoadScene("FinalBoss");
     }
 
     public void LastIndepencePowerUpJumpToCutscene(){
+        Time.timeScale = 1;
         PlayerPrefs.SetInt("Independence", 1);
         IndepencePowerUp.instance.ActivatePowerup();
-        SceneManager.LoadScene("Park");
+        SceneManager.LoadScene("FinalBoss");
     }
     public void LastPopeyePowerUpJumpToCutscene(){
+        Debug.Log("I SHOULD BE THE LAST ONE");
+        Time.timeScale = 1;
         PlayerPrefs.SetInt("Popeye", 1);
         PopeyePowerUp.instance.ActivatePowerup();
-        SceneManager.LoadScene("Park");
+         Debug.Log("WELL I*M EVEN LATER");
+        SceneManager.LoadScene("FinalBoss");
+        Debug.Log("KILL ME");
     }
 }
