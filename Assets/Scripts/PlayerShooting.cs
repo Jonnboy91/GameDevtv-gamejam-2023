@@ -86,6 +86,17 @@ public class PlayerShooting : MonoBehaviour
         return bulletStrength;
     }
 
+    public float GetBulletLifeSpan(){
+        return bulletLifespan;
+    }
+
+    public float GetBulletSpeed(){
+        return bulletSpeed;
+    }
+    public float GetBulletFireRate(){
+        return fireRate;
+    }
+
     IEnumerator ShootWithDelay()
     {
         while (fireContinuously)

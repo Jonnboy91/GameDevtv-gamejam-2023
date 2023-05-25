@@ -27,10 +27,10 @@ public class EnemyMovement : MonoBehaviour
 
     void SetAgentPosition()
     {
-        agent.SetDestination(player.transform.position);
+        agent.SetDestination(player.position);
     }
 
     void FlipEnemy(){
-        spriteRenderer.flipX = player.transform.position.x < gameObject.transform.position.x;
+        spriteRenderer.flipX = player.position.x < gameObject.transform.position.x;
     }
 }
