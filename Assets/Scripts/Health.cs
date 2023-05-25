@@ -30,7 +30,9 @@ public class Health : MonoBehaviour
     private void Awake() {
         spawner = FindObjectOfType<EnemySpawner>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
-        experience = FindObjectOfType<Experience>();
+        if(SceneManager.GetActiveScene().name == "Level 1"){
+                experience = FindObjectOfType<Experience>();
+            }
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -58,10 +60,13 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
         PlayHitEffect();
         if(isPlayer){
-            ImaginaryFriendPowerUp.instance.DestroyScriptInstance();
-            SceneManager.LoadScene("Level 1"); // atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
+            ImaginaryFriendPowerUp.instance.DestroyScriptInstance(); // Needs this, since otherwise when starting the new level, it tries to find an instance that does not exist.
+            PlayerPrefs.DeleteAll(); // TODO: Deletes all powerUps if you die! and starts the level again! Might want to have a gameOver screen and play again instead of straightaway going to level 1!
+            SceneManager.LoadScene("Level 1"); // TODO: atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
         } else {
-            experience.IncreaseExperience(1);
+            if(SceneManager.GetActiveScene().name == "Level 1"){
+                experience.IncreaseExperience(1);
+            }
             spawner.EnemyDestroyed();
         }
     }
