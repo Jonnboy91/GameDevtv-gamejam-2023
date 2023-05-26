@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag != "Player" && other.gameObject.tag != "Bullet"){
+        if(other.gameObject.tag != "Boss" && other.gameObject.tag != "EnemyBullet"){
             Destroy(gameObject);
         }
-    }
-
+    }         
 }

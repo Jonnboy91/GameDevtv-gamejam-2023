@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ImaginaryFriendPowerUp : MonoBehaviour
 {
@@ -16,19 +17,29 @@ public class ImaginaryFriendPowerUp : MonoBehaviour
 
     public static ImaginaryFriendPowerUp instance;
 
-    [SerializeField] GameObject imaginaryFriendPrefab; 
+    [SerializeField] GameObject imaginaryFriendPrefab;
+    [SerializeField] GameObject bossImaginaryFriendPrefab; 
     public float rotationSpeed = 60f; 
-    public float spawnDistance = 5f; 
+    public float spawnDistance = 5f;
+    public float spawnBossDistance = 20f;  
 
     private GameObject player;
+    private GameObject boss;
 
     private GameObject imaginaryFriend; 
+    private GameObject bossImaginaryFriend;
+
+            
+
 
     private void Awake() {
         if(instance == null){
             instance = this;
         }
         player = GameObject.FindGameObjectWithTag("Player");
+        if(SceneManager.GetActiveScene().name == "Boss"){
+                boss = GameObject.FindGameObjectWithTag("Boss");
+        }
     }
 
     public void DestroyScriptInstance()
@@ -47,6 +58,16 @@ public class ImaginaryFriendPowerUp : MonoBehaviour
             
             imaginaryFriend.transform.position = desiredPosition;
         }
+        if (bossImaginaryFriend != null && boss != null)
+        {
+            bossImaginaryFriend.transform.RotateAround(boss.transform.position, Vector3.forward, rotationSpeed * Time.deltaTime);
+
+            Vector3 desiredBossPosition = boss.transform.position + (bossImaginaryFriend.transform.position - boss.transform.position).normalized * spawnBossDistance;
+            
+            bossImaginaryFriend.transform.position = desiredBossPosition;
+        } else if(boss == null){
+            Destroy(bossImaginaryFriend);
+        }
     }
 
     public void ActivatePowerup()
@@ -55,6 +76,11 @@ public class ImaginaryFriendPowerUp : MonoBehaviour
         {
             Vector3 spawnPosition = player.transform.position + (Vector3.right * spawnDistance);
             imaginaryFriend = Instantiate(imaginaryFriendPrefab, spawnPosition, Quaternion.identity);
+        }
+        if (bossImaginaryFriend == null && boss != null)
+        {
+            Vector3 spawnBossPosition = boss.transform.position + (Vector3.right * spawnBossDistance);
+            bossImaginaryFriend = Instantiate(bossImaginaryFriendPrefab, spawnBossPosition, Quaternion.identity);
         }
     }
 }

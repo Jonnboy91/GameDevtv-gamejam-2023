@@ -33,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed += 2;
     }
 
+    public float GetSpeed() {
+        return moveSpeed;
+    }
+
     void Move(){
         if(Time.timeScale != 0){
             Vector2 playerVelocity = moveInput * moveSpeed;

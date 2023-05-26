@@ -14,7 +14,7 @@ public class PowerUps : MonoBehaviour
     // since IF the extraLife function is called exactly at the same time, not sure if there is a possibility of a bug
 
     // TODO: Add PlayerPrefs.DeleteAll() to start game button! IMPORTANT!
-    private void Start() {
+    private void Awake() {
         // These needs to be setup so that it checks if the powerup has been chosen and if so then this can be activated.
         if(PlayerPrefs.GetInt("Imaginary") == 1){ // Childhood 1
             ImaginaryFriendPowerUp.instance.ActivatePowerup();
@@ -102,22 +102,19 @@ public class PowerUps : MonoBehaviour
         Time.timeScale = 1;
         PlayerPrefs.SetInt("Pay", 1);
         PayRisePowerUp.instance.ActivatePowerup();
-        SceneManager.LoadScene("FinalBoss");
+        SceneManager.LoadScene("Boss");
     }
 
     public void LastIndepencePowerUpJumpToCutscene(){
         Time.timeScale = 1;
         PlayerPrefs.SetInt("Independence", 1);
         IndepencePowerUp.instance.ActivatePowerup();
-        SceneManager.LoadScene("FinalBoss");
+        SceneManager.LoadScene("Boss");
     }
     public void LastPopeyePowerUpJumpToCutscene(){
-        Debug.Log("I SHOULD BE THE LAST ONE");
         Time.timeScale = 1;
         PlayerPrefs.SetInt("Popeye", 1);
         PopeyePowerUp.instance.ActivatePowerup();
-         Debug.Log("WELL I*M EVEN LATER");
-        SceneManager.LoadScene("FinalBoss");
-        Debug.Log("KILL ME");
+        SceneManager.LoadScene("Boss");
     }
 }

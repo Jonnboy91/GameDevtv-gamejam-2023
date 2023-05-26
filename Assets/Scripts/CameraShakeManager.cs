@@ -15,6 +15,12 @@ public class CameraShakeManager : MonoBehaviour
         }
     }
 
+    public void DestroyScriptInstance()
+    {
+        // Done because sometimes when you die, it might have gotten inside of the line 44 and tries to rotate the ghost around the player and neither exist in the next scene.
+        Destroy(this);
+    }
+
     public void CameraShake(CinemachineImpulseSource impulseSource){
         impulseSource.GenerateImpulseWithForce(globalShakeForce);
     }

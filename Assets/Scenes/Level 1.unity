@@ -5049,6 +5049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imaginaryFriendPrefab: {fileID: 1094567780555737115, guid: ff310384cef100e498453b9b6c97f6b4, type: 3}
+  finalBossImaginaryFriendPrefab: {fileID: 0}
   rotationSpeed: 60
   spawnDistance: 5
 --- !u!4 &1253719557
