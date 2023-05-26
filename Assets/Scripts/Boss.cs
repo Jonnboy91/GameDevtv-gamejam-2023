@@ -75,7 +75,7 @@ public class Boss : MonoBehaviour
     }
 
     void FlipEnemy(){
-        spriteRenderer.flipX = player.transform.position.x > gameObject.transform.position.x;
+        spriteRenderer.flipX = player.transform.position.x < gameObject.transform.position.x;
     }
 
     void Shoot360(){
