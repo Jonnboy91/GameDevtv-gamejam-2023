@@ -18,8 +18,6 @@ public class UIManager : MonoBehaviour
     #endregion
 
     [SerializeField] private TextMeshProUGUI _dialogueText;
-    [SerializeField] private PlayableDirector _playableDirector;
-
 
     private void Awake()
     {
@@ -30,8 +28,6 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _dialogueText = GameObject.Find("Dialogue Text").GetComponent<TextMeshProUGUI>();
-        _playableDirector = GameObject.Find("Timeline Director Manager").GetComponent<PlayableDirector>();
-        StartCoroutine(PlayDirectorRoutine());
     }
 
     public void UpdateDialogueTextDisplay(char letter)
@@ -42,11 +38,5 @@ public class UIManager : MonoBehaviour
     public void ClearTextBox()
     {
         _dialogueText.text = string.Empty;
-    }
-
-    IEnumerator PlayDirectorRoutine()
-    {
-        yield return new WaitForSeconds(2f);
-        _playableDirector.Play();
     }
 }

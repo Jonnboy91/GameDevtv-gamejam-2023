@@ -17,6 +17,7 @@ public class CutsceneEmojis : MonoBehaviour
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        Invoke("PlayEmojis", 2f);
     }
 
     // Signal call from Playable Director
