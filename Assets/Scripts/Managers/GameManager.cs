@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1.0f);
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Cutscene 1");
 
     }
     public void QuitGame()
