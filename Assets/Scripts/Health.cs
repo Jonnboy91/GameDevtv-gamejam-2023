@@ -15,10 +15,9 @@ public class Health : MonoBehaviour
     [SerializeField] bool isPlayer;
 
     [SerializeField] List<Image> hearts;
-    [SerializeField] Image extraHearth;
-    [SerializeField] Image extraHearth2;
-
     [SerializeField] ParticleSystem dieEffect;
+
+    [SerializeField] float damageDelay = 1f;
 
     EnemySpawner spawner;
     private CinemachineImpulseSource impulseSource;
@@ -27,6 +26,11 @@ public class Health : MonoBehaviour
 
     private GameObject player;
     private GameObject boss;
+
+    private bool canTakeDamage = true;
+    
+    private float damageTimer = 0f;
+
 
     private void Awake() {
         spawner = FindObjectOfType<EnemySpawner>();
@@ -40,11 +44,24 @@ public class Health : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
+    private void Update()
+{
+    if (!canTakeDamage)
+    {
+        damageTimer += Time.deltaTime;
+        if (damageTimer >= damageDelay)
+        {
+            canTakeDamage = true;
+            damageTimer = 0f;
+        }
+    }
+}
+
     public void TakeDamage(int damage){
+        StartCoroutine(FlashColor(gameObject.GetComponent<SpriteRenderer>()));
         if(isPlayer){
             healthPoints -= damage;
-            hearts.Last().enabled = false;
-            hearts.RemoveAt(hearts.Count - 1);
+            hearts[healthPoints].enabled = false;
             CameraShakeManager.instance.CameraShake(impulseSource);
             if(healthPoints <= 0){
                 healthPoints = 0;
@@ -86,21 +103,26 @@ public class Health : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(isPlayer && (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss")){
             TakeDamage(1);
+            canTakeDamage = false;
             // Here we could play a screen shake or something to show the player that the character has been hit
         }
     }
 
-    public void extraLife(){
-        if(healthPoints == 3){
-            healthPoints += 1;
-            hearts.Add(extraHearth);
-            extraHearth.enabled = true;
-        } else {
-            healthPoints += 1;
-            hearts.Add(extraHearth2);
-            extraHearth2.enabled = true;
+    private void OnCollisionStay2D(Collision2D other) {
+         if(isPlayer && (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss")){
+            if (canTakeDamage)
+            {
+                TakeDamage(1);
+                canTakeDamage = false;
+            }
         }
-        
+    }
+
+    public void extraLife(){
+        if(healthPoints <= 4){
+            healthPoints += 1;
+            hearts[healthPoints - 1].enabled = true;
+        }
     }
 
     public int getPlayerHealth(){
@@ -112,7 +134,20 @@ public class Health : MonoBehaviour
             TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
         }
         if(gameObject.tag == "Player" && other.gameObject.tag == "EnemyBullet" && boss != null){
-            TakeDamage(boss.GetComponent<Boss>().GetBulletStrength());
+            TakeDamage(1);
         }
     }
+
+    private IEnumerator FlashColor(SpriteRenderer spriteRenderer)
+    {
+        // Change the sprite color to white
+        spriteRenderer.color = Color.red;
+
+        // Wait for 0.1 seconds
+        yield return new WaitForSeconds(0.1f);
+
+        // Reset the sprite color to its original value
+        spriteRenderer.color = Color.white;
+    }
+
 }
