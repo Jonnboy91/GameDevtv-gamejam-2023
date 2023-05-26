@@ -10,14 +10,15 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D myRigidBody;
     CapsuleCollider2D myBodyCollider;
-    PlayerAnimations _playerAnimations;
+    Animator animator;
+    
 
 
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
-        _playerAnimations = GetComponent<PlayerAnimations>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -41,10 +42,11 @@ public class PlayerMovement : MonoBehaviour
         if(Time.timeScale != 0){
             Vector2 playerVelocity = moveInput * moveSpeed;
             myRigidBody.velocity = playerVelocity;
-            if(playerVelocity.y != 0 && playerVelocity.x != 0){
-                _playerAnimations.ChangeState(new Vector2(0, playerVelocity.y));
-            }   else {
-                _playerAnimations.ChangeState(playerVelocity);
+            gameObject.GetComponent<SpriteRenderer>().flipX = playerVelocity.x < 0;
+            if(playerVelocity.x != 0 || playerVelocity.y != 0){
+                animator.SetBool("isWalking", true);
+            }else{
+                animator.SetBool("isWalking", false);
             }
         }
 
