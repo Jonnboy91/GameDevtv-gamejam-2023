@@ -4,26 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _mainMenuButtons;
 
-
-    // Only loads first scene
-    public void StartGame()
+    private void Start()
     {
-        StartCoroutine(DelayFirstSceneLoad());  
+        DontDestroyOnLoad(gameObject);
     }
 
-    IEnumerator DelayFirstSceneLoad()
-    {
-        for (int i = 0; i < _mainMenuButtons.Length; i++)
-        {
-            _mainMenuButtons[i].SetActive(false);
-        }
-
-        yield return new WaitForSeconds(1.0f);
-        SceneManager.LoadScene("Level 1");
-
-    }
+    // Quit game
     public void QuitGame()
     {
         Application.Quit();
