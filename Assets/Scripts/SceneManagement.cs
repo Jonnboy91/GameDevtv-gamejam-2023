@@ -4,50 +4,60 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    private int _currentSceneIndex;
+    #region Singleton
+    private static SceneManagement _instance;
+    public static SceneManagement Instance
+    {
+        get { return _instance; }
+    }
 
-    Scene scene;
+    private void Awake()
+    {
+        _instance = this;
+    }
+    #endregion
 
-    [SerializeField] private GameObject[] _mainMenuButtons;
+    private int _currentSceneIndex = 1;
+
+    Coroutine _nextSceneCoroutine;
 
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);  
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            NextScene();
-        }
+        DontDestroyOnLoad(this);    
     }
 
     // Only loads first scene
     public void StartGame()
     {
+        FadeTransition.Instance.FadeIn();
         StartCoroutine(DelayFirstSceneLoad());
     }
 
     // Coroutine to allow fade transition to happen for first scene
     IEnumerator DelayFirstSceneLoad()
     {
-        for (int i = 0; i < _mainMenuButtons.Length; i++)
-        {
-            _mainMenuButtons[i].SetActive(false);
-        }
-
         _currentSceneIndex++;
         yield return new WaitForSeconds(1.0f);
         SceneManager.LoadScene(1);
-
     }
 
     // Must be called 2 secs before a scene loads
     public void NextScene()
     {
-        if(_currentSceneIndex < 5)
+        Debug.Log("Test");
+        StartCoroutine(NextSceneRoutine());
+        Debug.Log("Test 01");
+    }
+
+    IEnumerator NextSceneRoutine()
+    {
+        Debug.Log("Test 03");
+        yield return new WaitForSeconds(2.0f);
+
+        Debug.Log("Test 04");
+
+        if (_currentSceneIndex < 5)
         {
             SceneManager.LoadScene(_currentSceneIndex + 1);
             _currentSceneIndex++;
@@ -57,5 +67,8 @@ public class SceneManagement : MonoBehaviour
             SceneManager.LoadScene(0);
             _currentSceneIndex = 0;
         }
+
+        Debug.Log("Lucky");
+        _nextSceneCoroutine = null;
     }
 }

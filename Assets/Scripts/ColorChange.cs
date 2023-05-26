@@ -62,8 +62,9 @@ public class ColorChange : MonoBehaviour
                 }
                 else
                 {
-                    float lerpvalue = Mathf.Lerp(origin, target, time / duration);
-                    _colorGrading.saturation.value += lerpvalue;
+                    float multiplier = -0.01f;
+                    float lerpvalue = Mathf.Lerp(origin, target, time / duration);   // 0, -100, 0
+                    _colorGrading.saturation.value += (lerpvalue * multiplier);      // 0 * -0.01
                     time += Time.deltaTime;
                     yield return null;
                 }
@@ -80,7 +81,7 @@ public class ColorChange : MonoBehaviour
                 }
                 else     
                 {
-                    float _multiplier = -0.02f;
+                    float _multiplier = -0.01f;
                     float lerpvalue = Mathf.Lerp(origin, target, time / duration);
                     _colorGrading.saturation.value += (lerpvalue * _multiplier);   
                     time += Time.deltaTime;
@@ -92,7 +93,6 @@ public class ColorChange : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger");
-        ChangeColorToColor();
+        ChangeColorToGrey();
     }
 }
