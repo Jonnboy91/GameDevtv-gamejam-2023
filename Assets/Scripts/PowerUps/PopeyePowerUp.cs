@@ -34,6 +34,6 @@ public class PopeyePowerUp : MonoBehaviour
     public void ActivatePowerup()
     {
         player.GetComponent<PlayerShooting>().updateStrength();
-        player.transform.localScale = new Vector2(30, 30); // TODO: This needs to be set up once we have come up with the correct sizes
+        player.transform.localScale = new Vector2(2, 2); // TODO: This needs to be set up once we have come up with the correct sizes
     }
 }
