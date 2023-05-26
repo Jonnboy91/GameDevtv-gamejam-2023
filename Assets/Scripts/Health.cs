@@ -110,11 +110,9 @@ public class Health : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(gameObject.tag == "Enemy" && other.gameObject.tag == "Bullet"){
             TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
-            // Right now the enemy only has one life, so they die instantly, we could have a separate life for them if we want to (I tested it, but went back to this).
         }
-        if(gameObject.tag == "Player" && other.gameObject.tag == "EnemyBullet"){
+        if(gameObject.tag == "Player" && other.gameObject.tag == "EnemyBullet" && boss != null){
             TakeDamage(boss.GetComponent<Boss>().GetBulletStrength());
-            // Right now the enemy only has one life, so they die instantly, we could have a separate life for them if we want to (I tested it, but went back to this).
         }
     }
 }

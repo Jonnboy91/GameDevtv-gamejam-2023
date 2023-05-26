@@ -65,6 +65,8 @@ public class ImaginaryFriendPowerUp : MonoBehaviour
             Vector3 desiredBossPosition = boss.transform.position + (bossImaginaryFriend.transform.position - boss.transform.position).normalized * spawnBossDistance;
             
             bossImaginaryFriend.transform.position = desiredBossPosition;
+        } else if(boss == null){
+            Destroy(bossImaginaryFriend);
         }
     }
 
