@@ -140,11 +140,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 3
-  enemyHealth: 2
+  enemyHealth: 30
   isPlayer: 0
-  hearts: []
-  extraHearth: {fileID: 0}
+  healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
+  damageDelay: 1
 --- !u!114 &2703616431869926996
 MonoBehaviour:
   m_ObjectHideFlags: 0

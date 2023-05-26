@@ -10,11 +10,13 @@ using System.Linq;
 public class Health : MonoBehaviour
 {
 
-    [SerializeField] int healthPoints = 100;
-    [SerializeField] int enemyHealth = 30;
+    [SerializeField] float healthPoints = 100f;
+    private float currentHealth = 0f;
+    [SerializeField] float enemyHealth = 30f;
     [SerializeField] bool isPlayer;
 
-    [SerializeField] List<Image> hearts;
+    [SerializeField] Slider healthBar;
+
     [SerializeField] ParticleSystem dieEffect;
 
     [SerializeField] float damageDelay = 1f;
@@ -44,27 +46,44 @@ public class Health : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void Update()
-{
-    if (!canTakeDamage)
-    {
-        damageTimer += Time.deltaTime;
-        if (damageTimer >= damageDelay)
-        {
-            canTakeDamage = true;
-            damageTimer = 0f;
+    private void Start() {
+        if(isPlayer){
+            currentHealth = healthPoints;
+            healthBar.maxValue = healthPoints;
+            updateHealth();
         }
     }
-}
+
+    private void Update()
+    {
+        if(isPlayer){
+            if (!canTakeDamage)
+            {
+                damageTimer += Time.deltaTime;
+                if (damageTimer >= damageDelay)
+                {
+                    canTakeDamage = true;
+                    damageTimer = 0f;
+                }
+            }
+        }
+    }
+
+    private void FixedUpdate() {
+        if(isPlayer){
+            Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(player.transform.position);
+            healthBar.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 0);
+        }
+    }
 
     public void TakeDamage(int damage){
         StartCoroutine(FlashColor(gameObject.GetComponent<SpriteRenderer>()));
         if(isPlayer){
-            healthPoints -= damage;
-            hearts[healthPoints].enabled = false;
+            currentHealth -= damage;
+            updateHealth();
             CameraShakeManager.instance.CameraShake(impulseSource);
-            if(healthPoints <= 0){
-                healthPoints = 0;
+            if(currentHealth <= 0){
+                currentHealth = 0;
                 Die();
             }
         } else{
@@ -74,6 +93,11 @@ public class Health : MonoBehaviour
                 Die();
             }
         }
+    }
+
+    void updateHealth(){
+        float healthPercentage = (float)currentHealth / healthPoints * 100;
+        healthBar.value = healthPercentage;
     }
 
     private void Die()
@@ -102,7 +126,7 @@ public class Health : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(isPlayer && (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss")){
-            TakeDamage(1);
+            TakeDamage(10);
             canTakeDamage = false;
             // Here we could play a screen shake or something to show the player that the character has been hit
         }
@@ -112,20 +136,20 @@ public class Health : MonoBehaviour
          if(isPlayer && (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss")){
             if (canTakeDamage)
             {
-                TakeDamage(1);
+                TakeDamage(10);
                 canTakeDamage = false;
             }
         }
     }
 
-    public void extraLife(){
-        if(healthPoints <= 4){
-            healthPoints += 1;
-            hearts[healthPoints - 1].enabled = true;
+    public void addHealth(int addAmount){
+        healthPoints += addAmount;
+        if(currentHealth != healthPoints){
+            currentHealth += addAmount;
         }
     }
 
-    public int getPlayerHealth(){
+    public float getPlayerHealth(){
         return healthPoints;
     }
 
@@ -134,7 +158,7 @@ public class Health : MonoBehaviour
             TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
         }
         if(gameObject.tag == "Player" && other.gameObject.tag == "EnemyBullet" && boss != null){
-            TakeDamage(1);
+            TakeDamage(10);
         }
     }
 

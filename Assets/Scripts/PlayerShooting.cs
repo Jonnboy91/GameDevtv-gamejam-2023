@@ -13,7 +13,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] float fireRate = 0.5f;
     [SerializeField] float startDelay = 0.5f;
     [SerializeField] float bulletLifespan = 2f;
-    [SerializeField] int bulletStrength = 1;
+    [SerializeField] int bulletStrength = 10;
 
     Coroutine firingCoroutine;
 

@@ -13,7 +13,7 @@ public class Boss : MonoBehaviour
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] ParticleSystem dieEffect;
 
-    private int bossHealth = 10;
+    private float bossHealth = 10f;
     private float bulletSpeed;
     private float fireRate = 2f;
     private float fireRateHoming = 2f;
