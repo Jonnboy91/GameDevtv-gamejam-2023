@@ -156,6 +156,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
+  damageTextPrefab: {fileID: 4187628744697266712, guid: 6badfab2088e2d54ca2786957e49b02f, type: 3}
 --- !u!195 &4061168897680347226
 NavMeshAgent:
   m_ObjectHideFlags: 0

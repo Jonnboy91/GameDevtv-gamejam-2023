@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using UnityEngine.UI;
-using System.Linq;
 
 public class Health : MonoBehaviour
 {
@@ -71,12 +70,12 @@ public class Health : MonoBehaviour
 
     private void FixedUpdate() {
         if(isPlayer){
-            Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(player.transform.position);
-            healthBar.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 0);
+            Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(transform.position);
+            healthBar.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 80);
         }
     }
 
-    public void TakeDamage(int damage){
+    public void TakeDamage(float damage){
         StartCoroutine(FlashColor(gameObject.GetComponent<SpriteRenderer>()));
         if(isPlayer){
             currentHealth -= damage;
@@ -88,6 +87,7 @@ public class Health : MonoBehaviour
             }
         } else{
             enemyHealth -= damage;
+            DamageTextManager.Instance.ShowDamageText(gameObject, damage);
             if(enemyHealth <= 0){
                 enemyHealth = 0;
                 Die();
@@ -96,25 +96,24 @@ public class Health : MonoBehaviour
     }
 
     void updateHealth(){
-        float healthPercentage = (float)currentHealth / healthPoints * 100;
-        healthBar.value = healthPercentage;
+        healthBar.maxValue = healthPoints;
+        healthBar.value = currentHealth;
     }
 
     private void Die()
     {
-        Destroy(gameObject);
-        PlayHitEffect();
         if(isPlayer){
             CameraShakeManager.instance.DestroyScriptInstance();
             ImaginaryFriendPowerUp.instance.DestroyScriptInstance(); // Needs this, since otherwise when starting the new level, it tries to find an instance that does not exist.
             PlayerPrefs.DeleteAll(); // TODO: Deletes all powerUps if you die! and starts the level again! Might want to have a gameOver screen and play again instead of straightaway going to level 1!
-            SceneManager.LoadScene("Level 1"); // TODO: atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
+            Destroy(healthBar.gameObject);
+            DieManager.instance.ReloadLevelWithDelay();
         } else {
-            if(SceneManager.GetActiveScene().name == "Level 1"){
                 experience.IncreaseExperience(1);
-            }
-            spawner.EnemyDestroyed();
+                spawner.EnemyDestroyed();
         }
+        Destroy(gameObject);
+        PlayHitEffect();
     }
 
     void PlayHitEffect(){
@@ -142,11 +141,13 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void addHealth(int addAmount){
-        healthPoints += addAmount;
+    public void addHealth(){
+        float addAmount = healthPoints * 1.2f - healthPoints;
+        healthPoints *= 1.2f;
         if(currentHealth != healthPoints){
             currentHealth += addAmount;
         }
+        updateHealth();
     }
 
     public float getPlayerHealth(){
@@ -154,7 +155,7 @@ public class Health : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(gameObject.tag == "Enemy" && other.gameObject.tag == "Bullet"){
+        if(gameObject.tag == "Enemy" && other.gameObject.tag == "Bullet" && player != null){
             TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
         }
         if(gameObject.tag == "Player" && other.gameObject.tag == "EnemyBullet" && boss != null){
