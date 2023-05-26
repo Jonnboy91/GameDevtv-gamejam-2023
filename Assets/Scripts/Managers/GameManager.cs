@@ -4,13 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _mainMenuButtons;
 
-
-    // Only loads first scene
-    public void StartGame()
+    private void Start()
     {
-        StartCoroutine(DelayFirstSceneLoad());  
+        DontDestroyOnLoad(gameObject);
     }
 
     IEnumerator DelayFirstSceneLoad()
@@ -24,6 +21,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Cutscene 1");
 
     }
+
     public void QuitGame()
     {
         Application.Quit();

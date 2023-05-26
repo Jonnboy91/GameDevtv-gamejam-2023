@@ -28445,6 +28445,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIcons.Array.size
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIcons.Array.data[17]
+      value: 
+      objectReference: {fileID: 384747513, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneTwo.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneThree.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneTwo.Array.data[0]
+      value: 
+      objectReference: {fileID: -237008116, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneTwo.Array.data[1]
+      value: 
+      objectReference: {fileID: 1849717463, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneTwo.Array.data[2]
+      value: 
+      objectReference: {fileID: 276451560, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneThree.Array.data[0]
+      value: 
+      objectReference: {fileID: 818300080, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneThree.Array.data[1]
+      value: 
+      objectReference: {fileID: 314132174, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneThree.Array.data[2]
+      value: 
+      objectReference: {fileID: 201802745, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneThree.Array.data[3]
+      value: 
+      objectReference: {fileID: 818300080, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+    - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
+      propertyPath: _emojiIconsSceneThree.Array.data[4]
+      value: 
+      objectReference: {fileID: 158695799, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
     - target: {fileID: 1425646996, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
       propertyPath: m_IsActive
       value: 1
