@@ -10,8 +10,8 @@ using System.Linq;
 public class Health : MonoBehaviour
 {
 
-    [SerializeField] int healthPoints = 3;
-    [SerializeField] int enemyHealth = 1;
+    [SerializeField] int healthPoints = 100;
+    [SerializeField] int enemyHealth = 30;
     [SerializeField] bool isPlayer;
 
     [SerializeField] List<Image> hearts;
