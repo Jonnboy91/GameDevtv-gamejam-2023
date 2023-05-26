@@ -18,7 +18,6 @@ public class Boss : MonoBehaviour
     private float fireRate = 2f;
     private float fireRateHoming = 2f;
     private float bulletLifespan = 1f;
-    private int bulletStrength;
 
     private int bulletCount = 8;
 
@@ -41,7 +40,6 @@ public class Boss : MonoBehaviour
         bulletSpeed = player.GetComponent<PlayerShooting>().GetBulletSpeed();
         fireRate -= player.GetComponent<PlayerShooting>().GetBulletFireRate();
         bulletLifespan += player.GetComponent<PlayerShooting>().GetBulletLifeSpan();
-        bulletStrength = player.GetComponent<PlayerShooting>().GetBulletStrength();
         agent.speed = player.GetComponent<PlayerMovement>().GetSpeed() - 5f;
         InvokeRepeating(nameof(Shoot360), fireRate, fireRate);
         InvokeRepeating(nameof(HomingBullet), fireRateHoming, fireRateHoming);
@@ -61,10 +59,6 @@ public class Boss : MonoBehaviour
 
     void FlipEnemy(){
         spriteRenderer.flipX = player.transform.position.x > gameObject.transform.position.x;
-    }
-
-    public int GetBulletStrength(){
-        return bulletStrength;
     }
 
     void Shoot360(){
@@ -119,16 +113,16 @@ public class Boss : MonoBehaviour
     }
 
     private IEnumerator FlashColor()
-{
-    // Change the sprite color to white
-    spriteRenderer.color = Color.red;
+    {
+        // Change the sprite color to white
+        spriteRenderer.color = Color.red;
 
-    // Wait for 0.1 seconds
-    yield return new WaitForSeconds(0.1f);
+        // Wait for 0.1 seconds
+        yield return new WaitForSeconds(0.1f);
 
-    // Reset the sprite color to its original value
-    spriteRenderer.color = Color.white;
-}
+        // Reset the sprite color to its original value
+        spriteRenderer.color = Color.white;
+    }
 
     void PlayHitEffect(){
         if(dieEffect != null){

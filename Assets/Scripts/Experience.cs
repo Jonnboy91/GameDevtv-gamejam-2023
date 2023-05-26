@@ -26,7 +26,7 @@ public class Experience : MonoBehaviour
             lastPanelOpen = true;
             PauseGame();
             OpenLastPowerUpUI();
-        } else if(currentExperience == neededExperience && currentExperience != maxExperience){
+        } else if(currentExperience == neededExperience && currentExperience < maxExperience){
             PauseGame();
             OpenPowerUpUI();
             UpdateNeededExperience();
