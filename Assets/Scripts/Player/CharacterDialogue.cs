@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterDialogue : MonoBehaviour
 {
@@ -19,12 +20,36 @@ public class CharacterDialogue : MonoBehaviour
 
     void Start()
     {
-        _currentCutsceneIndex = 0;
+        CheckScene();
         _currentStringIndex = 0;
         DialogueCutsceneOne();
         DialogueCutsceneTwo();
         DialogueCutsceneThree();
         Invoke("PlayCutsceneRoutine", 2f);
+    }
+
+    void CheckScene()
+    {
+        int result = SceneManager.GetActiveScene().buildIndex;
+
+        switch (result)
+        {
+            case 0:
+            case 1:
+                _currentCutsceneIndex = 0;
+                break;
+            case 2:
+            case 3:
+                _currentCutsceneIndex = 1;
+                break;
+            case 4:
+            case 5:
+                _currentCutsceneIndex = 2;
+                break;
+            default:
+                Debug.Log("Incorect build index number");
+                break;
+        }
     }
 
     // Method to hold all the dialogue. Make sure to initialise in Start()
@@ -93,7 +118,6 @@ public class CharacterDialogue : MonoBehaviour
             UIManager.Instance.ClearTextBox();
         }
 
-        // TODO: ADD CODE HERE FOR FADING SCENE TRANSITION && TO MOVE TO NEXT SCENE
         _currentCutsceneIndex++;
         _cutsceneRoutine = null;
     }
