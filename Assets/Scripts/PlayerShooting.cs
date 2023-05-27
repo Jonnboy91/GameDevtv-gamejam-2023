@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -13,40 +14,54 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] float fireRate = 0.5f;
     [SerializeField] float startDelay = 0.5f;
     [SerializeField] float bulletLifespan = 2f;
-    [SerializeField] int bulletStrength = 1;
+    [SerializeField] float bulletStrength = 10;
+
+    private List<GameObject> maxBulletCount = new List<GameObject>();
+
 
     Coroutine firingCoroutine;
 
+    private void Awake() {
+        maxBulletCount.Capacity = 20;
+    }
     private void Start() {
         InvokeRepeating(nameof(Shoot), startDelay, fireRate);
     }
 
     void Shoot(){
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        if(maxBulletCount.Count < maxBulletCount.Capacity){
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
 
-        Vector2 fireDirection = mousePosition - (Vector2)sceneCamera.WorldToScreenPoint(bulletSpawnPoint.position);
+            Vector2 fireDirection = mousePosition - (Vector2)sceneCamera.WorldToScreenPoint(bulletSpawnPoint.position);
+            
+            fireDirection.Normalize();
+
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+            bullet.GetComponent<Rigidbody2D>().velocity = fireDirection * bulletSpeed;
+            maxBulletCount.Add(bullet);
+            Destroy(bullet, bulletLifespan);
+        }else if (maxBulletCount.Count != 0) {
+            Destroy(maxBulletCount.First());
+            maxBulletCount.RemoveAt(0);
+            Shoot();
+        }
         
-        fireDirection.Normalize();
-
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = fireDirection * bulletSpeed;
-        Destroy(bullet, bulletLifespan);
     }
 
     public void updateSpeed() {
-        bulletSpeed += 2f;
-        fireRate -= 0.1f;
+        bulletSpeed *= 1.10f;
+        fireRate *= 0.95f;
     }
 
     public void updateStrength() {
-        bulletStrength += 1;
+        bulletStrength *= 1.10f;
     }
 
     public void IncreaseBulletLifeSpan() {
-        bulletLifespan += 1;
+        bulletLifespan *= 1.10f;
     }
 
-    public int GetBulletStrength(){
+    public float GetBulletStrength(){
         return bulletStrength;
     }
 

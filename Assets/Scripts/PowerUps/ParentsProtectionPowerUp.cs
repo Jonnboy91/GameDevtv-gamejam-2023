@@ -33,6 +33,6 @@ public class ParentsProtectionPowerUp : MonoBehaviour
 
     public void ActivatePowerup()
     {
-        player.GetComponent<Health>().extraLife();
+        player.GetComponent<Health>().addHealth();
     }
 }

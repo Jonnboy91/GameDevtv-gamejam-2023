@@ -189,11 +189,11 @@ MonoBehaviour:
   sceneCamera: {fileID: 0}
   bulletPrefab: {fileID: 5373822962961376425, guid: a8b2aa9be753dfa459d7a5651dfb29f6, type: 3}
   bulletSpawnPoint: {fileID: 1289678594974190353}
-  bulletSpeed: 10
+  bulletSpeed: 20
   fireRate: 0.5
   startDelay: 0.5
-  bulletLifespan: 3
-  bulletStrength: 1
+  bulletLifespan: 2
+  bulletStrength: 10
 --- !u!114 &745240326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,15 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c828031fbc1504c877d37a2f4aa756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 3
-  enemyHealth: 1
+  healthPoints: 100
+  enemyHealth: 30
   isPlayer: 1
-  hearts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
 --- !u!114 &745240340

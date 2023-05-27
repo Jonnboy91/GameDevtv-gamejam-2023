@@ -5,16 +5,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using UnityEngine.UI;
-using System.Linq;
 
 public class Health : MonoBehaviour
 {
 
-    [SerializeField] int healthPoints = 3;
-    [SerializeField] int enemyHealth = 1;
+    [SerializeField] float healthPoints = 100f;
+    private float currentHealth = 0f;
+    [SerializeField] float enemyHealth = 30f;
     [SerializeField] bool isPlayer;
 
-    [SerializeField] List<Image> hearts;
+    [SerializeField] Slider healthBar;
+
     [SerializeField] ParticleSystem dieEffect;
 
     [SerializeField] float damageDelay = 1f;
@@ -44,31 +45,49 @@ public class Health : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void Update()
-{
-    if (!canTakeDamage)
-    {
-        damageTimer += Time.deltaTime;
-        if (damageTimer >= damageDelay)
-        {
-            canTakeDamage = true;
-            damageTimer = 0f;
+    private void Start() {
+        if(isPlayer){
+            currentHealth = healthPoints;
+            healthBar.maxValue = healthPoints;
+            updateHealth();
         }
     }
-}
 
-    public void TakeDamage(int damage){
+    private void Update()
+    {
+        if(isPlayer){
+            if (!canTakeDamage)
+            {
+                damageTimer += Time.deltaTime;
+                if (damageTimer >= damageDelay)
+                {
+                    canTakeDamage = true;
+                    damageTimer = 0f;
+                }
+            }
+        }
+    }
+
+    private void FixedUpdate() {
+        if(isPlayer){
+            Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(transform.position);
+            healthBar.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 80);
+        }
+    }
+
+    public void TakeDamage(float damage){
         StartCoroutine(FlashColor(gameObject.GetComponent<SpriteRenderer>()));
         if(isPlayer){
-            healthPoints -= damage;
-            hearts[healthPoints].enabled = false;
+            currentHealth -= damage;
+            updateHealth();
             CameraShakeManager.instance.CameraShake(impulseSource);
-            if(healthPoints <= 0){
-                healthPoints = 0;
+            if(currentHealth <= 0){
+                currentHealth = 0;
                 Die();
             }
         } else{
             enemyHealth -= damage;
+            DamageTextManager.Instance.ShowDamageText(gameObject, damage);
             if(enemyHealth <= 0){
                 enemyHealth = 0;
                 Die();
@@ -76,21 +95,25 @@ public class Health : MonoBehaviour
         }
     }
 
+    void updateHealth(){
+        healthBar.maxValue = healthPoints;
+        healthBar.value = currentHealth;
+    }
+
     private void Die()
     {
-        Destroy(gameObject);
-        PlayHitEffect();
         if(isPlayer){
             CameraShakeManager.instance.DestroyScriptInstance();
             ImaginaryFriendPowerUp.instance.DestroyScriptInstance(); // Needs this, since otherwise when starting the new level, it tries to find an instance that does not exist.
             PlayerPrefs.DeleteAll(); // TODO: Deletes all powerUps if you die! and starts the level again! Might want to have a gameOver screen and play again instead of straightaway going to level 1!
-            SceneManager.LoadScene("Level 1"); // TODO: atm just a restart if you die! Needs to be in LevelManager and just called here (since this is destroyed on death)
+            Destroy(healthBar.gameObject);
+            DieManager.instance.ReloadLevelWithDelay();
         } else {
-            if(SceneManager.GetActiveScene().name == "Level 1"){
                 experience.IncreaseExperience(1);
-            }
-            spawner.EnemyDestroyed();
+                spawner.EnemyDestroyed();
         }
+        Destroy(gameObject);
+        PlayHitEffect();
     }
 
     void PlayHitEffect(){
@@ -102,7 +125,7 @@ public class Health : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(isPlayer && (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss")){
-            TakeDamage(1);
+            TakeDamage(10);
             canTakeDamage = false;
             // Here we could play a screen shake or something to show the player that the character has been hit
         }
@@ -112,29 +135,31 @@ public class Health : MonoBehaviour
          if(isPlayer && (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss")){
             if (canTakeDamage)
             {
-                TakeDamage(1);
+                TakeDamage(10);
                 canTakeDamage = false;
             }
         }
     }
 
-    public void extraLife(){
-        if(healthPoints <= 4){
-            healthPoints += 1;
-            hearts[healthPoints - 1].enabled = true;
+    public void addHealth(){
+        float addAmount = healthPoints * 1.2f - healthPoints;
+        healthPoints *= 1.2f;
+        if(currentHealth != healthPoints){
+            currentHealth += addAmount;
         }
+        updateHealth();
     }
 
-    public int getPlayerHealth(){
+    public float getPlayerHealth(){
         return healthPoints;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(gameObject.tag == "Enemy" && other.gameObject.tag == "Bullet"){
+        if(gameObject.tag == "Enemy" && other.gameObject.tag == "Bullet" && player != null){
             TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
         }
         if(gameObject.tag == "Player" && other.gameObject.tag == "EnemyBullet" && boss != null){
-            TakeDamage(1);
+            TakeDamage(10);
         }
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 
 public class Boss : MonoBehaviour
@@ -12,8 +13,11 @@ public class Boss : MonoBehaviour
     [SerializeField] GameObject homingBulletPrefab;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] ParticleSystem dieEffect;
+    [SerializeField] Slider healthBar;
 
-    private int bossHealth = 10;
+
+    [SerializeField] float bossHealth = 10f;
+    private float bossCurrentHealth = 0f;
     private float bulletSpeed;
     private float fireRate = 2f;
     private float fireRateHoming = 2f;
@@ -41,15 +45,28 @@ public class Boss : MonoBehaviour
         fireRate -= player.GetComponent<PlayerShooting>().GetBulletFireRate();
         bulletLifespan += player.GetComponent<PlayerShooting>().GetBulletLifeSpan();
         agent.speed = player.GetComponent<PlayerMovement>().GetSpeed() - 5f;
+        bossCurrentHealth = bossHealth;
+        healthBar.maxValue = bossHealth;
+        updateHealth();
         InvokeRepeating(nameof(Shoot360), fireRate, fireRate);
         InvokeRepeating(nameof(HomingBullet), fireRateHoming, fireRateHoming);
     }
 
     void FixedUpdate() {
-        if(player != null){
+        if(player != null && gameObject != null){
             SetAgentPosition();
             FlipEnemy();         
         }
+        if(gameObject != null){
+            Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(transform.position);
+            healthBar.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 80);
+        }
+        
+    }
+
+    void updateHealth(){
+        healthBar.maxValue = bossHealth;
+        healthBar.value = bossCurrentHealth;
     }
 
     void SetAgentPosition()
@@ -58,7 +75,7 @@ public class Boss : MonoBehaviour
     }
 
     void FlipEnemy(){
-        spriteRenderer.flipX = player.transform.position.x > gameObject.transform.position.x;
+        spriteRenderer.flipX = player.transform.position.x < gameObject.transform.position.x;
     }
 
     void Shoot360(){
@@ -97,19 +114,22 @@ public class Boss : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage){
+    public void TakeDamage(float damage){
             StartCoroutine(FlashColor());
-            bossHealth -= damage;
-            if(bossHealth <= 0){
-                bossHealth = 0;
+            updateHealth();
+            bossCurrentHealth -= damage;
+            if(bossCurrentHealth <= 0){
+                bossCurrentHealth = 0;
                 Die();
             }
         }
 
     private void Die()
     {
-        Destroy(gameObject);
+        healthBar.enabled = false;
+        Destroy(healthBar.gameObject);
         PlayHitEffect();
+        Destroy(gameObject);
     }
 
     private IEnumerator FlashColor()

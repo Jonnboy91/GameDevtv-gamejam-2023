@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GetOutOfTroublePowerUp : MonoBehaviour
 {
@@ -34,5 +35,9 @@ public class GetOutOfTroublePowerUp : MonoBehaviour
     public void ActivatePowerup()
     {
         player.GetComponent<PlayerMovement>().updateSpeed();
+        if(SceneManager.GetActiveScene().name == "Level 1"){
+                player.GetComponent<EnemySpawner>().IncreaseSpawnRate();
+        }
+        
     }
 }
