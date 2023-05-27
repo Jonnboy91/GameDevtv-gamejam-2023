@@ -22,11 +22,6 @@ public class SceneManagement : MonoBehaviour
     Coroutine _nextSceneCoroutine;
 
 
-    private void Start()
-    {
-        DontDestroyOnLoad(this);    
-    }
-
     // Only loads first scene
     public void StartGame()
     {

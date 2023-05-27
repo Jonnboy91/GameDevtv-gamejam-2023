@@ -36,7 +36,7 @@ public class ColorChange : MonoBehaviour
     {
         _colorGrading.enabled.Override(true);
         if(_coroutineRunning == null)
-            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_defaultColor, _grey, 10f, true));
+            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_defaultColor, _grey, 50f, true));
     }
 
     // Grey to Color
@@ -44,7 +44,7 @@ public class ColorChange : MonoBehaviour
     {
         _colorGrading.enabled.Override(true);
         if (_coroutineRunning == null)
-            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_grey, _defaultColor, 10f, false));
+            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_grey, _defaultColor, 50f, false));
     }
 
     IEnumerator ChangeColorRoutine(float origin, float target, float duration, bool isTurningGrey)
@@ -62,9 +62,8 @@ public class ColorChange : MonoBehaviour
                 }
                 else
                 {
-                    float multiplier = -0.01f;
                     float lerpvalue = Mathf.Lerp(origin, target, time / duration);   // 0, -100, 0
-                    _colorGrading.saturation.value += (lerpvalue * multiplier);      // 0 * -0.01
+                    _colorGrading.saturation.value += (lerpvalue);      // 0 * -0.01
                     time += Time.deltaTime;
                     yield return null;
                 }
