@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void updateSpeed() {
-        moveSpeed += 2;
+        moveSpeed *= 1.2f;
     }
 
     public float GetSpeed() {

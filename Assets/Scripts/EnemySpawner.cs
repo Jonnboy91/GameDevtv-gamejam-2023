@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] List<GameObject> enemyPrefabs;  
     [SerializeField] List<GameObject> spawners;
-    [SerializeField] float spawnInterval = 2f;  
+    [SerializeField] float spawnInterval = 0.8f;  
     [SerializeField] int maxEnemies = 10;
     [SerializeField] float startDelay = 0f;    
 
@@ -35,6 +35,10 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab, spawner.transform.position, Quaternion.identity);
 
         currentEnemies++;
+    }
+
+    public void IncreaseSpawnRate(){
+        spawnInterval *= 0.8f;
     }
 
     public void EnemyDestroyed()
