@@ -39,6 +39,7 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     private void LateUpdate()
     {
+        if(player != null){
         Vector3Int currentPlayerTile = WorldToTilemapPosition(player.position);
 
         if (Mathf.Abs(currentPlayerTile.x - lastTilePosition.x) >= loadDistance - generationLoadDistance ||
@@ -48,6 +49,8 @@ public class ProceduralTilemapGenerator : MonoBehaviour
             DeleteOldTiles(currentPlayerTile);
             Surface2D.UpdateNavMesh(Surface2D.navMeshData);
         }
+        }
+       
     }
 
     private void GenerateInitialTilemap()

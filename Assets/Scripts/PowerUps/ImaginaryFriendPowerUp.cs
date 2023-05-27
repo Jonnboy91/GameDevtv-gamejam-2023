@@ -85,7 +85,10 @@ public class ImaginaryFriendPowerUp : MonoBehaviour
             Vector3 spawnPosition = player.transform.position + (Vector3.right * spawnDistance);
             imaginaryFriend = Instantiate(imaginaryFriendPrefab, spawnPosition, Quaternion.identity);
         }
-        if (bossImaginaryFriend == null && boss != null)
+        if(imaginaryFriend != null && bossImaginaryFriend == null){
+            boss = GameObject.FindGameObjectWithTag("Boss");
+        }
+        if (imaginaryFriend != null && bossImaginaryFriend == null && boss != null)
         {
             Vector3 spawnBossPosition = boss.transform.position + (Vector3.right * spawnBossDistance);
             bossImaginaryFriend = Instantiate(bossImaginaryFriendPrefab, spawnBossPosition, Quaternion.identity);

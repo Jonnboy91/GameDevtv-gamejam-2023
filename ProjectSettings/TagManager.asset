@@ -10,6 +10,8 @@ TagManager:
   - Boss
   - EnemyImaginary
   - Imaginary
+  - PostProcess
+  - BossHealth
   layers:
   - Default
   - TransparentFX

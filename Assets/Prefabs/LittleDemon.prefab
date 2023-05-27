@@ -151,14 +151,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c828031fbc1504c877d37a2f4aa756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 3
-  enemyHealth: 30
+  maxHealthPoints: 100
+  enemyHealth: 40
   isPlayer: 0
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
   experienceForKill: 5
   killDistance: 200
+  _postProcessVolume: {fileID: 0}
 --- !u!195 &4850841209906054030
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -169,7 +170,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 3
-  m_Speed: 3.5
+  m_Speed: 15
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
