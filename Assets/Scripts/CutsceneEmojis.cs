@@ -8,7 +8,7 @@ public class CutsceneEmojis : MonoBehaviour
     [SerializeField] private Sprite[] _emojiIconsSceneThree;
     private SpriteRenderer _spriteRenderer;
 
-    WaitForSeconds _emojiDelay = new WaitForSeconds(1.5f);
+    WaitForSeconds _emojiDelay = new WaitForSeconds(1.45f);
     WaitForSeconds _hideEmoji = new WaitForSeconds(1.5f);
 
     private int currentSpriteIndex = 0;
@@ -17,6 +17,7 @@ public class CutsceneEmojis : MonoBehaviour
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        Invoke("PlayEmojis", 2f);
     }
 
     // Signal call from Playable Director

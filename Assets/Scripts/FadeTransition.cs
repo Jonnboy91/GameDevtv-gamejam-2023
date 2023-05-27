@@ -21,7 +21,6 @@ public class FadeTransition : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);    
         _animator = GetComponent<Animator>();
         FadeIn();
     }
