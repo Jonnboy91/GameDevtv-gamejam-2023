@@ -116,7 +116,7 @@ public class Boss : MonoBehaviour
     }
 
     public void TakeDamage(float damage){
-            StartCoroutine(FlashColor());
+            StartCoroutine(FlashBossColor());
             updateHealth();
             bossCurrentHealth -= damage;
             if(bossCurrentHealth <= 0){
@@ -139,11 +139,17 @@ public class Boss : MonoBehaviour
         DieManager.instance.WinGame();
     }
 
-    private IEnumerator FlashColor()
+    private IEnumerator FlashBossColor()
     {
         spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        spriteRenderer.color = Color.white;
+        Color changedColor;
+        if(ColorUtility.TryParseHtmlString("#FFE500", out changedColor)){
+            yield return new WaitForSeconds(0.1f);
+            spriteRenderer.color = changedColor;
+        }else{
+             yield return new WaitForSeconds(0.1f);
+            spriteRenderer.color = Color.white;
+        }
     }
 
     void PlayHitEffect(){
