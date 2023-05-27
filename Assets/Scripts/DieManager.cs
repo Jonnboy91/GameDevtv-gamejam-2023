@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DieManager : MonoBehaviour
 {
     public static DieManager instance;
-    public float delaySeconds = 2f; // Adjust this value to set the desired delay
+    public float delaySeconds = 1f; // Adjust this value to set the desired delay
+
+    [SerializeField] GameObject panel;
 
     private void Awake()
     {
@@ -16,15 +20,43 @@ public class DieManager : MonoBehaviour
         }
     }
 
-    public void ReloadLevelWithDelay()
+    private void PauseGame()
     {
-        StartCoroutine(ReloadLevelCoroutine());
+        Time.timeScale = 0;
     }
 
-    private IEnumerator ReloadLevelCoroutine()
+    public void ReloadLevelWithDelay()
     {
-        yield return new WaitForSeconds(delaySeconds);
-        // Reload the current scene
+        PauseGame();
+        ShowCanvas();
+    }
+
+    private void ShowCanvas()
+    {
+        panel.SetActive(true);
+    }
+
+    public void TryAgain(){
+        Time.timeScale = 1;
+        panel.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void QuitGame(){
+        Time.timeScale = 1;
+        panel.SetActive(false);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void WinGame(){
+        StartCoroutine(JumpToCutScene3());
+    }
+
+    private IEnumerator JumpToCutScene3()
+    {
+        yield return new WaitForSeconds(delaySeconds);
+        // This should reload cutscene 3 // TODO: This should be done with the whole sceneManager, but for now it's here, didn't want to edit the scenemanager if you had edits there
+        SceneManager.LoadScene("MainMenu");
+    }
+
 }

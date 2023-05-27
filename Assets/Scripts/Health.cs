@@ -69,9 +69,9 @@ public class Health : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if(isPlayer){
+        if(isPlayer && healthBar != null){
             Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(transform.position);
-            healthBar.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 80);
+            healthBar.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 50);
         }
     }
 

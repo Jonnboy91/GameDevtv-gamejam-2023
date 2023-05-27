@@ -108,7 +108,7 @@ public class Boss : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Bullet"){
+        if(other.gameObject.tag == "Bullet" && player != null){
             TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
             // Right now the enemy only has one life, so they die instantly, we could have a separate life for them if we want to (I tested it, but went back to this).
         }
@@ -130,6 +130,7 @@ public class Boss : MonoBehaviour
         Destroy(healthBar.gameObject);
         PlayHitEffect();
         Destroy(gameObject);
+        DieManager.instance.WinGame();
     }
 
     private IEnumerator FlashColor()
