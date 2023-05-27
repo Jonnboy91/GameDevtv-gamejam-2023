@@ -18,20 +18,25 @@ public class Boss : MonoBehaviour
 
     [SerializeField] float bossHealth = 10f;
     private float bossCurrentHealth = 0f;
-    private float bulletSpeed;
-    private float fireRate = 2f;
-    private float fireRateHoming = 2f;
-    private float bulletLifespan = 1f;
+    [SerializeField] float bulletSpeed = 10f;
+    [SerializeField] float fireRate = 2f;
+    [SerializeField] float fireRateHoming = 2f;
+    [SerializeField] float bulletLifespan = 5f;
+    [SerializeField] float homingBulletLifeSpan = 2f;
 
-    private float bossDamage = 10f;
+    [SerializeField] float bossDamage = 10f;
 
-    private int bulletCount = 8;
+    [SerializeField] int bulletCount = 8;
 
     private GameObject player;
     private Coroutine bossFiringCoroutine;
+    float bossNormalSpeed;
 
     NavMeshAgent agent;
     private SpriteRenderer spriteRenderer;
+
+    Animator animator;
+
 
     private void Awake() {
         agent = GetComponent<NavMeshAgent>();
@@ -42,15 +47,18 @@ public class Boss : MonoBehaviour
     }
     void Start()
     {
+        animator = GetComponent<Animator>();
         bossHealth += player.GetComponent<Health>().getPlayerHealth();
         bossDamage += player.GetComponent<PlayerShooting>().GetBulletStrength();
-        bulletSpeed = player.GetComponent<PlayerShooting>().GetBulletSpeed();
+        bulletSpeed += player.GetComponent<PlayerShooting>().GetBulletSpeed();
         fireRate -= player.GetComponent<PlayerShooting>().GetBulletFireRate();
         bulletLifespan += player.GetComponent<PlayerShooting>().GetBulletLifeSpan();
         agent.speed = player.GetComponent<PlayerMovement>().GetSpeed() - 5f;
+        bossNormalSpeed = agent.speed;
         bossCurrentHealth = bossHealth;
         healthBar.maxValue = bossHealth;
         updateHealth();
+        StartCoroutine(ActivateSpecialAttack());
         InvokeRepeating(nameof(Shoot360), fireRate, fireRate);
         InvokeRepeating(nameof(HomingBullet), fireRateHoming, fireRateHoming);
     }
@@ -64,7 +72,11 @@ public class Boss : MonoBehaviour
             Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(transform.position);
             healthBar.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 80);
         }
-        
+        if(agent.speed != 0){
+            animator.SetBool("isMoving", true);
+        }else{
+            animator.SetBool("isMoving", false);
+        }
     }
 
     void updateHealth(){
@@ -84,7 +96,8 @@ public class Boss : MonoBehaviour
     void Shoot360(){
 
         float angleStep = 360f / bulletCount;
-        float currentAngle = 0f;
+        float startingAngle = Random.Range(0f, 360f); 
+        float currentAngle = startingAngle;
 
         for (int i = 0; i < bulletCount; i++)
         {
@@ -95,8 +108,30 @@ public class Boss : MonoBehaviour
             bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
             
             currentAngle += angleStep;
+            currentAngle %= 360f;
 
             Destroy(bullet, bulletLifespan);
+        }
+    }
+
+    void Shoot360Special(){
+
+        float angleStep = 360f / bulletCount;
+        float startingAngle = Random.Range(0f, 360f); 
+        float currentAngle = startingAngle;
+
+        for (int i = 0; i < bulletCount; i++)
+        {
+            Vector2 direction = Quaternion.Euler(0f, 0f, currentAngle) * Vector2.up;
+
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            bullet.GetComponent<EnemyDamage>().setEnemyDamage(bossDamage - 5f);
+            bullet.GetComponent<Rigidbody2D>().velocity = direction * (bulletSpeed + 5f);
+            
+            currentAngle += angleStep;
+            currentAngle %= 360f;
+
+            Destroy(bullet, 2.5f);
         }
     }
 
@@ -105,7 +140,21 @@ public class Boss : MonoBehaviour
         if (player != null)
         {
             GameObject bullet = Instantiate(homingBulletPrefab, transform.position, Quaternion.identity);
-            Destroy(bullet, bulletLifespan);
+            Destroy(bullet, homingBulletLifeSpan);
+        }
+    }
+
+    IEnumerator ActivateSpecialAttack()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(6f); // Wait for 5 seconds before activating special attack
+            InvokeRepeating(nameof(Shoot360Special), 1, 0.6f);
+            StartCoroutine(FlashBossColorSpecialAttack());
+            agent.speed = 0;
+            yield return new WaitForSeconds(4f); // Keep the special attack active for 2 seconds
+            CancelInvoke(nameof(Shoot360Special));
+            agent.speed = bossNormalSpeed;
         }
     }
 
@@ -148,6 +197,19 @@ public class Boss : MonoBehaviour
             spriteRenderer.color = changedColor;
         }else{
              yield return new WaitForSeconds(0.1f);
+            spriteRenderer.color = Color.white;
+        }
+    }
+
+    private IEnumerator FlashBossColorSpecialAttack()
+    {
+        spriteRenderer.color = Color.blue;
+        Color changedColor;
+        if(ColorUtility.TryParseHtmlString("#FFE500", out changedColor)){
+            yield return new WaitForSeconds(0.3f);
+            spriteRenderer.color = changedColor;
+        }else{
+             yield return new WaitForSeconds(0.3f);
             spriteRenderer.color = Color.white;
         }
     }

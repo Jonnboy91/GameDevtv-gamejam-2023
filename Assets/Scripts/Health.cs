@@ -19,6 +19,7 @@ public class Health : MonoBehaviour
     [SerializeField] ParticleSystem dieEffect;
 
     [SerializeField] float damageDelay = 1f;
+    [SerializeField] int experienceForKill = 5;
 
     EnemySpawner spawner;
     private CinemachineImpulseSource impulseSource;
@@ -110,7 +111,7 @@ public class Health : MonoBehaviour
             Destroy(healthBar.gameObject);
             DieManager.instance.ReloadLevelWithDelay();
         } else {
-                experience.IncreaseExperience(1);
+                experience.IncreaseExperience(experienceForKill);
                 spawner.EnemyDestroyed();
         }
         Destroy(gameObject);

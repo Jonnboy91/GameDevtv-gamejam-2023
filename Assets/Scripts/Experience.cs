@@ -8,8 +8,9 @@ using System.Linq;
 
 public class Experience : MonoBehaviour
 {
-    [SerializeField] int neededExperience = 1;
-    [SerializeField] int maxExperience = 4;
+    [SerializeField] int neededExperience = 60;
+    [SerializeField] int addToNeededExperience = 10;
+    [SerializeField] int maxExperience = 90;
     [SerializeField] Slider experienceSlider;
     [SerializeField] List<GameObject> panels;
     [SerializeField] GameObject lastPanel;
@@ -45,7 +46,7 @@ public class Experience : MonoBehaviour
 
     private void UpdateNeededExperience()
     {
-        neededExperience += 1;
+        neededExperience += addToNeededExperience;
         experienceSlider.maxValue = neededExperience;
     }
 

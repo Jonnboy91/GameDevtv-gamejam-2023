@@ -1565,10 +1565,6 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1037753409}
-    - target: {fileID: 745240326, guid: c435d6fd24ce53b44b7f9acbd90bbb79, type: 3}
-      propertyPath: healthPoints
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 1289678593409138191, guid: c435d6fd24ce53b44b7f9acbd90bbb79, type: 3}
       propertyPath: m_Name
       value: PlayerBossLevel
@@ -3240,7 +3236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1289678593409138194, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 65.8
+      value: 56.3
       objectReference: {fileID: 0}
     - target: {fileID: 1289678593409138194, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3283,8 +3279,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1172237122}
     - target: {fileID: 3288757844852605318, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
+      propertyPath: bossDamage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288757844852605318, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
       propertyPath: bossHealth
-      value: 100
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288757844852605318, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
+      propertyPath: bulletCount
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288757844852605318, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
+      propertyPath: bulletSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288757844852605318, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
+      propertyPath: bulletLifespan
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288757844852605318, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
+      propertyPath: fireRateHoming
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288757844852605318, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
+      propertyPath: homingBulletLifeSpan
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
