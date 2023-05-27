@@ -8,6 +8,8 @@ TagManager:
   - Bullet
   - EnemyBullet
   - Boss
+  - EnemyImaginary
+  - Imaginary
   layers:
   - Default
   - TransparentFX

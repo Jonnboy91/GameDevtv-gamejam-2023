@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 926504526554731156}
   - component: {fileID: 2703616431869926996}
   - component: {fileID: 6257787157095520958}
+  - component: {fileID: -250093510465105371}
   m_Layer: 0
   m_Name: OgreDemon
   m_TagString: Enemy
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0091de04140fda74293fd0d9627bc548, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -140,12 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 3
-  enemyHealth: 30
+  enemyHealth: 10
   isPlayer: 0
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
-  damageTextPrefab: {fileID: 4187628744697266712, guid: 6badfab2088e2d54ca2786957e49b02f, type: 3}
 --- !u!114 &2703616431869926996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +179,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-250093510465105371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2558065372743428053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8b649203efb85409bffbcc5e83c380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDamage: 20

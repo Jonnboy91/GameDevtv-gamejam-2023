@@ -5,7 +5,7 @@ using UnityEngine;
 public class HomingBullet : MonoBehaviour
 {
     public float speed = 25f;
-    private GameObject player; // Reference to the player GameObject
+    private GameObject player;
     public float rotateSpeed = 200f;
 
     private Rigidbody2D rb;

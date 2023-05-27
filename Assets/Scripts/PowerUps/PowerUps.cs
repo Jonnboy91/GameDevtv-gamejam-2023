@@ -15,7 +15,6 @@ public class PowerUps : MonoBehaviour
 
     // TODO: Add PlayerPrefs.DeleteAll() to start game button! IMPORTANT!
     private void Awake() {
-        // These needs to be setup so that it checks if the powerup has been chosen and if so then this can be activated.
         if(PlayerPrefs.GetInt("Imaginary") == 1){ // Childhood 1
             ImaginaryFriendPowerUp.instance.ActivatePowerup();
         }

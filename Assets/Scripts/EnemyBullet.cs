@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag != "Boss" && other.gameObject.tag != "EnemyBullet"){
+        if(other.gameObject.tag != "Boss" && other.gameObject.tag != "EnemyBullet" && other.gameObject.tag != "Bullet" && other.gameObject.tag != "EnemyImaginary"){
             Destroy(gameObject);
         }
     }         
