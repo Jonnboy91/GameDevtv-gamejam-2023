@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: f759ff5e5aa782440bef1003209e5547, type: 3}
   m_Color: {r: 1, g: 0.8980392, b: 0, a: 1}
   m_FlipX: 0
@@ -220,6 +220,13 @@ MonoBehaviour:
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   healthBar: {fileID: 0}
   bossHealth: 10
+  bulletSpeed: 10
+  fireRate: 2
+  fireRateHoming: 2
+  bulletLifespan: 5
+  homingBulletLifeSpan: 2
+  bossDamage: 10
+  bulletCount: 8
 --- !u!1 &1289678594974190352
 GameObject:
   m_ObjectHideFlags: 0

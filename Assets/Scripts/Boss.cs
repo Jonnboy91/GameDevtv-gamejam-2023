@@ -148,11 +148,11 @@ public class Boss : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(6f); // Wait for 5 seconds before activating special attack
+            yield return new WaitForSeconds(Random.Range(3, 6));
             InvokeRepeating(nameof(Shoot360Special), 1, 0.6f);
             StartCoroutine(FlashBossColorSpecialAttack());
             agent.speed = 0;
-            yield return new WaitForSeconds(4f); // Keep the special attack active for 2 seconds
+            yield return new WaitForSeconds(Random.Range(3, 6)); // Keep the special attack active for 2 seconds
             CancelInvoke(nameof(Shoot360Special));
             agent.speed = bossNormalSpeed;
         }
@@ -206,10 +206,10 @@ public class Boss : MonoBehaviour
         spriteRenderer.color = Color.blue;
         Color changedColor;
         if(ColorUtility.TryParseHtmlString("#FFE500", out changedColor)){
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.5f);
             spriteRenderer.color = changedColor;
         }else{
-             yield return new WaitForSeconds(0.3f);
+             yield return new WaitForSeconds(0.5f);
             spriteRenderer.color = Color.white;
         }
     }

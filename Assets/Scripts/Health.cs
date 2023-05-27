@@ -21,6 +21,8 @@ public class Health : MonoBehaviour
     [SerializeField] float damageDelay = 1f;
     [SerializeField] int experienceForKill = 5;
 
+    [SerializeField] float killDistance = 200f;
+
     EnemySpawner spawner;
     private CinemachineImpulseSource impulseSource;
 
@@ -66,6 +68,9 @@ public class Health : MonoBehaviour
                     damageTimer = 0f;
                 }
             }
+        }
+        if(!isPlayer){
+            KillIfTooFar();
         }
     }
 
@@ -149,6 +154,16 @@ public class Health : MonoBehaviour
             {
                 TakeDamage(other.gameObject.GetComponent<Boss>().GetDamage());
                 canTakeDamage = false;
+            }
+        }
+    }
+
+    private void KillIfTooFar(){
+        if(!isPlayer){
+            float distance = Vector2.Distance(transform.position, player.transform.position);
+            if(distance > killDistance){
+                spawner.EnemyDestroyed();
+                Destroy(gameObject);
             }
         }
     }

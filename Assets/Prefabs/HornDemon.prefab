@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 8919a01aa3e92e041b0b043a5e557318, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -158,6 +158,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
+  experienceForKill: 5
+  killDistance: 200
 --- !u!95 &8569396542753361777
 Animator:
   serializedVersion: 5
@@ -191,3 +193,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8b649203efb85409bffbcc5e83c380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyDamage: 10
