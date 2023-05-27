@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterDialogue : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class CharacterDialogue : MonoBehaviour
     private int _currentStringIndex = 0;
     private int _currentCutsceneIndex = 0;
 
-    private WaitForSeconds _blankFinalTime = new WaitForSeconds(1.0f);
     private WaitForSeconds _clearTextBoxDelay = new WaitForSeconds(1.25f);
     private WaitForSeconds _textDelayTime = new WaitForSeconds(0.05f);
     private Coroutine _cutsceneRoutine;
@@ -20,11 +20,36 @@ public class CharacterDialogue : MonoBehaviour
 
     void Start()
     {
-        _currentCutsceneIndex = 0;
+        CheckScene();
         _currentStringIndex = 0;
         DialogueCutsceneOne();
         DialogueCutsceneTwo();
         DialogueCutsceneThree();
+        Invoke("PlayCutsceneRoutine", 2f);
+    }
+
+    void CheckScene()
+    {
+        int result = SceneManager.GetActiveScene().buildIndex;
+
+        switch (result)
+        {
+            case 0:
+            case 1:
+                _currentCutsceneIndex = 0;
+                break;
+            case 2:
+            case 3:
+                _currentCutsceneIndex = 1;
+                break;
+            case 4:
+            case 5:
+                _currentCutsceneIndex = 2;
+                break;
+            default:
+                Debug.Log("Incorect build index number");
+                break;
+        }
     }
 
     // Method to hold all the dialogue. Make sure to initialise in Start()
@@ -38,13 +63,13 @@ public class CharacterDialogue : MonoBehaviour
         _dialogueOne[4] = $"But, as time went by, he started to experience increased feelings of anger, frustration and sadness.";
         _dialogueOne[5] = $"He continued to repress and push these feelings down hoping they would eventually stay down, never to reappear.";
         _dialogueOne[6] = $"Until one day, when it all became too much, and the World as he knew it had lost all it's color...";
-        _dialogueOne[7] = $"Unable to move and overwhelmed with his emotions, {_firstName} felt his demons come flooding back and he knew it was time to face them head on!";
+        _dialogueOne[7] = $"Overwhelmed with his emotions, {_firstName} felt his demons come flooding back and he knew it was time to face them head on!";
     }
 
     // Finishes the remaining walk to the Therapists office - Grey
     void DialogueCutsceneTwo()
     {
-        _dialogueTwo[0] = $"Overwhelmed with his emotions, {_firstName} knew he needed some help with his issues and sought out his Therapist.";
+        _dialogueTwo[0] = $"It was at this point, {_firstName} knew he needed some help with his issues and sought out his Therapist.";
         _dialogueTwo[1] = $"* Jacob enters his Therapists office *";
     }
 
@@ -93,7 +118,6 @@ public class CharacterDialogue : MonoBehaviour
             UIManager.Instance.ClearTextBox();
         }
 
-        // TODO: ADD CODE HERE FOR FADING SCENE TRANSITION && TO MOVE TO NEXT SCENE
         _currentCutsceneIndex++;
         _cutsceneRoutine = null;
     }

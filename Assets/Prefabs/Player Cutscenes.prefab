@@ -115,7 +115,17 @@ MonoBehaviour:
   - {fileID: -1044776565, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
   - {fileID: -544345820, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
   - {fileID: -472634007, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+  - {fileID: 384747513, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+  _emojiIconsSceneTwo:
+  - {fileID: -237008116, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+  - {fileID: 1849717463, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
   - {fileID: 276451560, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+  _emojiIconsSceneThree:
+  - {fileID: 818300080, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+  - {fileID: 314132174, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+  - {fileID: 201802745, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+  - {fileID: 818300080, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
+  - {fileID: 158695799, guid: b174d15c7c2ebd9418883ba5d2739174, type: 3}
 --- !u!1 &4318101289435219782
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,9 +138,10 @@ GameObject:
   - component: {fileID: 8650043180155395209}
   - component: {fileID: 4318101289435219802}
   - component: {fileID: 4318101289435219801}
-  - component: {fileID: 4318101289435219800}
   - component: {fileID: 3028989503146643952}
   - component: {fileID: 3028989503146643848}
+  - component: {fileID: 7703550853046807464}
+  - component: {fileID: 1597479051465477501}
   m_Layer: 0
   m_Name: Player Cutscenes
   m_TagString: Player
@@ -257,19 +268,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &4318101289435219800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4318101289435219782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb9c22fe189f0be4a8b64577e245961d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0.5
 --- !u!95 &3028989503146643952
 Animator:
   serializedVersion: 5
@@ -303,3 +301,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac72b52eaf5f2d84987af342f76816c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7703550853046807464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4318101289435219782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29bc42ac1a4ebe4bb2ac3ecbea5b938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.5
+--- !u!70 &1597479051465477501
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4318101289435219782}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.12, y: 0.16}
+  m_Direction: 0
