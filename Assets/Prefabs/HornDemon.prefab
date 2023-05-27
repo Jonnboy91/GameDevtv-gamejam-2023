@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3959165052692963243}
   - component: {fileID: 5280127297730938495}
   - component: {fileID: 8569396542753361777}
+  - component: {fileID: -4995273664150322529}
   m_Layer: 0
   m_Name: HornDemon
   m_TagString: Enemy
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 3
-  enemyHealth: 30
+  enemyHealth: 20
   isPlayer: 0
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
@@ -178,3 +179,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-4995273664150322529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7177419999158081769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8b649203efb85409bffbcc5e83c380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

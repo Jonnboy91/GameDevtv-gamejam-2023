@@ -70,6 +70,14 @@ public class ImaginaryFriendPowerUp : MonoBehaviour
         }
     }
 
+    public void DestroyImaginaryFriend(bool isPlayerFriend){
+        if(isPlayerFriend){
+            Destroy(imaginaryFriend);
+        }else{
+            Destroy(bossImaginaryFriend);
+        }
+    }
+
     public void ActivatePowerup()
     {
         if (imaginaryFriend == null)

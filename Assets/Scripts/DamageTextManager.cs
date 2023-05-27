@@ -29,20 +29,19 @@ public class DamageTextManager : MonoBehaviour
     public void ShowDamageText(GameObject enemyPosition, float damage){
 
         if(activeDamageTexts.Count < activeDamageTexts.Capacity){
-            // Create a new damage text object dynamically
-            GameObject damageTextObject = Instantiate(damageTextPrefab, FindObjectOfType<Canvas>().transform);
+            GameObject damageTextObject = Instantiate(damageTextPrefab, GameObject.Find("GamePlayUI").transform);
             activeDamageTexts.Add(damageTextObject);
             TextMeshProUGUI damageText = damageTextObject.GetComponent<TextMeshProUGUI>();
             if (damageText != null)
             {
-                Vector3 damageTextPosition = enemyPosition.transform.position + Vector3.up * 1.5f; // Adjust the position offset as needed
+                Vector3 damageTextPosition = enemyPosition.transform.position + Vector3.up * 1.5f;
                 damageTextObject.transform.position = Camera.main.WorldToScreenPoint(damageTextPosition);
                 damageText.text = damage.ToString();
                 damageText.gameObject.SetActive(true);
                 StartCoroutine(HideDamageText(damageTextObject));
             }
             else{
-                Destroy(damageTextObject); // Destroy the text object if the Text component is not found
+                Destroy(damageTextObject);
             }
         }else if(activeDamageTexts.Count != 0){
             Destroy(activeDamageTexts.First());
@@ -54,7 +53,7 @@ public class DamageTextManager : MonoBehaviour
 
     private IEnumerator HideDamageText(GameObject damageTextObject)
     {
-        yield return new WaitForSeconds(0.5f); // Adjust the duration as needed
+        yield return new WaitForSeconds(0.5f);
         Destroy(damageTextObject);
     }
 }

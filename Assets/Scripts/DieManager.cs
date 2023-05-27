@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class DieManager : MonoBehaviour
 {
     public static DieManager instance;
-    public float delaySeconds = 1f; // Adjust this value to set the desired delay
+    public float delaySeconds = 1f;
 
     [SerializeField] GameObject panel;
 
@@ -27,11 +27,17 @@ public class DieManager : MonoBehaviour
 
     public void ReloadLevelWithDelay()
     {
-        PauseGame();
-        ShowCanvas();
+        StartCoroutine(showPanelWithDelay());
     }
 
-    private void ShowCanvas()
+    private IEnumerator showPanelWithDelay()
+    {
+        yield return new WaitForSeconds(delaySeconds);
+        PauseGame();
+        ShowPanel();
+    }
+
+    private void ShowPanel()
     {
         panel.SetActive(true);
     }

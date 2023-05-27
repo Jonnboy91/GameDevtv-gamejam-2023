@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4850841209906054028}
   - component: {fileID: 4850841209906054029}
   - component: {fileID: 4850841209906054030}
+  - component: {fileID: -5208017459684423959}
   m_Layer: 0
   m_Name: LittleDemon
   m_TagString: Enemy
@@ -178,3 +179,16 @@ NavMeshAgent:
   m_BaseOffset: 4
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-5208017459684423959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850841209906054031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8b649203efb85409bffbcc5e83c380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDamage: 15

@@ -104,8 +104,9 @@ public class Health : MonoBehaviour
     {
         if(isPlayer){
             CameraShakeManager.instance.DestroyScriptInstance();
+            ImaginaryFriendPowerUp.instance.DestroyImaginaryFriend(true);
             ImaginaryFriendPowerUp.instance.DestroyScriptInstance(); // Needs this, since otherwise when starting the new level, it tries to find an instance that does not exist.
-            PlayerPrefs.DeleteAll(); // TODO: Deletes all powerUps if you die! and starts the level again! Might want to have a gameOver screen and play again instead of straightaway going to level 1!
+            PlayerPrefs.DeleteAll();
             Destroy(healthBar.gameObject);
             DieManager.instance.ReloadLevelWithDelay();
         } else {
@@ -124,18 +125,28 @@ public class Health : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if(isPlayer && (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss")){
-            TakeDamage(10);
+        if(isPlayer && other.gameObject.tag == "Enemy"){
+            TakeDamage(other.gameObject.GetComponent<EnemyDamage>().GetDamage());
             canTakeDamage = false;
-            // Here we could play a screen shake or something to show the player that the character has been hit
+        }
+        if(isPlayer && other.gameObject.tag == "Boss"){
+            TakeDamage(other.gameObject.GetComponent<Boss>().GetDamage());
+            canTakeDamage = false;
         }
     }
 
     private void OnCollisionStay2D(Collision2D other) {
-         if(isPlayer && (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss")){
+         if(isPlayer && other.gameObject.tag == "Enemy"){
             if (canTakeDamage)
             {
-                TakeDamage(10);
+                TakeDamage(other.gameObject.GetComponent<EnemyDamage>().GetDamage());
+                canTakeDamage = false;
+            }
+        }
+        if(isPlayer && other.gameObject.tag == "Boss"){
+            if (canTakeDamage)
+            {
+                TakeDamage(other.gameObject.GetComponent<Boss>().GetDamage());
                 canTakeDamage = false;
             }
         }
@@ -155,23 +166,18 @@ public class Health : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(gameObject.tag == "Enemy" && other.gameObject.tag == "Bullet" && player != null){
+        if(gameObject.tag == "Enemy" && (other.gameObject.tag == "Bullet" || other.gameObject.tag == "Imaginary") && player != null){
             TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
         }
-        if(gameObject.tag == "Player" && other.gameObject.tag == "EnemyBullet" && boss != null){
-            TakeDamage(10);
+        if(gameObject.tag == "Player" && (other.gameObject.tag == "EnemyBullet" || other.gameObject.tag == "EnemyImaginary") && boss != null){
+            TakeDamage(other.gameObject.GetComponent<EnemyDamage>().GetDamage());
         }
     }
 
     private IEnumerator FlashColor(SpriteRenderer spriteRenderer)
     {
-        // Change the sprite color to white
         spriteRenderer.color = Color.red;
-
-        // Wait for 0.1 seconds
         yield return new WaitForSeconds(0.1f);
-
-        // Reset the sprite color to its original value
         spriteRenderer.color = Color.white;
     }
 

@@ -1565,6 +1565,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1037753409}
+    - target: {fileID: 745240326, guid: c435d6fd24ce53b44b7f9acbd90bbb79, type: 3}
+      propertyPath: healthPoints
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1289678593409138191, guid: c435d6fd24ce53b44b7f9acbd90bbb79, type: 3}
       propertyPath: m_Name
       value: PlayerBossLevel
@@ -3227,12 +3231,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1289678593409138194, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289678593409138194, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1289678593409138194, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.247606
+      value: 65.8
       objectReference: {fileID: 0}
     - target: {fileID: 1289678593409138194, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0171022
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1289678593409138194, guid: baca1aa5a7cce9343b7ce0303058df44, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5373,11 +5385,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b110b2ca95b6c345be9d8766fb478e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imaginaryFriendPrefab: {fileID: 1094567780555737115, guid: ff310384cef100e498453b9b6c97f6b4, type: 3}
-  bossImaginaryFriendPrefab: {fileID: 0}
-  rotationSpeed: 60
-  spawnDistance: 5
-  spawnBossDistance: 20
+  imaginaryFriendPrefab: {fileID: 4980015125858696410, guid: e58707be53ce181488598d8a2e9999f8, type: 3}
+  bossImaginaryFriendPrefab: {fileID: 4980015125858696410, guid: 6cce9ec873ad54742bd2bf905239489d, type: 3}
+  rotationSpeed: 100
+  spawnDistance: 15
+  spawnBossDistance: 25
 --- !u!4 &1253719557
 Transform:
   m_ObjectHideFlags: 0

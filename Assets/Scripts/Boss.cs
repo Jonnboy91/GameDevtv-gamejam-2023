@@ -23,6 +23,8 @@ public class Boss : MonoBehaviour
     private float fireRateHoming = 2f;
     private float bulletLifespan = 1f;
 
+    private float bossDamage = 10f;
+
     private int bulletCount = 8;
 
     private GameObject player;
@@ -41,6 +43,7 @@ public class Boss : MonoBehaviour
     void Start()
     {
         bossHealth += player.GetComponent<Health>().getPlayerHealth();
+        bossDamage += player.GetComponent<PlayerShooting>().GetBulletStrength();
         bulletSpeed = player.GetComponent<PlayerShooting>().GetBulletSpeed();
         fireRate -= player.GetComponent<PlayerShooting>().GetBulletFireRate();
         bulletLifespan += player.GetComponent<PlayerShooting>().GetBulletLifeSpan();
@@ -85,13 +88,12 @@ public class Boss : MonoBehaviour
 
         for (int i = 0; i < bulletCount; i++)
         {
-            // Calculate the direction of the bullet
             Vector2 direction = Quaternion.Euler(0f, 0f, currentAngle) * Vector2.up;
 
-            // Instantiate bullet prefab and set its position and direction
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            bullet.GetComponent<EnemyDamage>().setEnemyDamage(bossDamage);
             bullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-
+            
             currentAngle += angleStep;
 
             Destroy(bullet, bulletLifespan);
@@ -108,9 +110,8 @@ public class Boss : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Bullet" && player != null){
+        if((other.gameObject.tag == "Bullet"  || other.gameObject.tag == "Imaginary") && player != null){
             TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
-            // Right now the enemy only has one life, so they die instantly, we could have a separate life for them if we want to (I tested it, but went back to this).
         }
     }
 
@@ -122,26 +123,26 @@ public class Boss : MonoBehaviour
                 bossCurrentHealth = 0;
                 Die();
             }
-        }
+    }
+
+    public float GetDamage(){
+        return bossDamage;
+    }
 
     private void Die()
     {
         healthBar.enabled = false;
         Destroy(healthBar.gameObject);
         PlayHitEffect();
+        ImaginaryFriendPowerUp.instance.DestroyImaginaryFriend(false);
         Destroy(gameObject);
         DieManager.instance.WinGame();
     }
 
     private IEnumerator FlashColor()
     {
-        // Change the sprite color to white
         spriteRenderer.color = Color.red;
-
-        // Wait for 0.1 seconds
         yield return new WaitForSeconds(0.1f);
-
-        // Reset the sprite color to its original value
         spriteRenderer.color = Color.white;
     }
 

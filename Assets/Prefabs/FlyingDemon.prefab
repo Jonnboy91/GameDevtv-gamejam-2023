@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4061168897680347239}
   - component: {fileID: 4061168897680347237}
   - component: {fileID: 4061168897680347226}
+  - component: {fileID: -3059240398968434104}
   m_Layer: 0
   m_Name: FlyingDemon
   m_TagString: Enemy
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 3
-  enemyHealth: 30
+  enemyHealth: 15
   isPlayer: 0
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
@@ -178,3 +179,16 @@ NavMeshAgent:
   m_BaseOffset: 2.5
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-3059240398968434104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4061168897680347235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8b649203efb85409bffbcc5e83c380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDamage: 5
