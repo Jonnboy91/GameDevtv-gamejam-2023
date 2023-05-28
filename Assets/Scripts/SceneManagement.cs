@@ -40,8 +40,10 @@ public class SceneManagement : MonoBehaviour
 
     IEnumerator NextSceneRoutine()
     {
-        yield return new WaitForSeconds(2.0f);
+        Debug.Log("Test 01");
+        yield return new WaitForSeconds(1.5f);
 
+        Debug.Log("Test 02");
         if (SceneManager.GetActiveScene().buildIndex < 5)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
