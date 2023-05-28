@@ -71,10 +71,10 @@ public class CutsceneEmojis : MonoBehaviour
 
     IEnumerator ShowEmojisCutsceneThreeRoutine()
     {
-        while (currentSpriteIndex < _emojiIconsSceneTwo.Length)
+        while (currentSpriteIndex < _emojiIconsSceneThree.Length)
         {
             yield return _hideEmoji;    // Wait 2 seconds
-            _spriteRenderer.sprite = _emojiIconsSceneTwo[currentSpriteIndex];
+            _spriteRenderer.sprite = _emojiIconsSceneThree[currentSpriteIndex];
             yield return _emojiDelay;   // Wait 2 seconds
             _spriteRenderer.sprite = null;
             currentSpriteIndex++;
