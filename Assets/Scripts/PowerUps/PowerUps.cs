@@ -16,7 +16,9 @@ public enum PowerUpEnums {
         Love,
         Pay,
         Independence,
-        Popeye
+        Popeye,
+        Twin,
+        DoNotGiveUp
     }
 
 public class PowerUps : MonoBehaviour
@@ -27,7 +29,7 @@ public class PowerUps : MonoBehaviour
     [SerializeField] GameObject powerUpPanel;
     [SerializeField] List<Button> powerUpButtons;
 
-    List<PowerUpEnums> possiblePowerUps = new List<PowerUpEnums> { PowerUpEnums.Imaginary, PowerUpEnums.Sugar, PowerUpEnums.Parents, PowerUpEnums.Trouble, PowerUpEnums.Angst, PowerUpEnums.Love, PowerUpEnums.Pay, PowerUpEnums.Independence, PowerUpEnums.Popeye};
+    List<PowerUpEnums> possiblePowerUps = new List<PowerUpEnums> { PowerUpEnums.Imaginary, PowerUpEnums.Sugar, PowerUpEnums.Parents, PowerUpEnums.Trouble, PowerUpEnums.Angst, PowerUpEnums.Love, PowerUpEnums.Pay, PowerUpEnums.Independence, PowerUpEnums.Popeye, PowerUpEnums.Twin, PowerUpEnums.DoNotGiveUp};
 
     // TODO: Add PlayerPrefs.DeleteAll() to start game button! IMPORTANT!
 
@@ -36,32 +38,42 @@ public class PowerUps : MonoBehaviour
         if(instance == null){
             instance = this;
         }
-        if(PlayerPrefs.GetInt("Imaginary") == 1){ // Childhood 1
+    }
+    
+    private void Start() {
+        
+        if(PlayerPrefs.GetInt("Imaginary") == 1){
             ImaginaryFriendPowerUp.instance.ActivatePowerup();
         }
-        if(PlayerPrefs.GetInt("Sugar") == 1){ // Childhood 2
+        if(PlayerPrefs.GetInt("Sugar") == 1){
             SugarRushPowerUp.instance.ActivatePowerup();
         }
-        if(PlayerPrefs.GetInt("Parents") == 1){ // Childhood 3
+        if(PlayerPrefs.GetInt("Parents") == 1){
             ParentsProtectionPowerUp.instance.ActivatePowerup();
         }
-        if(PlayerPrefs.GetInt("Trouble") == 1){ // Adolescence  1
+        if(PlayerPrefs.GetInt("Trouble") == 1){
             GetOutOfTroublePowerUp.instance.ActivatePowerup();
         }
-        if(PlayerPrefs.GetInt("Angst") == 1){ // Adolescence  2
+        if(PlayerPrefs.GetInt("Angst") == 1){
             TeenageAngstPowerUp.instance.ActivatePowerup();
         }
-        if(PlayerPrefs.GetInt("Love") == 1){ // Adolescence  3
+        if(PlayerPrefs.GetInt("Love") == 1){
             FirstLovePowerUp.instance.ActivatePowerup();
         }
-        if(PlayerPrefs.GetInt("Pay") == 1){ // Adult 1
+        if(PlayerPrefs.GetInt("Pay") == 1){
             PayRisePowerUp.instance.ActivatePowerup();
         }
-        if(PlayerPrefs.GetInt("Independence") == 1){ // Adult 2
+        if(PlayerPrefs.GetInt("Independence") == 1){
             IndepencePowerUp.instance.ActivatePowerup();
         }
-        if(PlayerPrefs.GetInt("Popeye") == 1){ // Adult 3
+        if(PlayerPrefs.GetInt("Popeye") == 1){
             PopeyePowerUp.instance.ActivatePowerup();
+        }
+        if(PlayerPrefs.GetInt("Twin") == 1){
+            TwinPowerUp.instance.ActivatePowerup();
+        }
+         if(PlayerPrefs.GetInt("DoNotGiveUp") == 1){
+            DoNotGiveUpPowerUp.instance.ActivatePowerup();
         }
     }
 
@@ -135,6 +147,14 @@ public class PowerUps : MonoBehaviour
             case PowerUpEnums.Popeye:
                 SetPowerButtonText(button, "Popeye", "Increase strength");
                 button.onClick.AddListener(delegate {ChoosePopeyePowerUp(isLastPanel);});
+                break;
+            case PowerUpEnums.Twin:
+                SetPowerButtonText(button, "Twin", "Double the trouble");
+                button.onClick.AddListener(delegate {ChooseTwinPowerUp(isLastPanel);});
+                break;
+            case PowerUpEnums.DoNotGiveUp:
+                SetPowerButtonText(button, "DoNotGiveUp", "Bullet doesn't destroy itself on first hit");
+                button.onClick.AddListener(delegate {ChooseDoNotGiveUpPowerUp(isLastPanel);});
                 break;
             default:
                 Debug.Log("SHOULD GET HERE AT ALL IN ANY POINT! CHECK IF HERE AT ANY POINT! POWERUPS.CS SCRIPT");
@@ -234,8 +254,28 @@ public class PowerUps : MonoBehaviour
         }
     }
 
+    public void ChooseTwinPowerUp(bool isLastPanel){
+        PlayerPrefs.SetInt("Twin", 1);
+        TwinPowerUp.instance.ActivatePowerup();
+        possiblePowerUps.Remove(PowerUpEnums.Twin);
+        if(isLastPanel){
+            JumpToCutScene();
+        }else{
+            ContinueGame();
+        }
+    }
+    public void ChooseDoNotGiveUpPowerUp(bool isLastPanel){
+        PlayerPrefs.SetInt("DoNotGiveUp", 1);
+        DoNotGiveUpPowerUp.instance.ActivatePowerup();
+        possiblePowerUps.Remove(PowerUpEnums.DoNotGiveUp);
+        if(isLastPanel){
+            JumpToCutScene();
+        }else{
+            ContinueGame();
+        }
+    }
+
     private void ContinueGame(){
-        Debug.Log("BUTTON PRESSED");
         powerUpPanel.SetActive(false);
         Time.timeScale = 1;
     }
@@ -243,6 +283,6 @@ public class PowerUps : MonoBehaviour
     private void JumpToCutScene()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Boss");
+        SceneManager.LoadScene("Cutscene 2");
     }
 }

@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeenageAngstPowerUp : MonoBehaviour
+public class TwinPowerUp : MonoBehaviour
 {
-    public static TeenageAngstPowerUp instance;
+
+    public static TwinPowerUp instance;
 
     private GameObject player;
 
@@ -24,6 +25,6 @@ public class TeenageAngstPowerUp : MonoBehaviour
 
     public void ActivatePowerup()
     {
-        player.GetComponent<PlayerShooting>().updateStrength();
+        player.GetComponent<PlayerShooting>().DoubleTheBullets();
     }
 }

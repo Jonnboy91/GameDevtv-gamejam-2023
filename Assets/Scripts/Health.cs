@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
 
     [SerializeField] float damageDelay = 1f;
 
-    [SerializeField] float killDistance = 175f;
+    [SerializeField] float killDistance = 150f;
 
     EnemySpawner spawner;
     private CinemachineImpulseSource impulseSource;
@@ -128,8 +128,11 @@ public class Health : MonoBehaviour
             CameraShakeManager.instance.DestroyScriptInstance();
             ImaginaryFriendPowerUp.instance.DestroyImaginaryFriend(true);
             ImaginaryFriendPowerUp.instance.DestroyScriptInstance(); // Needs this, since otherwise when starting the new level, it tries to find an instance that does not exist.
-            PlayerPrefs.DeleteAll();
+            TwinPowerUp.instance.DestroyScriptInstance();
             Destroy(healthBar.gameObject);
+            if(SceneManager.GetActiveScene().name == "Level 1"){
+                PlayerPrefs.DeleteAll();
+            }
             DieManager.instance.ReloadLevelWithDelay();
         } else {
                 experience.IncreaseExperience(5);

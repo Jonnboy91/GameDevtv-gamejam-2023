@@ -61,8 +61,7 @@ public class DieManager : MonoBehaviour
     private IEnumerator JumpToCutScene3()
     {
         yield return new WaitForSeconds(delaySeconds);
-        // This should reload cutscene 3 // TODO: This should be done with the whole sceneManager, but for now it's here, didn't want to edit the scenemanager if you had edits there
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("CutScene 3");
     }
 
 }
