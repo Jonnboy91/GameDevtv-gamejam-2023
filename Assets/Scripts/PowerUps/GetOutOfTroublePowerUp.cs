@@ -5,15 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GetOutOfTroublePowerUp : MonoBehaviour
 {
-    /*  Might need to set it up in one PowerUp script that's on the player,
-   since this way it's cleaner and only one instance is created,
-   BUT you need to have this "manager" script in all of the scenes,
-   where it COULD be used by the player and it will create the instance,
-   not sure how taxing that is for the system. 
-   AND this would have to be for all the 9 different powerups 
-   (obviously on childhood there would be none, adolesence there 
-   would be 3 adulthood 6 and final boss would have the 9) */
-
     public static GetOutOfTroublePowerUp instance;
 
     private GameObject player;

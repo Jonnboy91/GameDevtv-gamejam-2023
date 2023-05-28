@@ -197,7 +197,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 1289678594974190353}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   SpecialAttackEffect: {fileID: 2712391175953504141, guid: a24aa2232ab91ca4ba52f61310777d0a, type: 3}
-  bossHealth: 1000
+  bossHealth: 1500
   bulletSpeed: 15
   fireRate: 2
   fireRateHoming: 2
@@ -216,9 +216,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 105
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

@@ -18,7 +18,7 @@ public class Boss : MonoBehaviour
 
 
 
-    [SerializeField] float bossHealth = 1000f;
+    [SerializeField] float bossHealth = 1500f;
     private float bossCurrentHealth = 0f;
     [SerializeField] float bulletSpeed = 15f;
     [SerializeField] float fireRate = 2f;
@@ -176,11 +176,19 @@ public class Boss : MonoBehaviour
             agent.speed = 0;
             agent.isStopped = true;
             InvokeRepeating(nameof(Shoot360Special), 0.5f, 0.5f);
-            yield return new WaitForSeconds(randomNumber); // Keeps the special attack on for a randomTime
+            yield return new WaitForSeconds(randomNumber); // Keeps the special attack on for the same randomTime as the wait for it was
             doingSpecialAttack = false;
             CancelInvoke(nameof(Shoot360Special));
             agent.speed = bossNormalSpeed;
             agent.isStopped = false;
+            int randomNumber2 = Random.Range(5,7);
+            yield return new WaitForSeconds(randomNumber2);
+            StartCoroutine(ChangeBossColorSpecialAttack(3));
+            animator.SetBool("specialAttack", true);
+            agent.speed = 100;
+            yield return new WaitForSeconds(3);
+            animator.SetBool("specialAttack", false);
+            agent.speed = bossNormalSpeed;
         }
     }
 

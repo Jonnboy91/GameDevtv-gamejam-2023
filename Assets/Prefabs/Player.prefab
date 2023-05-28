@@ -221,7 +221,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
-  killDistance: 175
+  killDistance: 150
   _postProcessVolume: {fileID: 0}
 --- !u!114 &745240340
 MonoBehaviour:
@@ -338,8 +338,8 @@ MonoBehaviour:
   - {fileID: 4777467398786324641}
   - {fileID: 6421655519926033786}
   - {fileID: 7141763381515040263}
-  spawnInterval: 0.4
-  maxEnemies: 80
+  spawnInterval: 0.3
+  maxEnemies: 125
   startDelay: 0.5
 --- !u!1 &1289678594974190352
 GameObject:
