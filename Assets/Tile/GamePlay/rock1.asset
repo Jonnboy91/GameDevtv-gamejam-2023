@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: rock1
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: ae83a90dbd4ae434292ae1fee6df1af4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
   m_Transform:
     e00: 1
     e01: 0
