@@ -27,7 +27,9 @@ public class EnemyMovement : MonoBehaviour
 
     void SetAgentPosition()
     {
-        agent.SetDestination(player.position);
+        if(agent.isActiveAndEnabled){
+            agent.SetDestination(player.position);
+        }
     }
 
     void FlipEnemy(){

@@ -17,13 +17,10 @@ public class DamageTextManager : MonoBehaviour
 
     private void Awake(){
         activeDamageTexts.Capacity = 10;
-        if (instance != null && instance != this)
+        if (instance == null)
         {
-            Destroy(gameObject);
-            return;
+            instance = this;
         }
-        
-        instance = this;
     }
 
     public void ShowDamageText(GameObject enemyPosition, float damage){

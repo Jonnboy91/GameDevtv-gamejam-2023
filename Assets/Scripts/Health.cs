@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
+
 
 public class Health : MonoBehaviour
 {
 
-    [SerializeField] float healthPoints = 100f;
+    [SerializeField] float maxHealthPoints = 300f;
     private float currentHealth = 0f;
     [SerializeField] float enemyHealth = 30f;
     [SerializeField] bool isPlayer;
@@ -19,7 +21,8 @@ public class Health : MonoBehaviour
     [SerializeField] ParticleSystem dieEffect;
 
     [SerializeField] float damageDelay = 1f;
-    [SerializeField] int experienceForKill = 5;
+
+    [SerializeField] float killDistance = 175f;
 
     EnemySpawner spawner;
     private CinemachineImpulseSource impulseSource;
@@ -27,11 +30,14 @@ public class Health : MonoBehaviour
     Experience experience;
 
     private GameObject player;
-    private GameObject boss;
 
     private bool canTakeDamage = true;
     
     private float damageTimer = 0f;
+
+    ColorGrading colorGrading;
+    Vignette vignette;
+    [SerializeField] PostProcessVolume _postProcessVolume;
 
 
     private void Awake() {
@@ -40,16 +46,17 @@ public class Health : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "Level 1"){
                 experience = FindObjectOfType<Experience>();
             }
-        if(SceneManager.GetActiveScene().name == "Boss"){
-            boss = GameObject.FindGameObjectWithTag("Boss");
-        }
         player = GameObject.FindGameObjectWithTag("Player");
+        if(isPlayer){
+        colorGrading = _postProcessVolume.profile.GetSetting<ColorGrading>();
+        vignette = _postProcessVolume.profile.GetSetting<Vignette>();
+        }
     }
 
     private void Start() {
         if(isPlayer){
-            currentHealth = healthPoints;
-            healthBar.maxValue = healthPoints;
+            currentHealth = maxHealthPoints;
+            healthBar.maxValue = maxHealthPoints;
             updateHealth();
         }
     }
@@ -66,6 +73,9 @@ public class Health : MonoBehaviour
                     damageTimer = 0f;
                 }
             }
+        }
+        if(!isPlayer){
+            KillIfTooFar();
         }
     }
 
@@ -86,7 +96,7 @@ public class Health : MonoBehaviour
                 currentHealth = 0;
                 Die();
             }
-        } else{
+        } else if(gameObject != null){
             enemyHealth -= damage;
             DamageTextManager.Instance.ShowDamageText(gameObject, damage);
             if(enemyHealth <= 0){
@@ -97,8 +107,19 @@ public class Health : MonoBehaviour
     }
 
     void updateHealth(){
-        healthBar.maxValue = healthPoints;
+        healthBar.maxValue = maxHealthPoints;
         healthBar.value = currentHealth;
+        float saturationValue = currentHealth / maxHealthPoints * 100f - 100f;
+        float vignetteValue = 1 - (currentHealth / maxHealthPoints);
+        if (_postProcessVolume.profile.TryGetSettings(out colorGrading))
+    {
+        colorGrading.saturation.value = saturationValue;
+    }
+
+    if (_postProcessVolume.profile.TryGetSettings(out vignette))
+    {
+        vignette.intensity.value = vignetteValue;
+    }
     }
 
     private void Die()
@@ -111,7 +132,7 @@ public class Health : MonoBehaviour
             Destroy(healthBar.gameObject);
             DieManager.instance.ReloadLevelWithDelay();
         } else {
-                experience.IncreaseExperience(experienceForKill);
+                experience.IncreaseExperience(5);
                 spawner.EnemyDestroyed();
         }
         Destroy(gameObject);
@@ -153,24 +174,45 @@ public class Health : MonoBehaviour
         }
     }
 
+    private void KillIfTooFar(){
+        if(!isPlayer && player != null){
+            float distance = Vector2.Distance(transform.position, player.transform.position);
+            if(distance > killDistance){
+                spawner.EnemyDestroyed();
+                Destroy(gameObject);
+            }
+        }
+    }
+
     public void addHealth(){
-        float addAmount = healthPoints * 1.2f - healthPoints;
-        healthPoints *= 1.2f;
-        if(currentHealth != healthPoints){
+        float addAmount = maxHealthPoints * 1.2f - maxHealthPoints;
+        maxHealthPoints *= 1.2f;
+        if(currentHealth != maxHealthPoints){
             currentHealth += addAmount;
         }
         updateHealth();
     }
 
+    public void healUp(){
+        if(currentHealth < maxHealthPoints){
+            if(maxHealthPoints - currentHealth < 20){
+                currentHealth = maxHealthPoints;
+            }else{
+                currentHealth += 20;
+            }
+            updateHealth();
+        }
+    }
+
     public float getPlayerHealth(){
-        return healthPoints;
+        return maxHealthPoints;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(gameObject.tag == "Enemy" && (other.gameObject.tag == "Bullet" || other.gameObject.tag == "Imaginary") && player != null){
             TakeDamage(player.GetComponent<PlayerShooting>().GetBulletStrength());
         }
-        if(gameObject.tag == "Player" && (other.gameObject.tag == "EnemyBullet" || other.gameObject.tag == "EnemyImaginary") && boss != null){
+        if(gameObject.tag == "Player" && (other.gameObject.tag == "EnemyBullet" || other.gameObject.tag == "EnemyImaginary") && GameObject.FindGameObjectWithTag("Boss") != null){
             TakeDamage(other.gameObject.GetComponent<EnemyDamage>().GetDamage());
         }
     }

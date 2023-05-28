@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4676619659353751669}
   - component: {fileID: 890480825}
   - component: {fileID: 1985835157124944172}
-  - component: {fileID: -5549803894021372487}
   - component: {fileID: 3288757844852605318}
+  - component: {fileID: 8195075910547238116}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 1289678593409138191}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1289678594974190353}
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: f759ff5e5aa782440bef1003209e5547, type: 3}
   m_Color: {r: 1, g: 0.8980392, b: 0, a: 1}
   m_FlipX: 0
@@ -103,8 +103,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25}
-  m_Size: {x: 3, y: 4.5}
+  m_Offset: {x: 0.039080337, y: -0.03908348}
+  m_Size: {x: 2.6873324, y: 4.876006}
   m_Direction: 0
 --- !u!95 &890480825
 Animator:
@@ -180,28 +180,6 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
---- !u!195 &-5549803894021372487
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1289678593409138191}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.06
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.16
-  m_BaseOffset: 0.08
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &3288757844852605318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,8 +196,37 @@ MonoBehaviour:
   homingBulletPrefab: {fileID: 5373822962961376425, guid: fc7d6090de402a042b93dd48b9e474ee, type: 3}
   bulletSpawnPoint: {fileID: 1289678594974190353}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
-  healthBar: {fileID: 0}
-  bossHealth: 10
+  SpecialAttackEffect: {fileID: 2712391175953504141, guid: a24aa2232ab91ca4ba52f61310777d0a, type: 3}
+  bossHealth: 1000
+  bulletSpeed: 15
+  fireRate: 2
+  fireRateHoming: 2
+  bulletLifespan: 5
+  homingBulletLifeSpan: 2
+  bossDamage: 15
+  bulletCount: 12
+--- !u!195 &8195075910547238116
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1289678593409138191}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 3
+  m_BaseOffset: 2
+  m_WalkableMask: 5
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1289678594974190352
 GameObject:
   m_ObjectHideFlags: 0

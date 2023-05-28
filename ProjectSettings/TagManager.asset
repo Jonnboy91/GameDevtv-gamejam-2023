@@ -10,11 +10,13 @@ TagManager:
   - Boss
   - EnemyImaginary
   - Imaginary
+  - PostProcess
+  - BossHealth
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - Ground
