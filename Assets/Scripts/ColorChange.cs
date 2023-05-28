@@ -42,7 +42,7 @@ public class ColorChange : MonoBehaviour
         {
             while (time < duration)
             {
-                if (_colorGrading.saturation.value < _grey)
+                if (_colorGrading.saturation.value <= _grey)
                 {
                     _coroutineRunning = null;
                     yield break;

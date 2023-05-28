@@ -14,6 +14,8 @@ public class Boss : MonoBehaviour
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] ParticleSystem dieEffect;
     [SerializeField] ParticleSystem SpecialAttackEffect;
+    [SerializeField] GameObject healthSliderPrefab;
+    private GameObject healthSliderObject;
     private Slider healthSlider;
 
 
@@ -44,8 +46,8 @@ public class Boss : MonoBehaviour
     private void Awake() {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("Player");
-        GameObject sliderObject = GameObject.FindWithTag("BossHealth");
-        healthSlider = sliderObject.GetComponent<Slider>();
+        healthSliderObject = Instantiate(healthSliderPrefab, GameObject.Find("GamePlayUI").transform);
+        healthSlider = healthSliderObject.GetComponent<Slider>();
     }
     void Start()
     {
