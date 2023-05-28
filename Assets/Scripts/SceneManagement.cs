@@ -17,7 +17,7 @@ public class SceneManagement : MonoBehaviour
     }
     #endregion
 
-    private int _currentSceneIndex = 1;
+    private int _currentSceneIndex;
 
     Coroutine _nextSceneCoroutine;
 
@@ -40,17 +40,12 @@ public class SceneManagement : MonoBehaviour
     // Must be called 2 secs before a scene loads
     public void NextScene()
     {
-        Debug.Log("Test");
         StartCoroutine(NextSceneRoutine());
-        Debug.Log("Test 01");
     }
 
     IEnumerator NextSceneRoutine()
     {
-        Debug.Log("Test 03");
         yield return new WaitForSeconds(2.0f);
-
-        Debug.Log("Test 04");
 
         if (_currentSceneIndex < 5)
         {
@@ -63,7 +58,6 @@ public class SceneManagement : MonoBehaviour
             _currentSceneIndex = 0;
         }
 
-        Debug.Log("Lucky");
         _nextSceneCoroutine = null;
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 
 public class PlayerShooting : MonoBehaviour
 {
-
+    AudioSource _audioSource;
     [SerializeField] Camera sceneCamera;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform bulletSpawnPoint;
@@ -25,6 +25,7 @@ public class PlayerShooting : MonoBehaviour
         maxBulletCount.Capacity = 20;
     }
     private void Start() {
+        _audioSource = GetComponent<AudioSource>();
         InvokeRepeating(nameof(Shoot), startDelay, fireRate);
     }
 
@@ -45,7 +46,8 @@ public class PlayerShooting : MonoBehaviour
             maxBulletCount.RemoveAt(0);
             Shoot();
         }
-        
+
+        _audioSource.Play();
     }
 
     public void updateSpeed() {
