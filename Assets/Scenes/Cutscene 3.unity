@@ -28472,6 +28472,10 @@ PlayableDirector:
     value: {fileID: 1908835566}
   - key: {fileID: 1618334647351186756, guid: f5d7e2ea4d9bffc418d1f868b572c362, type: 2}
     value: {fileID: 1648300234}
+  - key: {fileID: 8661325369575038152, guid: f5d7e2ea4d9bffc418d1f868b572c362, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 6331703312818271104, guid: f5d7e2ea4d9bffc418d1f868b572c362, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1900083543
@@ -28596,7 +28600,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1135096977, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1135096978, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
       propertyPath: _emojiIcons.Array.size

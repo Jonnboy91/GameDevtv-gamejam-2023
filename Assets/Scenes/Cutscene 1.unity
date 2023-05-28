@@ -27709,6 +27709,8 @@ PlayableDirector:
     value: {fileID: 1648300234}
   - key: {fileID: 1722092654963865619, guid: f94537b9050331c41af1346d1d9d1fdb, type: 2}
     value: {fileID: 0}
+  - key: {fileID: -1237960849308408672, guid: f94537b9050331c41af1346d1d9d1fdb, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1438753625
@@ -28582,7 +28584,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1135096977, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4318101289435219782, guid: 55211df8d74414849919a86ba19fc73e, type: 3}
       propertyPath: m_Name
