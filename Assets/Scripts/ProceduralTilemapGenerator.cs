@@ -24,11 +24,14 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     public NavMeshSurface Surface2D;
 
+    private Queue<Vector3Int> tileQueue;
+    private Coroutine tileGenerationCoroutine;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         lastTilePosition = Vector3Int.zero;
+        tileQueue = new Queue<Vector3Int>();
     }
 
     private void Start()
@@ -39,18 +42,35 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(player != null){
-        Vector3Int currentPlayerTile = WorldToTilemapPosition(player.position);
-
-        if (Mathf.Abs(currentPlayerTile.x - lastTilePosition.x) >= loadDistance - generationLoadDistance ||
-            Mathf.Abs(currentPlayerTile.y - lastTilePosition.y) >= loadDistance - generationLoadDistance)
+        if (player != null)
         {
-            GenerateNewTiles(currentPlayerTile);
-            DeleteOldTiles(currentPlayerTile);
+            Vector3Int currentPlayerTile = WorldToTilemapPosition(player.position);
+
+            if (Mathf.Abs(currentPlayerTile.x - lastTilePosition.x) >= loadDistance - generationLoadDistance ||
+                Mathf.Abs(currentPlayerTile.y - lastTilePosition.y) >= loadDistance - generationLoadDistance)
+            {
+                tileQueue.Enqueue(currentPlayerTile);
+
+                if (tileGenerationCoroutine == null)
+                {
+                    tileGenerationCoroutine = StartCoroutine(GenerateTilesCoroutine());
+                }
+            }
+        }
+    }
+
+    private IEnumerator GenerateTilesCoroutine()
+    {
+        while (tileQueue.Count > 0)
+        {
+            Vector3Int tilePosition = tileQueue.Dequeue();
+            GenerateNewTiles(tilePosition);
+            DeleteOldTiles(tilePosition);
             Surface2D.UpdateNavMesh(Surface2D.navMeshData);
+            yield return null;
         }
-        }
-       
+
+        tileGenerationCoroutine = null;
     }
 
     private void GenerateInitialTilemap()
@@ -62,33 +82,32 @@ public class ProceduralTilemapGenerator : MonoBehaviour
 
     private void GenerateNewTiles(Vector3Int currentPlayerTile)
     {
-
         BoundsInt visibleAreaBounds = new BoundsInt(
-        currentPlayerTile.x - loadDistance,
-        currentPlayerTile.y - loadDistance,
-        0,
-        loadDistance * 2,
-        loadDistance * 2,
-        1
+            currentPlayerTile.x - loadDistance,
+            currentPlayerTile.y - loadDistance,
+            0,
+            loadDistance * 2,
+            loadDistance * 2,
+            1
         );
 
-    // Iterate over the visible area bounds to generate new tiles
-    foreach (var position in visibleAreaBounds.allPositionsWithin)
-    {
-        // Check if the position is outside the current tilemap bounds
-        if (!groundTilemap.HasTile(position))
+        // Iterate over the visible area bounds to generate new tiles
+        foreach (var position in visibleAreaBounds.allPositionsWithin)
         {
-            TileBase randomGroundTile = groundTileVariations[Random.Range(0, groundTileVariations.Length)];
-            groundTilemap.SetTile(position, randomGroundTile);
-
-            // Check if the position is within the rock spawn chance and no ground tile exists
-            if (Random.value < rockSpawnChance && !rockTilemap.HasTile(position))
+            // Check if the position is outside the current tilemap bounds
+            if (!groundTilemap.HasTile(position))
             {
-                TileBase randomRockTile = rockTileVariations[Random.Range(0, rockTileVariations.Length)];
-                rockTilemap.SetTile(position, randomRockTile);
+                TileBase randomGroundTile = groundTileVariations[Random.Range(0, groundTileVariations.Length)];
+                groundTilemap.SetTile(position, randomGroundTile);
+
+                // Check if the position is within the rock spawn chance and no ground tile exists
+                if (Random.value < rockSpawnChance && !rockTilemap.HasTile(position))
+                {
+                    TileBase randomRockTile = rockTileVariations[Random.Range(0, rockTileVariations.Length)];
+                    rockTilemap.SetTile(position, randomRockTile);
+                }
             }
         }
-    }
 
         lastTilePosition = currentPlayerTile;
     }
