@@ -11,11 +11,9 @@ public class TwinPowerUp : MonoBehaviour
 
     private void Awake() {
         if(instance == null){
-            Debug.Log("HERE");
             instance = this;
         }
         player = GameObject.FindGameObjectWithTag("Player");
-        Debug.Log("player is:" + player.tag);
     }
 
     public void DestroyScriptInstance()
@@ -27,7 +25,6 @@ public class TwinPowerUp : MonoBehaviour
 
     public void ActivatePowerup()
     {
-        Debug.Log("ACTIVATING IT NOW:" + player.tag);
         player.GetComponent<PlayerShooting>().DoubleTheBullets();
     }
 }

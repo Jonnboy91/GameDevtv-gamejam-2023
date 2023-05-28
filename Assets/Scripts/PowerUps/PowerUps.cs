@@ -283,6 +283,6 @@ public class PowerUps : MonoBehaviour
     private void JumpToCutScene()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Boss");
+        SceneManager.LoadScene("Cutscene 2");
     }
 }

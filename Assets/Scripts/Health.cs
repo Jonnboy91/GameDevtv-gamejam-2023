@@ -129,8 +129,10 @@ public class Health : MonoBehaviour
             ImaginaryFriendPowerUp.instance.DestroyImaginaryFriend(true);
             ImaginaryFriendPowerUp.instance.DestroyScriptInstance(); // Needs this, since otherwise when starting the new level, it tries to find an instance that does not exist.
             TwinPowerUp.instance.DestroyScriptInstance();
-            PlayerPrefs.DeleteAll();
             Destroy(healthBar.gameObject);
+            if(SceneManager.GetActiveScene().name == "Level 1"){
+                PlayerPrefs.DeleteAll();
+            }
             DieManager.instance.ReloadLevelWithDelay();
         } else {
                 experience.IncreaseExperience(5);

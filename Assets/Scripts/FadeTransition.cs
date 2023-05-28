@@ -28,12 +28,10 @@ public class FadeTransition : MonoBehaviour
     public void FadeOut()
     {
         _animator.SetTrigger("Fade Out");
-        Debug.Log("Fading out");
     }
 
     public void FadeIn()
     {
         _animator.SetTrigger("Fade In");
-        Debug.Log("Fading in");
     }
 }

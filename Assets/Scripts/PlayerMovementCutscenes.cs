@@ -40,7 +40,6 @@ public class PlayerMovementCutscenes : MonoBehaviour
         {
             Vector2 playerVelocity = moveInput * moveSpeed;
             myRigidBody.velocity = playerVelocity;
-
             if (playerVelocity.y != 0 && playerVelocity.x != 0)
             {
                 _playerAnimations.ChangeState(new Vector2(0, playerVelocity.y));
