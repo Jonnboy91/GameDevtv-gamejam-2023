@@ -18,25 +18,12 @@ public class ColorChange : MonoBehaviour
         _colorGrading = _postProcessVolume.profile.GetSetting<ColorGrading>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            ChangeColorToGrey();
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            ChangeColorToColor();
-        }
-    }
-
     // Color to Grey
     private void ChangeColorToGrey()
     {
         _colorGrading.enabled.Override(true);
         if(_coroutineRunning == null)
-            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_defaultColor, _grey, 50f, true));
+            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_defaultColor, _grey, 500f, true));
     }
 
     // Grey to Color
@@ -44,7 +31,7 @@ public class ColorChange : MonoBehaviour
     {
         _colorGrading.enabled.Override(true);
         if (_coroutineRunning == null)
-            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_grey, _defaultColor, 50f, false));
+            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_grey, _defaultColor, 200f, false));
     }
 
     IEnumerator ChangeColorRoutine(float origin, float target, float duration, bool isTurningGrey)
@@ -62,8 +49,8 @@ public class ColorChange : MonoBehaviour
                 }
                 else
                 {
-                    float lerpvalue = Mathf.Lerp(origin, target, time / duration);   // 0, -100, 0
-                    _colorGrading.saturation.value += (lerpvalue);      // 0 * -0.01
+                    float lerpvalue = Mathf.Lerp(origin, target, time / duration);   
+                    _colorGrading.saturation.value += (lerpvalue);      
                     time += Time.deltaTime;
                     yield return null;
                 }
@@ -80,7 +67,7 @@ public class ColorChange : MonoBehaviour
                 }
                 else     
                 {
-                    float _multiplier = -0.01f;
+                    float _multiplier = -0.005f;
                     float lerpvalue = Mathf.Lerp(origin, target, time / duration);
                     _colorGrading.saturation.value += (lerpvalue * _multiplier);   
                     time += Time.deltaTime;
@@ -92,6 +79,13 @@ public class ColorChange : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        ChangeColorToGrey();
+        if (_colorGrading.saturation.value >= 0)
+        {
+            ChangeColorToGrey();
+        }
+        else
+        {
+            ChangeColorToColor();
+        }
     }
 }
