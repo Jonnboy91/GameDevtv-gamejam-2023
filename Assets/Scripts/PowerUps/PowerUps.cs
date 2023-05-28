@@ -97,6 +97,7 @@ public class PowerUps : MonoBehaviour
 
     private void AddPowerToButton(Button button, PowerUpEnums powerUp, bool isLastPanel)
     {
+        button.onClick.RemoveAllListeners();
         switch (powerUp)
         {
             case PowerUpEnums.Imaginary:
@@ -234,6 +235,7 @@ public class PowerUps : MonoBehaviour
     }
 
     private void ContinueGame(){
+        Debug.Log("BUTTON PRESSED");
         powerUpPanel.SetActive(false);
         Time.timeScale = 1;
     }

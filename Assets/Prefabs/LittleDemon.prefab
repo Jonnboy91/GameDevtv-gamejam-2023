@@ -157,8 +157,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
-  experienceForKill: 5
-  killDistance: 200
+  killDistance: 175
   _postProcessVolume: {fileID: 0}
 --- !u!195 &4850841209906054030
 NavMeshAgent:
