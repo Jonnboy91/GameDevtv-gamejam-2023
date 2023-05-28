@@ -11,7 +11,7 @@ using UnityEngine.Rendering.PostProcessing;
 public class Health : MonoBehaviour
 {
 
-    [SerializeField] float maxHealthPoints = 100f;
+    [SerializeField] float maxHealthPoints = 300f;
     private float currentHealth = 0f;
     [SerializeField] float enemyHealth = 30f;
     [SerializeField] bool isPlayer;
@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
 
     [SerializeField] float damageDelay = 1f;
 
-    [SerializeField] float killDistance = 200f;
+    [SerializeField] float killDistance = 175f;
 
     EnemySpawner spawner;
     private CinemachineImpulseSource impulseSource;

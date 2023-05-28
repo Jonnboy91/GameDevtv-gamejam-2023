@@ -13,21 +13,22 @@ public class Boss : MonoBehaviour
     [SerializeField] GameObject homingBulletPrefab;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] ParticleSystem dieEffect;
+    [SerializeField] ParticleSystem SpecialAttackEffect;
     private Slider healthSlider;
 
 
 
-    [SerializeField] float bossHealth = 10f;
+    [SerializeField] float bossHealth = 1000f;
     private float bossCurrentHealth = 0f;
-    [SerializeField] float bulletSpeed = 10f;
+    [SerializeField] float bulletSpeed = 15f;
     [SerializeField] float fireRate = 2f;
     [SerializeField] float fireRateHoming = 2f;
     [SerializeField] float bulletLifespan = 5f;
-    [SerializeField] float homingBulletLifeSpan = 2f;
+    [SerializeField] float homingBulletLifeSpan = 1.5f;
 
-    [SerializeField] float bossDamage = 10f;
+    [SerializeField] float bossDamage = 15f;
 
-    [SerializeField] int bulletCount = 8;
+    [SerializeField] int bulletCount = 12;
 
     private GameObject player;
     private Coroutine bossFiringCoroutine;
@@ -35,6 +36,7 @@ public class Boss : MonoBehaviour
 
     NavMeshAgent agent;
     private SpriteRenderer spriteRenderer;
+    private bool doingSpecialAttack = false;
 
     Animator animator;
 
@@ -56,19 +58,22 @@ public class Boss : MonoBehaviour
         bulletSpeed += player.GetComponent<PlayerShooting>().GetBulletSpeed();
         fireRate -= player.GetComponent<PlayerShooting>().GetBulletFireRate();
         bulletLifespan += player.GetComponent<PlayerShooting>().GetBulletLifeSpan();
-        agent.speed = player.GetComponent<PlayerMovement>().GetSpeed() - 5f;
+        agent.speed = player.GetComponent<PlayerMovement>().GetSpeed() - 3f;
         bossNormalSpeed = agent.speed;
         bossCurrentHealth = bossHealth;
         healthSlider.maxValue = bossHealth;
         updateHealth();
         StartCoroutine(ActivateSpecialAttack());
-        ImaginaryFriendPowerUp.instance.ActivatePowerup();
+        if(GameObject.FindGameObjectWithTag("Imaginary")){
+            ImaginaryFriendPowerUp.instance.ActivatePowerup();
+        }
         InvokeRepeating(nameof(Shoot360), fireRate, fireRate);
         InvokeRepeating(nameof(HomingBullet), fireRateHoming, fireRateHoming);
     }
 
     void FixedUpdate() {
         if(player != null && gameObject != null){
+            MoveBossCloser();
             SetAgentPosition();
             FlipEnemy();         
         }
@@ -80,6 +85,19 @@ public class Boss : MonoBehaviour
             animator.SetBool("isMoving", true);
         }else{
             animator.SetBool("isMoving", false);
+        }
+    }
+
+    // To help that the player just doesn't run miles away from the boss and never finds him again.
+    void MoveBossCloser(){
+        float maxDistance = 150f; // Maximum distance between boss and player
+        float distance = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distance > maxDistance)
+        {
+            Vector2 direction = (player.transform.position - transform.position).normalized;
+            Vector2 newPosition = (Vector2)transform.position + direction * (distance - maxDistance);
+            transform.position = newPosition;
         }
     }
 
@@ -127,7 +145,6 @@ public class Boss : MonoBehaviour
         for (int i = 0; i < bulletCount; i++)
         {
             Vector2 direction = Quaternion.Euler(0f, 0f, currentAngle) * Vector2.up;
-
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             bullet.GetComponent<EnemyDamage>().setEnemyDamage(bossDamage - 5f);
             bullet.GetComponent<Rigidbody2D>().velocity = direction * (bulletSpeed + 5f);
@@ -152,13 +169,18 @@ public class Boss : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(3, 6));
-            InvokeRepeating(nameof(Shoot360Special), 1, 0.6f);
-            StartCoroutine(FlashBossColorSpecialAttack());
+            int randomNumber = Random.Range(4,6);
+            yield return new WaitForSeconds(randomNumber);
+            StartCoroutine(ChangeBossColorSpecialAttack(randomNumber));
+            doingSpecialAttack = true;
             agent.speed = 0;
-            yield return new WaitForSeconds(Random.Range(3, 6)); // Keep the special attack active for 2 seconds
+            agent.isStopped = true;
+            InvokeRepeating(nameof(Shoot360Special), 0.5f, 0.5f);
+            yield return new WaitForSeconds(randomNumber); // Keeps the special attack on for a randomTime
+            doingSpecialAttack = false;
             CancelInvoke(nameof(Shoot360Special));
             agent.speed = bossNormalSpeed;
+            agent.isStopped = false;
         }
     }
 
@@ -169,13 +191,13 @@ public class Boss : MonoBehaviour
     }
 
     public void TakeDamage(float damage){
-            StartCoroutine(FlashBossColor());
-            updateHealth();
-            bossCurrentHealth -= damage;
-            if(bossCurrentHealth <= 0){
-                bossCurrentHealth = 0;
-                Die();
-            }
+        StartCoroutine(FlashBossColor());
+        updateHealth();
+        bossCurrentHealth -= damage;
+        if(bossCurrentHealth <= 0){
+            bossCurrentHealth = 0;
+            Die();
+        }
     }
 
     public float GetDamage(){
@@ -198,22 +220,30 @@ public class Boss : MonoBehaviour
         Color changedColor;
         if(ColorUtility.TryParseHtmlString("#FFE500", out changedColor)){
             yield return new WaitForSeconds(0.1f);
-            spriteRenderer.color = changedColor;
+            if(doingSpecialAttack){
+                spriteRenderer.color = Color.green;
+            }else {
+                spriteRenderer.color = changedColor;
+            }
         }else{
              yield return new WaitForSeconds(0.1f);
-            spriteRenderer.color = Color.white;
+            if(doingSpecialAttack){
+                spriteRenderer.color = Color.green;
+            }else {
+                spriteRenderer.color = Color.white;
+            }
         }
     }
 
-    private IEnumerator FlashBossColorSpecialAttack()
+    private IEnumerator ChangeBossColorSpecialAttack(int randomNumber)
     {
-        spriteRenderer.color = Color.blue;
+        spriteRenderer.color = Color.green;
         Color changedColor;
         if(ColorUtility.TryParseHtmlString("#FFE500", out changedColor)){
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(randomNumber);
             spriteRenderer.color = changedColor;
         }else{
-             yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(randomNumber);
             spriteRenderer.color = Color.white;
         }
     }

@@ -196,12 +196,13 @@ MonoBehaviour:
   homingBulletPrefab: {fileID: 5373822962961376425, guid: fc7d6090de402a042b93dd48b9e474ee, type: 3}
   bulletSpawnPoint: {fileID: 1289678594974190353}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
+  SpecialAttackEffect: {fileID: 2712391175953504141, guid: a24aa2232ab91ca4ba52f61310777d0a, type: 3}
   bossHealth: 1000
   bulletSpeed: 15
   fireRate: 2
   fireRateHoming: 2
   bulletLifespan: 5
-  homingBulletLifeSpan: 1.5
+  homingBulletLifeSpan: 2
   bossDamage: 15
   bulletCount: 12
 --- !u!195 &8195075910547238116
@@ -222,9 +223,9 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 4
-  m_BaseOffset: 2.5
-  m_WalkableMask: 4294967295
+  m_Height: 3
+  m_BaseOffset: 2
+  m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!1 &1289678594974190352
 GameObject:

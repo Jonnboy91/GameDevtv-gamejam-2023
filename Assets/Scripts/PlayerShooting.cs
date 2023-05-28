@@ -12,9 +12,9 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] float bulletSpeed = 20;
     [SerializeField] float fireRate = 0.5f;
-    [SerializeField] float startDelay = 0.5f;
-    [SerializeField] float bulletLifespan = 2f;
-    [SerializeField] float bulletStrength = 10;
+    [SerializeField] float startDelay = 0.25f;
+    [SerializeField] float bulletLifespan = 1.75f;
+    [SerializeField] float bulletStrength = 15;
 
     private List<GameObject> maxBulletCount = new List<GameObject>();
 
