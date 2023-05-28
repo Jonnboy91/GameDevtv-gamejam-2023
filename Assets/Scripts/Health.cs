@@ -21,7 +21,6 @@ public class Health : MonoBehaviour
     [SerializeField] ParticleSystem dieEffect;
 
     [SerializeField] float damageDelay = 1f;
-    [SerializeField] int experienceForKill = 5;
 
     [SerializeField] float killDistance = 200f;
 
@@ -97,7 +96,7 @@ public class Health : MonoBehaviour
                 currentHealth = 0;
                 Die();
             }
-        } else{
+        } else if(gameObject != null){
             enemyHealth -= damage;
             DamageTextManager.Instance.ShowDamageText(gameObject, damage);
             if(enemyHealth <= 0){
@@ -133,7 +132,7 @@ public class Health : MonoBehaviour
             Destroy(healthBar.gameObject);
             DieManager.instance.ReloadLevelWithDelay();
         } else {
-                experience.IncreaseExperience(experienceForKill);
+                experience.IncreaseExperience(5);
                 spawner.EnemyDestroyed();
         }
         Destroy(gameObject);
