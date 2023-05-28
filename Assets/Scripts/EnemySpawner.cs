@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<GameObject> spawners;
     [SerializeField] float spawnInterval = 0.8f;  
     [SerializeField] int maxEnemies = 10;
-    [SerializeField] float startDelay = 0f;    
+    [SerializeField] float startDelay = 0.5f; // Can't be 0, since it might try to spawn before getting NavMesh
 
     private int currentEnemies = 0;
 

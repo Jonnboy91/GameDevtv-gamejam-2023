@@ -13,7 +13,8 @@ public class Boss : MonoBehaviour
     [SerializeField] GameObject homingBulletPrefab;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] ParticleSystem dieEffect;
-    [SerializeField] Slider healthBar;
+    private Slider healthSlider;
+
 
 
     [SerializeField] float bossHealth = 10f;
@@ -39,14 +40,16 @@ public class Boss : MonoBehaviour
 
 
     private void Awake() {
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         player = GameObject.FindWithTag("Player");
+        GameObject sliderObject = GameObject.FindWithTag("BossHealth");
+        healthSlider = sliderObject.GetComponent<Slider>();
     }
     void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
         animator = GetComponent<Animator>();
         bossHealth += player.GetComponent<Health>().getPlayerHealth();
         bossDamage += player.GetComponent<PlayerShooting>().GetBulletStrength();
@@ -56,9 +59,10 @@ public class Boss : MonoBehaviour
         agent.speed = player.GetComponent<PlayerMovement>().GetSpeed() - 5f;
         bossNormalSpeed = agent.speed;
         bossCurrentHealth = bossHealth;
-        healthBar.maxValue = bossHealth;
+        healthSlider.maxValue = bossHealth;
         updateHealth();
         StartCoroutine(ActivateSpecialAttack());
+        ImaginaryFriendPowerUp.instance.ActivatePowerup();
         InvokeRepeating(nameof(Shoot360), fireRate, fireRate);
         InvokeRepeating(nameof(HomingBullet), fireRateHoming, fireRateHoming);
     }
@@ -70,7 +74,7 @@ public class Boss : MonoBehaviour
         }
         if(gameObject != null){
             Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(transform.position);
-            healthBar.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 80);
+            healthSlider.transform.position = new Vector2(playerScreenPos.x, playerScreenPos.y - 80);
         }
         if(agent.speed != 0){
             animator.SetBool("isMoving", true);
@@ -80,13 +84,13 @@ public class Boss : MonoBehaviour
     }
 
     void updateHealth(){
-        healthBar.maxValue = bossHealth;
-        healthBar.value = bossCurrentHealth;
+        healthSlider.maxValue = bossHealth;
+        healthSlider.value = bossCurrentHealth;
     }
 
     void SetAgentPosition()
     {
-        agent.SetDestination(player.transform.position);
+            agent.SetDestination(player.transform.position);
     }
 
     void FlipEnemy(){
@@ -148,11 +152,11 @@ public class Boss : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(6f); // Wait for 5 seconds before activating special attack
+            yield return new WaitForSeconds(Random.Range(3, 6));
             InvokeRepeating(nameof(Shoot360Special), 1, 0.6f);
             StartCoroutine(FlashBossColorSpecialAttack());
             agent.speed = 0;
-            yield return new WaitForSeconds(4f); // Keep the special attack active for 2 seconds
+            yield return new WaitForSeconds(Random.Range(3, 6)); // Keep the special attack active for 2 seconds
             CancelInvoke(nameof(Shoot360Special));
             agent.speed = bossNormalSpeed;
         }
@@ -180,8 +184,8 @@ public class Boss : MonoBehaviour
 
     private void Die()
     {
-        healthBar.enabled = false;
-        Destroy(healthBar.gameObject);
+        healthSlider.enabled = false;
+        Destroy(healthSlider.gameObject);
         PlayHitEffect();
         ImaginaryFriendPowerUp.instance.DestroyImaginaryFriend(false);
         Destroy(gameObject);
@@ -206,10 +210,10 @@ public class Boss : MonoBehaviour
         spriteRenderer.color = Color.blue;
         Color changedColor;
         if(ColorUtility.TryParseHtmlString("#FFE500", out changedColor)){
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.5f);
             spriteRenderer.color = changedColor;
         }else{
-             yield return new WaitForSeconds(0.3f);
+             yield return new WaitForSeconds(0.5f);
             spriteRenderer.color = Color.white;
         }
     }

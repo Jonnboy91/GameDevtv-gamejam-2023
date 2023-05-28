@@ -81,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 629f927f91b403f408c29bfd42797ede, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -205,13 +205,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c828031fbc1504c877d37a2f4aa756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 300
+  maxHealthPoints: 100
   enemyHealth: 30
   isPlayer: 1
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
   experienceForKill: 5
+  killDistance: 200
+  _postProcessVolume: {fileID: 0}
 --- !u!95 &890480825
 Animator:
   serializedVersion: 5

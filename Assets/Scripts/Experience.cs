@@ -16,10 +16,13 @@ public class Experience : MonoBehaviour
     [SerializeField] GameObject lastPanel;
     private int currentExperience = 0;
 
+    Health health;
+
     private bool lastPanelOpen = false; // This is used, since otherwise the Update is being called all the time and it's pausing the game just before scenemanager loads the final boss level, and it starts frozen.
 
     private void Awake() {
         experienceSlider.maxValue = neededExperience;
+        health = GetComponent<Health>();
     }
 
     private void Update() {
@@ -48,6 +51,7 @@ public class Experience : MonoBehaviour
     {
         neededExperience += addToNeededExperience;
         experienceSlider.maxValue = neededExperience;
+        health.addHealth();
     }
 
     private void PauseGame()
