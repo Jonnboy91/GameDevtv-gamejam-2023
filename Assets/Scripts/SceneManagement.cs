@@ -17,14 +17,10 @@ public class SceneManagement : MonoBehaviour
     }
     #endregion
 
-    private int _currentSceneIndex;
-
-    Coroutine _nextSceneCoroutine;
-
-
     // Only loads first scene
     public void StartGame()
     {
+        PlayerPrefs.DeleteAll();
         FadeTransition.Instance.FadeIn();
         StartCoroutine(DelayFirstSceneLoad());
     }
@@ -32,7 +28,6 @@ public class SceneManagement : MonoBehaviour
     // Coroutine to allow fade transition to happen for first scene
     IEnumerator DelayFirstSceneLoad()
     {
-        _currentSceneIndex++;
         yield return new WaitForSeconds(1.0f);
         SceneManager.LoadScene(1);
     }
@@ -47,17 +42,15 @@ public class SceneManagement : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
 
-        if (_currentSceneIndex < 5)
+        if (SceneManager.GetActiveScene().buildIndex < 5)
+
         {
-            SceneManager.LoadScene(_currentSceneIndex + 1);
-            _currentSceneIndex++;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else
         {
             SceneManager.LoadScene(0);
-            _currentSceneIndex = 0;
         }
 
-        _nextSceneCoroutine = null;
     }
 }

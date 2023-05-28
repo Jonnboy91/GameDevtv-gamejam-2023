@@ -31,7 +31,7 @@ public class ColorChange : MonoBehaviour
     {
         _colorGrading.enabled.Override(true);
         if (_coroutineRunning == null)
-            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_grey, _defaultColor, 200f, false));
+            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_grey, _defaultColor, 400f, false));
     }
 
     IEnumerator ChangeColorRoutine(float origin, float target, float duration, bool isTurningGrey)
@@ -67,7 +67,7 @@ public class ColorChange : MonoBehaviour
                 }
                 else     
                 {
-                    float _multiplier = -0.005f;
+                    float _multiplier = -0.0005f;
                     float lerpvalue = Mathf.Lerp(origin, target, time / duration);
                     _colorGrading.saturation.value += (lerpvalue * _multiplier);   
                     time += Time.deltaTime;

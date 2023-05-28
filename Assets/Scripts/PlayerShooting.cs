@@ -16,13 +16,16 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] float bulletLifespan = 1.75f;
     [SerializeField] float bulletStrength = 15;
 
+    private bool doubleBulletsActivated = false;
+    private bool doNotGiveUpActivated = false;
+
     private List<GameObject> maxBulletCount = new List<GameObject>();
 
 
     Coroutine firingCoroutine;
 
     private void Awake() {
-        maxBulletCount.Capacity = 20;
+        maxBulletCount.Capacity = 50;
     }
     private void Start() {
         _audioSource = GetComponent<AudioSource>();
@@ -39,8 +42,29 @@ public class PlayerShooting : MonoBehaviour
 
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().velocity = fireDirection * bulletSpeed;
+            if(doNotGiveUpActivated){
+                bullet.GetComponent<Bullet>().DoNotGiveUp();
+            }
             maxBulletCount.Add(bullet);
             Destroy(bullet, bulletLifespan);
+
+            if(doubleBulletsActivated){
+
+                float angle = 45f;
+               
+                Vector2 additionalDirection1 = Quaternion.Euler(0f, 0f, -angle) * fireDirection;
+                Vector2 additionalDirection2 = Quaternion.Euler(0f, 0f, angle) * fireDirection;
+
+                GameObject bullet2 = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                bullet2.GetComponent<Rigidbody2D>().velocity = additionalDirection1 * bulletSpeed;
+                maxBulletCount.Add(bullet2);
+                Destroy(bullet2, bulletLifespan);
+
+                GameObject bullet3 = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                bullet3.GetComponent<Rigidbody2D>().velocity = additionalDirection2 * bulletSpeed;
+                maxBulletCount.Add(bullet3);
+                Destroy(bullet3, bulletLifespan);
+            }
         }else if (maxBulletCount.Count != 0) {
             Destroy(maxBulletCount.First());
             maxBulletCount.RemoveAt(0);
@@ -48,6 +72,14 @@ public class PlayerShooting : MonoBehaviour
         }
 
         _audioSource.Play();
+    }
+
+    public void DoubleTheBullets() {
+        doubleBulletsActivated = true;
+    }
+
+    public void DoNotGiveUp() {
+        doNotGiveUpActivated = true;
     }
 
     public void updateSpeed() {
