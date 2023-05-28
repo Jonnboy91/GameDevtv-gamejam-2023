@@ -43,6 +43,7 @@ public class SceneManagement : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         if (SceneManager.GetActiveScene().buildIndex < 5)
+
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
@@ -50,5 +51,6 @@ public class SceneManagement : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+
     }
 }
