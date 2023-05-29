@@ -23,6 +23,7 @@ public class Health : MonoBehaviour
     [SerializeField] float damageDelay = 1f;
 
     [SerializeField] float killDistance = 150f;
+    [SerializeField] GameObject expDropPrefab;
 
     EnemySpawner spawner;
     private CinemachineImpulseSource impulseSource;
@@ -135,7 +136,7 @@ public class Health : MonoBehaviour
             }
             DieManager.instance.ReloadLevelWithDelay();
         } else {
-                experience.IncreaseExperience(5);
+                Instantiate(expDropPrefab, transform.position, Quaternion.identity);
                 spawner.EnemyDestroyed();
         }
         Destroy(gameObject);

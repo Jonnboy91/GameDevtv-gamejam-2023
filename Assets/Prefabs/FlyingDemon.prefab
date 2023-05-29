@@ -158,6 +158,7 @@ MonoBehaviour:
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
   killDistance: 150
+  expDropPrefab: {fileID: 8175771470959026613, guid: 7f2b412d3a161f34c8a60793c81368ea, type: 3}
   _postProcessVolume: {fileID: 0}
 --- !u!195 &4061168897680347226
 NavMeshAgent:
