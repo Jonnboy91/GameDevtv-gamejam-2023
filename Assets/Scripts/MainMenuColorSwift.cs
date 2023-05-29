@@ -38,50 +38,48 @@ public class MainMenuColorSwift : MonoBehaviour
         colorGrading.enabled.Override(true);
         vignette.enabled.Override(true);
         if(coroutineRunning == null)
-            coroutineRunning = StartCoroutine(ChangeColorRoutine(defaultColor, grey, 40000f));
+            coroutineRunning = StartCoroutine(ChangeColorRoutine(defaultColor, grey, 10f));
         if(coroutine2Running == null)
-            coroutine2Running = StartCoroutine(ChangeVignetteIntensity(defaultIntensity, maxIntensity, 40000f));
+            coroutine2Running = StartCoroutine(ChangeVignetteIntensity(defaultIntensity, maxIntensity, 10f));
     }
 
     IEnumerator ChangeColorRoutine(float origin, float target, float duration)
     {
-        float time = 0;
+        float elapsedTime = 0f;
+        float startTime = Time.realtimeSinceStartup;
 
-            while (time < duration)
-            {
-                if (colorGrading.saturation.value <= target)
-                {
+        while (elapsedTime < duration)
+        {
+            if (colorGrading.saturation.value <= grey){
                     coroutineRunning = null;
                     yield break;
-                }
-                else
-                {
-                    float lerpvalue = Mathf.Lerp(origin, target, time / duration);   
-                    colorGrading.saturation.value += (lerpvalue);      
-                    time += Time.deltaTime;
-                    yield return null;
-                }
             }
+        
+            float lerpvalue = Mathf.Lerp(origin, target, Time.deltaTime  / duration );   
+            colorGrading.saturation.value += (lerpvalue);    
+            elapsedTime = Time.realtimeSinceStartup - startTime; 
+            yield return null;
         }
+        coroutineRunning = null;
+    }
 
-        IEnumerator ChangeVignetteIntensity(float origin, float target, float duration)
+    IEnumerator ChangeVignetteIntensity(float origin, float target, float duration)
     {
-        float time = 0;
+        float elapsedTime = 0f;
+        float startTime = Time.realtimeSinceStartup;
 
-            while (time < duration)
-            {
-                if (vignette.intensity.value >= target)
-                {
-                    coroutineRunning = null;
+        while (elapsedTime < duration)
+        {
+            if (vignette.intensity.value >= maxIntensity){
+                    coroutine2Running = null;
                     yield break;
-                }
-                else
-                {
-                    float lerpvalue = Mathf.Lerp(origin, target, time / duration);   
-                    vignette.intensity.value += (lerpvalue);      
-                    time += Time.deltaTime;
-                    yield return null;
-                }
             }
+
+            float lerpvalue = Mathf.Lerp(origin, target, Time.deltaTime  / duration );  
+            vignette.intensity.value += lerpvalue;
+            elapsedTime = Time.realtimeSinceStartup - startTime;
+            yield return null;
         }
+        coroutine2Running = null;
+    }
 }

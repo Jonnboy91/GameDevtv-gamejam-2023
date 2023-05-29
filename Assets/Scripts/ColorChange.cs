@@ -23,24 +23,25 @@ public class ColorChange : MonoBehaviour
     {
         _colorGrading.enabled.Override(true);
         if(_coroutineRunning == null)
-            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_defaultColor, _grey, 500f, true));
+            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_defaultColor, _grey, 5f, true));
     }
 
     // Grey to Color
-    private void ChangeColorToColor()
+    private void ChangeGreyToColor()
     {
         _colorGrading.enabled.Override(true);
         if (_coroutineRunning == null)
-            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_grey, _defaultColor, 400f, false));
+            _coroutineRunning = StartCoroutine(ChangeColorRoutine(_grey, _defaultColor, 5f, false));
     }
 
     IEnumerator ChangeColorRoutine(float origin, float target, float duration, bool isTurningGrey)
     {
-        float time = 0;
+        float elapsedTime = 0f;
+        float startTime = Time.realtimeSinceStartup;
 
         if (isTurningGrey)
         {
-            while (time < duration)
+            while (elapsedTime < duration)
             {
                 if (_colorGrading.saturation.value <= _grey)
                 {
@@ -49,28 +50,27 @@ public class ColorChange : MonoBehaviour
                 }
                 else
                 {
-                    float lerpvalue = Mathf.Lerp(origin, target, time / duration);   
+                    float lerpvalue = Mathf.Lerp(origin, target, Time.deltaTime  / duration );   
                     _colorGrading.saturation.value += (lerpvalue);      
-                    time += Time.deltaTime;
+                    elapsedTime = Time.realtimeSinceStartup - startTime;
                     yield return null;
                 }
             }
         }
         else if (!isTurningGrey)
         {
-            while (time < duration)
+            while (elapsedTime < duration)
             {
-                if (_colorGrading.saturation.value >= _defaultColor)      // IF - _defaultValue >= 0, DO NOTHING (CORRECT)
+                if (_colorGrading.saturation.value >= _defaultColor)
                 {
                     _coroutineRunning = null;
                     yield break;
                 }
                 else     
                 {
-                    float _multiplier = -0.0005f;
-                    float lerpvalue = Mathf.Lerp(origin, target, time / duration);
-                    _colorGrading.saturation.value += (lerpvalue * _multiplier);   
-                    time += Time.deltaTime;
+                    float lerpvalue = Mathf.Lerp(target, origin, Time.deltaTime  / duration ) * - 1;   
+                    _colorGrading.saturation.value += (lerpvalue);
+                    elapsedTime = Time.realtimeSinceStartup - startTime;
                     yield return null;
                 }
             }
@@ -85,7 +85,7 @@ public class ColorChange : MonoBehaviour
         }
         else
         {
-            ChangeColorToColor();
+            ChangeGreyToColor();
         }
     }
 }

@@ -13,8 +13,8 @@ public class CharacterDialogue : MonoBehaviour
     private int _currentStringIndex = 0;
     private int _currentCutsceneIndex = 0;
 
-    private WaitForSeconds _clearTextBoxDelay = new WaitForSeconds(1.25f);
-    private WaitForSeconds _textDelayTime = new WaitForSeconds(0.05f);
+    private WaitForSecondsRealtime _clearTextBoxDelay = new WaitForSecondsRealtime(1.25f);
+    private WaitForSecondsRealtime _textDelayTime = new WaitForSecondsRealtime(0.05f);
     private Coroutine _cutsceneRoutine;
 
 
@@ -25,7 +25,7 @@ public class CharacterDialogue : MonoBehaviour
         DialogueCutsceneOne();
         DialogueCutsceneTwo();
         DialogueCutsceneThree();
-        Invoke("PlayCutsceneRoutine", 2f);
+        Invoke(nameof(PlayCutsceneRoutine), 2f);
     }
 
     void CheckScene()

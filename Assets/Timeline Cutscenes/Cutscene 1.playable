@@ -378,11 +378,11 @@ MonoBehaviour:
     m_Recordable: 1
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 53.782895833333335
+    m_PostExtrapolationTime: 48.75
     m_PreExtrapolationTime: 0.5
     m_DisplayName: Recorded
   - m_Version: 1
-    m_Start: 55.716229166666665
+    m_Start: 50.68333333333333
     m_ClipIn: 0
     m_Asset: {fileID: -608030168871552858}
     m_Duration: 1.4337708333333339
@@ -578,7 +578,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: Scroll Opening
   - m_Version: 1
-    m_Start: 55.716229166666665
+    m_Start: 50.68333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 2770519789432705516}
     m_Duration: 1.4337708333333334
