@@ -20,6 +20,7 @@ public class Experience : MonoBehaviour
 
     Health health;
 
+
     private bool lastPanelOpen = false; // This is used, since otherwise the Update is being called all the time and it's pausing the game just before scenemanager loads the final boss level, and it starts frozen.
 
     private void Awake() {
@@ -35,7 +36,7 @@ public class Experience : MonoBehaviour
             lastPanelOpen = true;
             PauseGame();
             OpenPowerUpUI(true);
-        } else if(currentExperience == neededExperience && currentExperience < maxExperience){
+        } else if(currentExperience >= neededExperience && currentExperience < maxExperience && !PowerUps.instance.isLookingAtPowerUps){
             PauseGame();
             OpenPowerUpUI(false);
             UpdateNeededExperience();

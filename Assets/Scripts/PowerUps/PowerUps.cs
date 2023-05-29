@@ -28,6 +28,21 @@ public class PowerUps : MonoBehaviour
 
     [SerializeField] GameObject powerUpPanel;
     [SerializeField] List<Button> powerUpButtons;
+    [SerializeField] Sprite imaginaryImage;
+    [SerializeField] Sprite sugarImage;
+    [SerializeField] Sprite parentsImage;
+    [SerializeField] Sprite troubleImage;
+    [SerializeField] Sprite angstImage;
+    [SerializeField] Sprite loveImage;
+    [SerializeField] Sprite payImage;
+    [SerializeField] Sprite independenceImage;
+    [SerializeField] Sprite popeyeImage;
+    [SerializeField] Sprite twinImage;
+    [SerializeField] Sprite doNotGiveUpImage;
+
+    public bool isLookingAtPowerUps = false;
+
+
 
     List<PowerUpEnums> possiblePowerUps = new List<PowerUpEnums> { PowerUpEnums.Imaginary, PowerUpEnums.Sugar, PowerUpEnums.Parents, PowerUpEnums.Trouble, PowerUpEnums.Angst, PowerUpEnums.Love, PowerUpEnums.Pay, PowerUpEnums.Independence, PowerUpEnums.Popeye, PowerUpEnums.Twin, PowerUpEnums.DoNotGiveUp};
 
@@ -85,7 +100,14 @@ public class PowerUps : MonoBehaviour
         descriptionText.text = powerUpDescription;
     }
 
+    public void SetPowerButtonImage(Button PowerUpButton, Sprite image){
+        Image buttonImage = PowerUpButton.transform.Find("PowerUpImage").GetComponent<Image>();
+
+        buttonImage.sprite = image;
+    }
+
     public void SetPowerUpToButtons(bool isLastPanel){
+        isLookingAtPowerUps = true;
         PowerUpEnums randomPowerUp1 = possiblePowerUps[Random.Range(0, possiblePowerUps.Count)];
         List<PowerUpEnums> remainingPowerUps = new List<PowerUpEnums>(possiblePowerUps);
         remainingPowerUps.Remove(randomPowerUp1);
@@ -114,46 +136,57 @@ public class PowerUps : MonoBehaviour
         {
             case PowerUpEnums.Imaginary:
                 SetPowerButtonText(button, "Imaginary friend", "Summon your childhood supporter");
+                SetPowerButtonImage(button, imaginaryImage);
                 button.onClick.AddListener(delegate {ChooseImaginaryFriend(isLastPanel);});
                 break;
             case PowerUpEnums.Sugar:
                 SetPowerButtonText(button, "Sugar rush", "Increase speed by 20%");
+                SetPowerButtonImage(button, sugarImage);
                 button.onClick.AddListener(delegate {ChooseSugarRushPowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Parents:
                 SetPowerButtonText(button, "Parents protection", "Increase health by 20%");
+                SetPowerButtonImage(button, parentsImage);
                 button.onClick.AddListener(delegate {ChooseParentsProtectionPowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Trouble:
                 SetPowerButtonText(button, "Trouble", "Increase speed by 20%");
+                SetPowerButtonImage(button, troubleImage);
                 button.onClick.AddListener(delegate {ChooseGetOutOfTroublePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Angst:
                 SetPowerButtonText(button, "Teenage angst", "Increase bullet damage by 10%");
+                SetPowerButtonImage(button, angstImage);
                 button.onClick.AddListener(delegate {ChooseTeenageAngstPowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Love:
                 SetPowerButtonText(button, "First love", "Increase health by 20%");
+                SetPowerButtonImage(button, loveImage);
                 button.onClick.AddListener(delegate {ChooseFirstLovePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Pay:
                 SetPowerButtonText(button, "Pay Rise", "Increase bullet lifespan by 10%");
+                SetPowerButtonImage(button, payImage);
                 button.onClick.AddListener(delegate {ChoosePayRisePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Independence:
                 SetPowerButtonText(button, "Independence", "Increase speed by 20%");
+                SetPowerButtonImage(button, independenceImage);
                 button.onClick.AddListener(delegate {ChooseIndepencePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Popeye:
                 SetPowerButtonText(button, "Popeye", "Increase bullet damage by 10%");
+                SetPowerButtonImage(button, popeyeImage);
                 button.onClick.AddListener(delegate {ChoosePopeyePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Twin:
                 SetPowerButtonText(button, "Twin", "Double the trouble");
+                SetPowerButtonImage(button, twinImage);
                 button.onClick.AddListener(delegate {ChooseTwinPowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.DoNotGiveUp:
                 SetPowerButtonText(button, "DoNotGiveUp", "Bullet doesn't destroy itself on the first hit");
+                SetPowerButtonImage(button, doNotGiveUpImage);
                 button.onClick.AddListener(delegate {ChooseDoNotGiveUpPowerUp(isLastPanel);});
                 break;
             default:
@@ -277,6 +310,7 @@ public class PowerUps : MonoBehaviour
 
     private void ContinueGame(){
         powerUpPanel.SetActive(false);
+        isLookingAtPowerUps = false;
         Time.timeScale = 1;
     }
 
