@@ -63,20 +63,20 @@ public class CharacterDialogue : MonoBehaviour
         _dialogueOne[4] = $"But, as time went by, he started to experience increased feelings of anger, frustration and sadness.";
         _dialogueOne[5] = $"He continued to repress and push these feelings down hoping they would eventually stay down, never to reappear.";
         _dialogueOne[6] = $"Until one day, when it all became too much, and the World as he knew it had lost all it's color...";
-        _dialogueOne[7] = $"Overwhelmed with his emotions, {_firstName} felt his demons come flooding back and he knew it was time to face them head on!";
+        _dialogueOne[7] = $"Overwhelmed with his emotions, {_firstName} blacks out and faces a battle in his head against his demons";
     }
 
     // Finishes the remaining walk to the Therapists office - Grey
     void DialogueCutsceneTwo()
     {
-        _dialogueTwo[0] = $"It was at this point, {_firstName} knew he needed some help with his issues and sought out his Therapist.";
+        _dialogueTwo[0] = $"As {_firstName} wakes up, he realises it was at this point he knew he needed some help with his issues to be able to face his strongest antagonist....himself";
         _dialogueTwo[1] = $"* Jacob enters his Therapists office *";
     }
 
     // Leaves the Therapists office to walk home - Color
     void DialogueCutsceneThree()
     {
-        _dialogueThree[0] = $"With a feeling of pure elation and a spring in his step, {_firstName} leaves his Therapists office with a new view on life...";
+        _dialogueThree[0] = $"With a feeling of pure happiness and a new outlook on world, {_firstName} was on a path to a happier future, being able to breath properly for the first time in a long time";
     }
 
     // Switch through cutscene index to play appropriate cutscene

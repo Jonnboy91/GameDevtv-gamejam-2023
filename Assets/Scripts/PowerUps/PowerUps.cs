@@ -117,35 +117,35 @@ public class PowerUps : MonoBehaviour
                 button.onClick.AddListener(delegate {ChooseImaginaryFriend(isLastPanel);});
                 break;
             case PowerUpEnums.Sugar:
-                SetPowerButtonText(button, "Sugar rush", "Increase speed");
+                SetPowerButtonText(button, "Sugar rush", "Increase speed by 20%");
                 button.onClick.AddListener(delegate {ChooseSugarRushPowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Parents:
-                SetPowerButtonText(button, "Parents protection", "Increase health");
+                SetPowerButtonText(button, "Parents protection", "Increase health by 20%");
                 button.onClick.AddListener(delegate {ChooseParentsProtectionPowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Trouble:
-                SetPowerButtonText(button, "Trouble", "Increase speed");
+                SetPowerButtonText(button, "Trouble", "Increase speed by 20%");
                 button.onClick.AddListener(delegate {ChooseGetOutOfTroublePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Angst:
-                SetPowerButtonText(button, "Teenage angst", "Increase strength");
+                SetPowerButtonText(button, "Teenage angst", "Increase bullet damage by 10%");
                 button.onClick.AddListener(delegate {ChooseTeenageAngstPowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Love:
-                SetPowerButtonText(button, "First love", "Increase health");
+                SetPowerButtonText(button, "First love", "Increase health by 20%");
                 button.onClick.AddListener(delegate {ChooseFirstLovePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Pay:
-                SetPowerButtonText(button, "Pay Rise", "Increase bullet lifespan");
+                SetPowerButtonText(button, "Pay Rise", "Increase bullet lifespan by 10%");
                 button.onClick.AddListener(delegate {ChoosePayRisePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Independence:
-                SetPowerButtonText(button, "Independence", "Increase speed");
+                SetPowerButtonText(button, "Independence", "Increase speed by 20%");
                 button.onClick.AddListener(delegate {ChooseIndepencePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Popeye:
-                SetPowerButtonText(button, "Popeye", "Increase strength");
+                SetPowerButtonText(button, "Popeye", "Increase bullet damage by 10%");
                 button.onClick.AddListener(delegate {ChoosePopeyePowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.Twin:
@@ -153,7 +153,7 @@ public class PowerUps : MonoBehaviour
                 button.onClick.AddListener(delegate {ChooseTwinPowerUp(isLastPanel);});
                 break;
             case PowerUpEnums.DoNotGiveUp:
-                SetPowerButtonText(button, "DoNotGiveUp", "Bullet doesn't destroy itself on first hit");
+                SetPowerButtonText(button, "DoNotGiveUp", "Bullet doesn't destroy itself on the first hit");
                 button.onClick.AddListener(delegate {ChooseDoNotGiveUpPowerUp(isLastPanel);});
                 break;
             default:
