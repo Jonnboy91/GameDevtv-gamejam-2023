@@ -199,6 +199,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 7479953348882617729, guid: 8b52f29ec5297a24cbc88c143e65b83a, type: 3}
+      propertyPath: maxEnemies
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7479953348882617729, guid: 8b52f29ec5297a24cbc88c143e65b83a, type: 3}
       propertyPath: spawnInterval
       value: 0
       objectReference: {fileID: 0}
@@ -212,7 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7479953348882617729, guid: 8b52f29ec5297a24cbc88c143e65b83a, type: 3}
       propertyPath: spawnIntervalChangeTime
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b52f29ec5297a24cbc88c143e65b83a, type: 3}

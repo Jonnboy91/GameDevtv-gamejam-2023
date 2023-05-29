@@ -8,9 +8,9 @@ public class Bullet : MonoBehaviour
     private bool doNotGiveUpActivated = false;
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(!doNotGiveUpActivated && other.gameObject.tag != "Player" && other.gameObject.tag != "Bullet" && other.gameObject.tag != "EnemyBullet" && other.gameObject.tag != "Imaginary"){
+        if(!doNotGiveUpActivated && other.gameObject.tag != "Player" && other.gameObject.tag != "Bullet" && other.gameObject.tag != "EnemyBullet" && other.gameObject.tag != "Imaginary" && other.gameObject.tag != "pickUp"){
             Destroy(gameObject);
-        } else if(other.gameObject.tag != "Player" && other.gameObject.tag != "Bullet" && other.gameObject.tag != "EnemyBullet" && other.gameObject.tag != "Imaginary"){
+        } else if(other.gameObject.tag != "Player" && other.gameObject.tag != "Bullet" && other.gameObject.tag != "EnemyBullet" && other.gameObject.tag != "Imaginary" && other.gameObject.tag != "pickUp"){
             doNotGiveUpActivated = false;
         }
     }
