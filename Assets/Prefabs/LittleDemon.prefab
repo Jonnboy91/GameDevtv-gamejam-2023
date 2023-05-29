@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealthPoints: 100
-  enemyHealth: 40
+  enemyHealth: 18
   isPlayer: 0
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
@@ -194,4 +194,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8b649203efb85409bffbcc5e83c380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDamage: 15
+  enemyDamage: 25
