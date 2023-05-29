@@ -13,7 +13,6 @@ public class Boss : MonoBehaviour
     [SerializeField] GameObject homingBulletPrefab;
     [SerializeField] Transform bulletSpawnPoint;
     [SerializeField] ParticleSystem dieEffect;
-    [SerializeField] ParticleSystem SpecialAttackEffect;
     [SerializeField] GameObject healthSliderPrefab;
     private GameObject healthSliderObject;
     private Slider healthSlider;
