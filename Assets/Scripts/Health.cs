@@ -30,6 +30,7 @@ public class Health : MonoBehaviour
     Experience experience;
 
     private GameObject player;
+    private AudioSource _audioSource;
 
     private bool canTakeDamage = true;
     
@@ -54,6 +55,7 @@ public class Health : MonoBehaviour
     }
 
     private void Start() {
+        _audioSource = GetComponent<AudioSource>(); 
         if(isPlayer){
             currentHealth = maxHealthPoints;
             healthBar.maxValue = maxHealthPoints;
@@ -97,6 +99,7 @@ public class Health : MonoBehaviour
                 Die();
             }
         } else if(gameObject != null){
+            _audioSource.Play();
             enemyHealth -= damage;
             DamageTextManager.Instance.ShowDamageText(gameObject, damage);
             if(enemyHealth <= 0){

@@ -21,7 +21,6 @@ public class SceneManagement : MonoBehaviour
     public void StartGame()
     {
         PlayerPrefs.DeleteAll();
-        FadeTransition.Instance.FadeIn();
         StartCoroutine(DelayFirstSceneLoad());
     }
 
