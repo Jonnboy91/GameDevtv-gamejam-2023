@@ -12,6 +12,7 @@ TagManager:
   - Imaginary
   - PostProcess
   - BossHealth
+  - pickUp
   layers:
   - Default
   - TransparentFX
