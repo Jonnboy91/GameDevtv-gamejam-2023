@@ -9,7 +9,7 @@ using System.Linq;
 
 public class Experience : MonoBehaviour
 {
-    [SerializeField] int neededExperience = 60;
+    [SerializeField] int neededExperience = 80;
     private int addExp;
     private int maxExperience;
     private int currentLevel = 0;
@@ -25,7 +25,7 @@ public class Experience : MonoBehaviour
 
     private void Awake() {
         addExp = neededExperience;
-        maxExperience = (neededExperience * (Enum.GetNames(typeof(PowerUpEnums)).Length - 3)); // this can be only timed by a number that is <= amount of different powerUps - 3 (since last panel has to have 3 powerUps to choose from)
+        maxExperience = (neededExperience * (Enum.GetNames(typeof(PowerUpEnums)).Length - 3)) + (25*28); 
         experienceText.text = $"{currentLevel}/{Enum.GetNames(typeof(PowerUpEnums)).Length - 3}";
         experienceSlider.maxValue = neededExperience;
         health = GetComponent<Health>();
@@ -61,7 +61,7 @@ public class Experience : MonoBehaviour
 
     private void UpdateNeededExperience()
     {
-        neededExperience += addExp + (50 * currentLevel);
+        neededExperience += addExp + (25 * currentLevel);
         experienceSlider.maxValue = neededExperience;
         health.addHealth();
     }
