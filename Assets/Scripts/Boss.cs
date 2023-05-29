@@ -17,6 +17,7 @@ public class Boss : MonoBehaviour
     [SerializeField] GameObject healthSliderPrefab;
     private GameObject healthSliderObject;
     private Slider healthSlider;
+    private AudioSource _audioSource;
 
 
 
@@ -51,6 +52,7 @@ public class Boss : MonoBehaviour
     }
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>(); 
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -203,6 +205,7 @@ public class Boss : MonoBehaviour
     public void TakeDamage(float damage){
         StartCoroutine(FlashBossColor());
         updateHealth();
+        _audioSource.Play();
         bossCurrentHealth -= damage;
         if(bossCurrentHealth <= 0){
             bossCurrentHealth = 0;
