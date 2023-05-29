@@ -344,7 +344,7 @@ MonoBehaviour:
   spawnInterval: 0
   finalSpawnInterval: 0.4
   spawnIntervalChangeTime: 2
-  maxEnemies: 150
+  maxEnemies: 175
   startDelay: 0.5
 --- !u!1 &1289678594974190352
 GameObject:
