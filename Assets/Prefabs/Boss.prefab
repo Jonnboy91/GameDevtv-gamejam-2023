@@ -198,7 +198,7 @@ MonoBehaviour:
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   SpecialAttackEffect: {fileID: 2712391175953504141, guid: a24aa2232ab91ca4ba52f61310777d0a, type: 3}
   healthSliderPrefab: {fileID: 174335090512456667, guid: 7dc1f08bd0d34ac4d903928c64bf1d14, type: 3}
-  bossHealth: 1500
+  bossHealth: 1800
   bulletSpeed: 15
   fireRate: 2
   fireRateHoming: 2
