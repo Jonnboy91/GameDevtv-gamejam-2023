@@ -221,7 +221,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
   damageDelay: 1
-  killDistance: 150
+  killDistance: 125
+  expDropPrefab: {fileID: 0}
   _postProcessVolume: {fileID: 0}
 --- !u!114 &745240340
 MonoBehaviour:
@@ -237,6 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neededExperience: 100
   experienceSlider: {fileID: 0}
+  experienceText: {fileID: 0}
   powerUpPanel: {fileID: 0}
 --- !u!95 &890480825
 Animator:
@@ -338,8 +340,11 @@ MonoBehaviour:
   - {fileID: 4777467398786324641}
   - {fileID: 6421655519926033786}
   - {fileID: 7141763381515040263}
-  spawnInterval: 0.2
-  maxEnemies: 125
+  startSpawnInterval: 1.5
+  spawnInterval: 0
+  finalSpawnInterval: 0.4
+  spawnIntervalChangeTime: 2
+  maxEnemies: 175
   startDelay: 0.5
 --- !u!1 &1289678594974190352
 GameObject:

@@ -7,8 +7,9 @@ public class ImaginaryFriendPowerUp : MonoBehaviour
 {
     public static ImaginaryFriendPowerUp instance;
 
-    [SerializeField] GameObject imaginaryFriendPrefab;
-    [SerializeField] GameObject bossImaginaryFriendPrefab; 
+    [SerializeField] List<GameObject> imaginaryFriendPrefabs;
+    [SerializeField] List<GameObject> bossImaginaryFriendPrefabs; 
+
     public float rotationSpeed = 60f; 
     public float spawnDistance = 5f;
     public float spawnBossDistance = 20f;  
@@ -73,7 +74,8 @@ public class ImaginaryFriendPowerUp : MonoBehaviour
         if (imaginaryFriend == null)
         {
             Vector3 spawnPosition = player.transform.position + (Vector3.right * spawnDistance);
-            imaginaryFriend = Instantiate(imaginaryFriendPrefab, spawnPosition, Quaternion.identity);
+            int randomIndex = Random.Range(0, imaginaryFriendPrefabs.Count);
+            imaginaryFriend = Instantiate(imaginaryFriendPrefabs[randomIndex], spawnPosition, Quaternion.identity);
         }
         if(imaginaryFriend != null && bossImaginaryFriend == null){
             boss = GameObject.FindGameObjectWithTag("Boss");
@@ -81,7 +83,8 @@ public class ImaginaryFriendPowerUp : MonoBehaviour
         if (imaginaryFriend != null && bossImaginaryFriend == null && boss != null)
         {
             Vector3 spawnBossPosition = boss.transform.position + (Vector3.right * spawnBossDistance);
-            bossImaginaryFriend = Instantiate(bossImaginaryFriendPrefab, spawnBossPosition, Quaternion.identity);
+            int randomIndex = Random.Range(0, imaginaryFriendPrefabs.Count);
+            bossImaginaryFriend = Instantiate(bossImaginaryFriendPrefabs[randomIndex], spawnBossPosition, Quaternion.identity);
         }
     }
 }

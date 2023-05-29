@@ -9,7 +9,7 @@ using System.Linq;
 
 public class Experience : MonoBehaviour
 {
-    [SerializeField] int neededExperience = 20;
+    [SerializeField] int neededExperience = 60;
     private int addExp;
     private int maxExperience;
     private int currentLevel = 0;
@@ -61,7 +61,7 @@ public class Experience : MonoBehaviour
 
     private void UpdateNeededExperience()
     {
-        neededExperience += addExp;
+        neededExperience += addExp + (50 * currentLevel);
         experienceSlider.maxValue = neededExperience;
         health.addHealth();
     }

@@ -24,6 +24,12 @@ public class SceneManagement : MonoBehaviour
         StartCoroutine(DelayFirstSceneLoad());
     }
 
+    public void QuitGame()
+    {
+        PlayerPrefs.DeleteAll();
+        Application.Quit();
+    }
+
     // Coroutine to allow fade transition to happen for first scene
     IEnumerator DelayFirstSceneLoad()
     {

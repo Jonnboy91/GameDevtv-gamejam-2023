@@ -196,16 +196,15 @@ MonoBehaviour:
   homingBulletPrefab: {fileID: 5373822962961376425, guid: fc7d6090de402a042b93dd48b9e474ee, type: 3}
   bulletSpawnPoint: {fileID: 1289678594974190353}
   dieEffect: {fileID: 27824649237413497, guid: 19579fea1d4706d45b403e9fee47c128, type: 3}
-  SpecialAttackEffect: {fileID: 2712391175953504141, guid: a24aa2232ab91ca4ba52f61310777d0a, type: 3}
   healthSliderPrefab: {fileID: 174335090512456667, guid: 7dc1f08bd0d34ac4d903928c64bf1d14, type: 3}
-  bossHealth: 1800
-  bulletSpeed: 15
+  bossHealth: 2000
+  bulletSpeed: 16
   fireRate: 2
   fireRateHoming: 2
   bulletLifespan: 5
   homingBulletLifeSpan: 2
   bossDamage: 15
-  bulletCount: 12
+  bulletCount: 16
 --- !u!195 &8195075910547238116
 NavMeshAgent:
   m_ObjectHideFlags: 0
