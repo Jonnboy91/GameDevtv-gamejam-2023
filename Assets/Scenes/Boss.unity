@@ -68059,8 +68059,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b110b2ca95b6c345be9d8766fb478e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imaginaryFriendPrefab: {fileID: 4980015125858696410, guid: e58707be53ce181488598d8a2e9999f8, type: 3}
-  bossImaginaryFriendPrefab: {fileID: 4980015125858696410, guid: 6cce9ec873ad54742bd2bf905239489d, type: 3}
+  imaginaryFriendPrefabs:
+  - {fileID: 4980015125858696410, guid: e58707be53ce181488598d8a2e9999f8, type: 3}
+  - {fileID: 4397909103113815828, guid: a207b4e6e78344141a3ded9a499c309c, type: 3}
+  - {fileID: 3016839211163810315, guid: 82abff919e65b414dbba2ec515b8671c, type: 3}
+  - {fileID: 3143722097822046045, guid: 4e6b12b5b0559ee4b8216b17e45139e8, type: 3}
+  - {fileID: 5914936158893257954, guid: 7740acc305412ca439882a5fc2653f2d, type: 3}
+  bossImaginaryFriendPrefabs:
+  - {fileID: 4980015125858696410, guid: 6cce9ec873ad54742bd2bf905239489d, type: 3}
+  - {fileID: 4397909103113815828, guid: 0f4473e55ba7f66499f53a89bbecb16d, type: 3}
+  - {fileID: 3016839211163810315, guid: 5cd33ff9d64b6a94695c5b4aa9bfa385, type: 3}
+  - {fileID: 3143722097822046045, guid: 8b93e767148782041847636ad772c6e9, type: 3}
+  - {fileID: 5914936158893257954, guid: db378a3b9ff4f124ab395900fbd223ba, type: 3}
   rotationSpeed: 100
   spawnDistance: 15
   spawnBossDistance: 25

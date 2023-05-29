@@ -76,7 +76,7 @@ public class CharacterDialogue : MonoBehaviour
     // Leaves the Therapists office to walk home - Color
     void DialogueCutsceneThree()
     {
-        _dialogueThree[0] = $"With a feeling of pure happiness and a new outlook on world, {_firstName} was on a path to a happier future, being able to breath properly for the first time in a long time";
+        _dialogueThree[0] = $"With a feeling of pure happiness and a new outlook on the world, {_firstName} was on a path to a happier future, being able to breath properly for the first time in a long time";
     }
 
     // Switch through cutscene index to play appropriate cutscene
