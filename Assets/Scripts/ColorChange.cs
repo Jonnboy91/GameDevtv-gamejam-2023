@@ -45,6 +45,7 @@ public class ColorChange : MonoBehaviour
             {
                 if (_colorGrading.saturation.value <= _grey)
                 {
+                    _colorGrading.saturation.value = _grey;
                     _coroutineRunning = null;
                     yield break;
                 }
@@ -63,6 +64,7 @@ public class ColorChange : MonoBehaviour
             {
                 if (_colorGrading.saturation.value >= _defaultColor)
                 {
+                    _colorGrading.saturation.value = _defaultColor;
                     _coroutineRunning = null;
                     yield break;
                 }
