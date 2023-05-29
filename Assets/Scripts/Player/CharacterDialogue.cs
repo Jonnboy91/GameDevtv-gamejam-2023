@@ -58,7 +58,7 @@ public class CharacterDialogue : MonoBehaviour
     {
         _dialogueOne[0] = $"Everyone thought {_firstName} was a happy man...";
         _dialogueOne[1] = $"But the reality was that he had struggled for most of his life.";
-        _dialogueOne[2] = $"Adolescent issues, relationships, work, depression, anxiety and even death were all weighing heavily on his shoulders.";
+        _dialogueOne[2] = $"Teenage issues, relationships, work, depression, anxiety and even death were all weighing heavily on his shoulders.";
         _dialogueOne[3] = $"Everytime he stepped out of his house he put on a brave face, hiding his real feelings in plain sight.";
         _dialogueOne[4] = $"But, as time went by, he started to experience increased feelings of anger, frustration and sadness.";
         _dialogueOne[5] = $"He continued to repress and push these feelings down hoping they would eventually stay down, never to reappear.";

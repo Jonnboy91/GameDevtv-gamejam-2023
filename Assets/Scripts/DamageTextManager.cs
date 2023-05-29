@@ -26,7 +26,7 @@ public class DamageTextManager : MonoBehaviour
     public void ShowDamageText(GameObject enemyPosition, float damage){
 
         if(activeDamageTexts.Count < activeDamageTexts.Capacity){
-            GameObject damageTextObject = Instantiate(damageTextPrefab, GameObject.Find("GamePlayUI").transform);
+            GameObject damageTextObject = Instantiate(damageTextPrefab, GameObject.Find("DamageTextCanvas").transform);
             activeDamageTexts.Add(damageTextObject);
             TextMeshProUGUI damageText = damageTextObject.GetComponent<TextMeshProUGUI>();
             if (damageText != null)

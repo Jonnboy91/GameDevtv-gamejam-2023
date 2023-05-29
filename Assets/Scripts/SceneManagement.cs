@@ -45,6 +45,7 @@ public class SceneManagement : MonoBehaviour
 
         Debug.Log("Test 02");
         if (SceneManager.GetActiveScene().buildIndex < 5)
+
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
@@ -52,5 +53,6 @@ public class SceneManagement : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+
     }
 }
