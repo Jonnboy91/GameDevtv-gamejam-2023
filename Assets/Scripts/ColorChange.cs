@@ -27,7 +27,7 @@ public class ColorChange : MonoBehaviour
     }
 
     // Grey to Color
-    private void ChangeColorToColor()
+    private void ChangeGreyToColor()
     {
         _colorGrading.enabled.Override(true);
         if (_coroutineRunning == null)
@@ -61,15 +61,15 @@ public class ColorChange : MonoBehaviour
         {
             while (elapsedTime < duration)
             {
-                if (_colorGrading.saturation.value >= _defaultColor)      // IF - _defaultValue >= 0, DO NOTHING (CORRECT)
+                if (_colorGrading.saturation.value >= _defaultColor)
                 {
                     _coroutineRunning = null;
                     yield break;
                 }
                 else     
                 {
-                    float lerpvalue = Mathf.Lerp(target, origin, Time.deltaTime  / duration );   
-                    _colorGrading.saturation.value += (lerpvalue);   
+                    float lerpvalue = Mathf.Lerp(target, origin, Time.deltaTime  / duration ) * - 1;   
+                    _colorGrading.saturation.value += (lerpvalue);
                     elapsedTime = Time.realtimeSinceStartup - startTime;
                     yield return null;
                 }
@@ -85,7 +85,7 @@ public class ColorChange : MonoBehaviour
         }
         else
         {
-            ChangeColorToColor();
+            ChangeGreyToColor();
         }
     }
 }

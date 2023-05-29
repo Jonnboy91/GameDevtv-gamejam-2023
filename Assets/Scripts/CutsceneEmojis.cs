@@ -9,8 +9,8 @@ public class CutsceneEmojis : MonoBehaviour
     [SerializeField] private Sprite[] _emojiIconsSceneThree;
     private SpriteRenderer _spriteRenderer;
 
-    WaitForSeconds _emojiDelay = new WaitForSeconds(1.45f);
-    WaitForSeconds _hideEmoji = new WaitForSeconds(1.5f);
+    WaitForSecondsRealtime _emojiDelay = new WaitForSecondsRealtime(1.40f);
+    WaitForSecondsRealtime _hideEmoji = new WaitForSecondsRealtime(1.45f);
 
     private int currentSpriteIndex = 0;
 

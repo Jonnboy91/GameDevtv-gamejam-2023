@@ -45,33 +45,41 @@ public class MainMenuColorSwift : MonoBehaviour
 
     IEnumerator ChangeColorRoutine(float origin, float target, float duration)
     {
+        float elapsedTime = 0f;
         float startTime = Time.realtimeSinceStartup;
-        float endTime = startTime + duration;
 
-        while (Time.realtimeSinceStartup < endTime)
+        while (elapsedTime < duration)
         {
-            float t = (Time.realtimeSinceStartup - startTime) / duration;
-            float lerpValue = Mathf.Lerp(origin, target, t);
-            colorGrading.saturation.value = lerpValue;
+            if (colorGrading.saturation.value <= grey){
+                    coroutineRunning = null;
+                    yield break;
+            }
+        
+            float lerpvalue = Mathf.Lerp(origin, target, Time.deltaTime  / duration );   
+            colorGrading.saturation.value += (lerpvalue);    
+            elapsedTime = Time.realtimeSinceStartup - startTime; 
             yield return null;
         }
-
         coroutineRunning = null;
     }
 
     IEnumerator ChangeVignetteIntensity(float origin, float target, float duration)
     {
+        float elapsedTime = 0f;
         float startTime = Time.realtimeSinceStartup;
-        float endTime = startTime + duration;
 
-        while (Time.realtimeSinceStartup < endTime)
+        while (elapsedTime < duration)
         {
-            float t = (Time.realtimeSinceStartup - startTime) / duration;
-            float lerpValue = Mathf.Lerp(origin, target, t);
-            vignette.intensity.value = lerpValue;
+            if (vignette.intensity.value >= maxIntensity){
+                    coroutine2Running = null;
+                    yield break;
+            }
+
+            float lerpvalue = Mathf.Lerp(origin, target, Time.deltaTime  / duration );  
+            vignette.intensity.value += lerpvalue;
+            elapsedTime = Time.realtimeSinceStartup - startTime;
             yield return null;
         }
-
         coroutine2Running = null;
     }
 }
