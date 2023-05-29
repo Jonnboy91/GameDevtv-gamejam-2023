@@ -13,7 +13,6 @@ public class XpPickup : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Player"){
-            Debug.Log("GOT THIS XP");
             player.GetComponent<Experience>().IncreaseExperience(xpAmount);
             Destroy(gameObject);
         }

@@ -139,8 +139,8 @@ public class Health : MonoBehaviour
                 Instantiate(expDropPrefab, transform.position, Quaternion.identity);
                 spawner.EnemyDestroyed();
         }
-        Destroy(gameObject);
         PlayHitEffect();
+        Destroy(gameObject);
     }
 
     void PlayHitEffect(){

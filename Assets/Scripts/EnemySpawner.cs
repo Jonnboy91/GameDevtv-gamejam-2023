@@ -6,16 +6,20 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] List<GameObject> enemyPrefabs;  
     [SerializeField] List<GameObject> spawners;
-    [SerializeField] float spawnInterval = 0.8f;  
-    [SerializeField] int maxEnemies = 10;
+    [SerializeField] float startSpawnInterval = 1.5f;
+    [SerializeField] float spawnInterval = 0f;
+    [SerializeField] float finalSpawnInterval = 0.6f; 
+    [SerializeField] float spawnIntervalChangeTime = 2f;
+    [SerializeField] int maxEnemies = 125;
     [SerializeField] float startDelay = 0.5f; // Can't be 0, since it might try to spawn before getting NavMesh
 
     private int currentEnemies = 0;
 
-
     private void Start()
     {
+        spawnInterval = startSpawnInterval;
         InvokeRepeating(nameof(SpawnEnemy), startDelay, spawnInterval);
+        StartCoroutine(GraduallyIncreaseSpawnRate());
     }
 
     private void SpawnEnemy()
@@ -37,6 +41,16 @@ public class EnemySpawner : MonoBehaviour
         currentEnemies++;
     }
 
+    private IEnumerator GraduallyIncreaseSpawnRate()
+    {
+        while (spawnInterval > finalSpawnInterval)
+        {
+            spawnInterval -= 0.1f;
+            yield return new WaitForSeconds(spawnIntervalChangeTime);
+        }
+        spawnInterval = finalSpawnInterval;
+
+    }
     public void IncreaseSpawnRate(){
         spawnInterval *= 0.8f;
     }
